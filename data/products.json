@@ -1,11 +1,29 @@
 {
   "categories": [
-    { "id": "miniaturas-dnd", "name": "Miniaturas D&D / Pathfinder" },
-    { "id": "warhammer", "name": "Warhammer 40K / AoS / Fantasy" },
-    { "id": "packs-y-campanas", "name": "Packs & Kits de Campaña" },
-    { "id": "escenografia", "name": "Escenografía y Estructuras" },
-    { "id": "torres-y-cajas", "name": "Torres de Dados & Cajas de Guardado" },
-    { "id": "dados-accesorios", "name": "Dados y Accesorios" }
+    {
+      "id": "miniaturas-dnd",
+      "name": "Miniaturas D&D / Pathfinder"
+    },
+    {
+      "id": "warhammer",
+      "name": "Warhammer 40K / AoS / Fantasy"
+    },
+    {
+      "id": "packs-y-campanas",
+      "name": "Packs & Kits de Campaña"
+    },
+    {
+      "id": "escenografia",
+      "name": "Escenografía y Estructuras"
+    },
+    {
+      "id": "torres-y-cajas",
+      "name": "Torres de Dados & Cajas de Guardado"
+    },
+    {
+      "id": "dados-accesorios",
+      "name": "Dados y Accesorios"
+    }
   ],
   "products": [
     {
@@ -16,8 +34,14 @@
       "priceLabel": "Precio total:",
       "description": "Armadura de placas pesada, escudo heráldico y espada bendecida. Incluye peana de 28mm.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Escala 32mm", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Escala 32mm",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto de la Miniatura",
@@ -26,7 +50,8 @@
         "available": true,
         "cost": 4000,
         "label": "Pintado Tabletop"
-      }
+      },
+      "tier": "heroe"
     },
     {
       "id": "dnd-mago-elfo",
@@ -36,8 +61,14 @@
       "priceLabel": "Precio total:",
       "description": "Toga con runas arcanas, báculo de cristal y efectos elementales. Incluye peana de 28mm.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Escala 32mm", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Escala 32mm",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto de la Miniatura",
@@ -46,7 +77,8 @@
         "available": true,
         "cost": 4000,
         "label": "Pintado Tabletop"
-      }
+      },
+      "tier": "heroe"
     },
     {
       "id": "dnd-barbaro-enano",
@@ -56,8 +88,14 @@
       "priceLabel": "Precio total:",
       "description": "Hacha de batalla a dos manos, barba trenzada y armadura de cuero tachonado. Incluye peana de 28mm.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Escala 28mm", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Escala 28mm",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto de la Miniatura",
@@ -66,7 +104,8 @@
         "available": true,
         "cost": 4000,
         "label": "Pintado Tabletop"
-      }
+      },
+      "tier": "heroe"
     },
     {
       "id": "dnd-picaro-tiefling",
@@ -76,8 +115,14 @@
       "priceLabel": "Precio total:",
       "description": "Capa dinámica, cola prensil, cuernos esculpidos y dagas gemelas. Incluye peana de 28mm.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Escala 32mm", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Escala 32mm",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto de la Miniatura",
@@ -86,7 +131,8 @@
         "available": true,
         "cost": 4000,
         "label": "Pintado Tabletop"
-      }
+      },
+      "tier": "heroe"
     },
     {
       "id": "dnd-dragon-rojo",
@@ -96,8 +142,14 @@
       "priceLabel": "Precio total:",
       "description": "Alas desplegadas, escamas detalladas y base escénica de roca volcánica. Tamaño Grande.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Base 50mm", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Base 50mm",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto de la Miniatura",
@@ -106,7 +158,8 @@
         "available": true,
         "cost": 7000,
         "label": "Pintado Tabletop Dragón"
-      }
+      },
+      "tier": "monstruo-grande"
     },
     {
       "id": "dnd-pack-goblins",
@@ -116,8 +169,43 @@
       "priceLabel": "Precio total:",
       "description": "5 miniaturas con poses y armas distintas (arco, espada corta, lanza). Incluye 5 peanas.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Pack x5", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Pack x5",
+          "type": "scale"
+        }
+      ],
+      "image": "",
+      "placeholderText": "Foto del Pack",
+      "icon": "pack",
+      "painting": {
+        "available": true,
+        "cost": 12000,
+        "label": "Pintado Pack x5",
+        "discountBadge": "Ahorro Lote"
+      },
+      "tier": "pack-esbirros-x5"
+    },
+    {
+      "id": "dnd-pack-esqueletos",
+      "name": "Pack x5 Esqueletos de la Cripta",
+      "category": "miniaturas-dnd",
+      "tier": "pack-esbirros-x5",
+      "price": 7500,
+      "priceLabel": "Precio total:",
+      "description": "5 esqueletos no-muertos armados con cimitarras oxidadas, arcos y escudos antiguos. Peanas 25mm incluidas.",
+      "tags": [
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Pack x5",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Pack",
@@ -129,7 +217,60 @@
         "discountBadge": "Ahorro Lote"
       }
     },
-
+    {
+      "id": "dnd-goblin-arquero",
+      "name": "Goblin Arquero Emboscador",
+      "category": "miniaturas-dnd",
+      "tier": "esbirro",
+      "price": 2800,
+      "priceLabel": "Precio total:",
+      "description": "Goblin en pose de tiro con arco corto y carcaj a la espalda. Ideal para encuentros aleatorios en mazmorra.",
+      "tags": [
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Escala 28mm",
+          "type": "scale"
+        }
+      ],
+      "image": "",
+      "placeholderText": "Foto de la Miniatura",
+      "icon": "dagger",
+      "painting": {
+        "available": true,
+        "cost": 2500,
+        "label": "Pintado Tabletop"
+      }
+    },
+    {
+      "id": "dnd-esqueleto-soldado",
+      "name": "Esqueleto Guerrero con Escudo y Espada",
+      "category": "miniaturas-dnd",
+      "tier": "esbirro",
+      "price": 2800,
+      "priceLabel": "Precio total:",
+      "description": "Guerrero caído reanimado con cota de malla rota, espada hendida y escudo mellado. Peana de 25mm.",
+      "tags": [
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Escala 28mm",
+          "type": "scale"
+        }
+      ],
+      "image": "",
+      "placeholderText": "Foto de la Miniatura",
+      "icon": "shield",
+      "painting": {
+        "available": true,
+        "cost": 2500,
+        "label": "Pintado Tabletop"
+      }
+    },
     {
       "id": "wh-capitan-espacial",
       "name": "Capitán en Servoarmadura de Élite",
@@ -138,8 +279,14 @@
       "priceLabel": "Precio total:",
       "description": "Armadura pesada, espada de energía y pistola bólter. Incluye peana de 40mm.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Escala 35mm", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Escala 35mm",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -148,7 +295,8 @@
         "available": true,
         "cost": 4000,
         "label": "Pintado Tabletop"
-      }
+      },
+      "tier": "elite"
     },
     {
       "id": "wh-escuadron-asalto",
@@ -158,8 +306,14 @@
       "priceLabel": "Precio total:",
       "description": "5 miniaturas con poses y armamento modular variado. Incluye 5 bases de 32mm.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Pack x5 Tropas", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Pack x5 Tropas",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -169,7 +323,8 @@
         "cost": 16000,
         "label": "Pintado Squad x5",
         "discountBadge": "Ahorro Squad"
-      }
+      },
+      "tier": "escuadron-sci-fi-x5"
     },
     {
       "id": "wh-dreadnought",
@@ -179,8 +334,14 @@
       "priceLabel": "Precio total:",
       "description": "Caminante bípode con cañón automático y puño sierra de demolición. Gran impacto visual en mesa.",
       "tags": [
-        { "text": "Resina / Mixto", "type": "resin" },
-        { "text": "Base 80mm", "type": "scale" }
+        {
+          "text": "Resina / Mixto",
+          "type": "resin"
+        },
+        {
+          "text": "Base 80mm",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -190,7 +351,8 @@
         "cost": 12000,
         "label": "Pintado Vehículo",
         "discountBadge": "Vehículo"
-      }
+      },
+      "tier": "vehiculo-pesado"
     },
     {
       "id": "wh-caballero-caos",
@@ -200,8 +362,14 @@
       "priceLabel": "Precio total:",
       "description": "Armadura con pinchos, lanza de justa infernal y corcel con crines de fuego.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "AoS · Base Ovalada", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "AoS · Base Ovalada",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -211,7 +379,8 @@
         "cost": 9000,
         "label": "Pintado Caballería",
         "discountBadge": "Caballería"
-      }
+      },
+      "tier": "monstruo-mediano"
     },
     {
       "id": "wh-berserker-orco",
@@ -221,8 +390,14 @@
       "priceLabel": "Precio total:",
       "description": "Musculatura colosal, mandíbula con colmillos y armadura chatarra improvisada. Base 32mm.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Escala 35mm", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Escala 35mm",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -231,7 +406,8 @@
         "available": true,
         "cost": 4000,
         "label": "Pintado Tabletop"
-      }
+      },
+      "tier": "elite"
     },
     {
       "id": "wh-set-conversion",
@@ -241,8 +417,14 @@
       "priceLabel": "Precio total:",
       "description": "Pack de 5 hombreras personalizadas con heráldica y 5 cascos alternativos para personalizar tu ejército.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Pack x10 Bits", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Pack x10 Bits",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -252,9 +434,9 @@
         "cost": 3000,
         "label": "Pintado Bits",
         "discountBadge": "Detalle"
-      }
+      },
+      "tier": "accesorio-mesa"
     },
-
     {
       "id": "pack-10-minis",
       "name": "Pack Iniciación — 10 Miniaturas",
@@ -264,8 +446,14 @@
       "priceLabel": "Precio total:",
       "description": "Ideal para tu party de aventureros (4-6 héroes) más sus primeros enemigos o PNJs clave. Incluye peanas de 25/32mm.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "10 Unidades", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "10 Unidades",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Pack x10 Minis",
@@ -286,8 +474,14 @@
       "priceLabel": "Precio total:",
       "description": "Excelente para dotar al Dungeon Master de esbirros variados (orcos, goblins, no-muertos) o conformar un pelotón táctico de wargames.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "25 Minis · Ahorro 20%", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "25 Minis · Ahorro 20%",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Pack x25 Minis",
@@ -308,8 +502,14 @@
       "priceLabel": "Precio total:",
       "description": "Ideal para ejércitos completos, hordas masivas o clubes de rol. Selección libre de archivos o de nuestro catálogo con descuento exclusivo.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "50 Minis · Mayorista", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "50 Minis · Mayorista",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Pack x50 Minis",
@@ -330,8 +530,14 @@
       "priceLabel": "Precio total:",
       "description": "El pack definitivo para campañas colosales, tiendas o reventa. Precio por unidad imbatible en resina de máxima resolución.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "100 Minis · Súper Pack", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "100 Minis · Súper Pack",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Pack x100 Minis",
@@ -352,8 +558,14 @@
       "priceLabel": "Precio total:",
       "description": "Todo lo necesario para arrancar: 4 héroes a elección, 12 esbirros (goblins/esqueletos), 2 tenientes, 1 jefe y 4 piezas de escenografía de mazmorra.",
       "tags": [
-        { "text": "Resina 8K + FDM", "type": "resin" },
-        { "text": "Kit DM Completo", "type": "scale" }
+        {
+          "text": "Resina 8K + FDM",
+          "type": "resin"
+        },
+        {
+          "text": "Kit DM Completo",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Kit Starter Set",
@@ -375,15 +587,21 @@
       "priceDisplay": "Presupuesto sin cargo",
       "description": "Cotización según tu historia: personajes modelados en HeroForge, villanos finales en escala colosal, PNJs aliados y piezas escénicas de tu mundo.",
       "tags": [
-        { "text": "Resina 8K / FDM", "type": "resin" },
-        { "text": "100% Personalizado", "type": "scale" }
+        {
+          "text": "Resina 8K / FDM",
+          "type": "resin"
+        },
+        {
+          "text": "100% Personalizado",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Campaña a Medida",
       "icon": "sparkles",
       "customCTA": {
         "text": "Cotizar mi Campaña por WhatsApp",
-        "url": "https://wa.me/5493416476504?text=Hola!%20Quiero%20pedir%20presupuesto%20para%20una%20Campaña%20Personalizada%20con%20mi%20grupo%20🎲"
+        "waText": "Hola! Quiero pedir presupuesto para una Campaña Personalizada con mi grupo 🎲"
       }
     },
     {
@@ -395,8 +613,14 @@
       "priceLabel": "Precio total:",
       "description": "Para una noche memorable de rol o evento temático: 4 héroes pregenerados, 8 monstruos temáticos y 1 Boss imponente en resina 8K.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Para 1 Sesión Épica", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Para 1 Sesión Épica",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Pack One-Shot",
@@ -417,8 +641,14 @@
       "priceLabel": "Precio total:",
       "description": "Los momentos culminantes de tu campaña: 3 miniaturas de tamaño Grande a Enorme (Dragón joven, Beholder / Ojo Tirano o Gigante) con peanas escénicas.",
       "tags": [
-        { "text": "Resina 8K Gran Escala", "type": "resin" },
-        { "text": "3 Jefes Colosales", "type": "scale" }
+        {
+          "text": "Resina 8K Gran Escala",
+          "type": "resin"
+        },
+        {
+          "text": "3 Jefes Colosales",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Boss Encounters",
@@ -430,7 +660,6 @@
         "discountBadge": "Pintado Boss"
       }
     },
-
     {
       "id": "esc-ruinas-goticas",
       "name": "Ruinas Góticas de 2 Niveles",
@@ -439,8 +668,14 @@
       "priceLabel": "Precio total:",
       "description": "Ideal para cobertura pesada y francotiradores. Textura de piedra y arcos ojivales rotos.",
       "tags": [
-        { "text": "FDM Alta Res", "type": "fdm" },
-        { "text": "18x14cm · Modular", "type": "scale" }
+        {
+          "text": "FDM Alta Res",
+          "type": "fdm"
+        },
+        {
+          "text": "18x14cm · Modular",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto de la Escenografía",
@@ -459,8 +694,14 @@
       "priceLabel": "Precio total:",
       "description": "Muros de sacos de arena, placas de metal y vigas reforzadas para cobertura ligera en escaramuzas.",
       "tags": [
-        { "text": "FDM / Resina", "type": "fdm" },
-        { "text": "Set x4 Unidades", "type": "scale" }
+        {
+          "text": "FDM / Resina",
+          "type": "fdm"
+        },
+        {
+          "text": "Set x4 Unidades",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -479,8 +720,14 @@
       "priceLabel": "Precio total:",
       "description": "Paredes, esquinas, puertas batientes y suelos empedrados con encastre tipo puzzle.",
       "tags": [
-        { "text": "FDM Modular", "type": "fdm" },
-        { "text": "16 Baldosas 3x3", "type": "scale" }
+        {
+          "text": "FDM Modular",
+          "type": "fdm"
+        },
+        {
+          "text": "16 Baldosas 3x3",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -499,8 +746,14 @@
       "priceLabel": "Precio total:",
       "description": "Estructura cilíndrica con escalera de caracol y plataforma superior apta para miniaturas.",
       "tags": [
-        { "text": "FDM Alta Def", "type": "fdm" },
-        { "text": "22cm de Altura", "type": "scale" }
+        {
+          "text": "FDM Alta Def",
+          "type": "fdm"
+        },
+        {
+          "text": "22cm de Altura",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -519,8 +772,14 @@
       "priceLabel": "Precio total:",
       "description": "Detalles en grano de madera, sogas y remaches metálicos para ambientar tabernas y campamentos.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Set x10 Piezas", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Set x10 Piezas",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -539,8 +798,14 @@
       "priceLabel": "Precio total:",
       "description": "Estructura de monolitos rúnicos con vórtice esculpido. Ideal como objetivo final de campaña.",
       "tags": [
-        { "text": "Resina / FDM", "type": "resin" },
-        { "text": "Base 120mm", "type": "scale" }
+        {
+          "text": "Resina / FDM",
+          "type": "resin"
+        },
+        {
+          "text": "Base 120mm",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Modelo",
@@ -551,7 +816,6 @@
         "label": "Pintado Místico"
       }
     },
-
     {
       "id": "td-castillo-medieval",
       "name": "Torre Castillo Medieval con Foso",
@@ -561,12 +825,19 @@
       "priceLabel": "Precio base:",
       "description": "Bafles internos escalonados para giros aleatorios perfectos y bandeja que retiene los dados.",
       "tags": [
-        { "text": "FDM Premium", "type": "fdm" },
-        { "text": "20cm · Bandeja fija", "type": "scale" }
+        {
+          "text": "FDM Premium",
+          "type": "fdm"
+        },
+        {
+          "text": "20cm · Bandeja fija",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Torre Castillo",
-      "icon": "tower"
+      "icon": "tower",
+      "tier": "torre-dados"
     },
     {
       "id": "td-craneo-dragon",
@@ -577,12 +848,19 @@
       "priceLabel": "Precio base:",
       "description": "Los dados entran por la corona craneal y ruedan a través de las fauces abiertas del dragón.",
       "tags": [
-        { "text": "FDM / Resina", "type": "fdm" },
-        { "text": "22cm · Salida Mandíbula", "type": "scale" }
+        {
+          "text": "FDM / Resina",
+          "type": "fdm"
+        },
+        {
+          "text": "22cm · Salida Mandíbula",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Torre Cráneo",
-      "icon": "dragon"
+      "icon": "dragon",
+      "tier": "torre-dados-premium"
     },
     {
       "id": "td-espiral-gotica",
@@ -593,12 +871,19 @@
       "priceLabel": "Precio base:",
       "description": "Ventanas caladas que permiten ver los dados bajando por la escalera de caracol interna.",
       "tags": [
-        { "text": "FDM Detallado", "type": "fdm" },
-        { "text": "Escalera Espiral visible", "type": "scale" }
+        {
+          "text": "FDM Detallado",
+          "type": "fdm"
+        },
+        {
+          "text": "Escalera Espiral visible",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Torre Espiral",
-      "icon": "tower"
+      "icon": "tower",
+      "tier": "torre-dados"
     },
     {
       "id": "td-plegable-viaje",
@@ -609,12 +894,19 @@
       "priceLabel": "Precio base:",
       "description": "Se pliega sobre sí misma como un estuche compacto. Entra en cualquier mochila sin ocupar espacio.",
       "tags": [
-        { "text": "FDM Compacto", "type": "fdm" },
-        { "text": "Cierre Magnético", "type": "scale" }
+        {
+          "text": "FDM Compacto",
+          "type": "fdm"
+        },
+        {
+          "text": "Cierre Magnético",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Torre Plegable",
-      "icon": "box"
+      "icon": "box",
+      "tier": "torre-dados"
     },
     {
       "id": "td-yunque-enano",
@@ -625,12 +917,19 @@
       "priceLabel": "Precio base:",
       "description": "Homenaje a nuestro logo. Los dados caen por un horno en llamas y salen hacia un yunque de piedra.",
       "tags": [
-        { "text": "FDM Temática", "type": "fdm" },
-        { "text": "Estilo Forja Levi", "type": "scale" }
+        {
+          "text": "FDM Temática",
+          "type": "fdm"
+        },
+        {
+          "text": "Estilo Forja Levi",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Torre Forja Enana",
-      "icon": "anvil"
+      "icon": "anvil",
+      "tier": "torre-dados"
     },
     {
       "id": "td-cthulhu-tentaculos",
@@ -641,14 +940,20 @@
       "priceLabel": "Precio base:",
       "description": "Monolito ancestral envuelto en tentáculos alienígenas con bandeja de invocación cósmica.",
       "tags": [
-        { "text": "FDM / Resina", "type": "fdm" },
-        { "text": "24cm · Gran Detalle", "type": "scale" }
+        {
+          "text": "FDM / Resina",
+          "type": "fdm"
+        },
+        {
+          "text": "24cm · Gran Detalle",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Torre Cthulhu",
-      "icon": "sparkles"
+      "icon": "sparkles",
+      "tier": "torre-dados-premium"
     },
-
     {
       "id": "cg-mimico",
       "name": "Caja Mímico Come-Dados",
@@ -658,17 +963,42 @@
       "priceLabel": "Precio según variante:",
       "description": "Tapa articulada con colmillos afilados y lengua esculpida. El guardián definitivo para tus dados.",
       "tags": [
-        { "text": "FDM + Resina", "type": "resin" },
-        { "text": "Capacidad: 21 Dados", "type": "scale" }
+        {
+          "text": "FDM + Resina",
+          "type": "resin"
+        },
+        {
+          "text": "Capacidad: 21 Dados",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Caja Mímico",
       "icon": "box",
       "variants": [
-        { "id": "madera", "name": "Madera Antigua", "price": 11000, "colorHex": "#8b5a2b", "title": "Madera Antigua & Bronce ($11.000)" },
-        { "id": "obsidiana", "name": "Obsidiana Carmesí", "price": 12500, "colorHex": "#2b1b3d", "title": "Obsidiana & Ojos Carmesí ($12.500)" },
-        { "id": "oro-forja", "name": "Oro de la Forja", "price": 13000, "colorHex": "#d4af37", "title": "Oro de la Forja & Dientes Marfil ($13.000)" }
-      ]
+        {
+          "id": "madera",
+          "name": "Madera Antigua",
+          "price": 11000,
+          "colorHex": "#8b5a2b",
+          "title": "Madera Antigua & Bronce ($11.000)"
+        },
+        {
+          "id": "obsidiana",
+          "name": "Obsidiana Carmesí",
+          "price": 12500,
+          "colorHex": "#2b1b3d",
+          "title": "Obsidiana & Ojos Carmesí ($12.500)"
+        },
+        {
+          "id": "oro-forja",
+          "name": "Oro de la Forja",
+          "price": 13000,
+          "colorHex": "#d4af37",
+          "title": "Oro de la Forja & Dientes Marfil ($13.000)"
+        }
+      ],
+      "tier": "caja-dados"
     },
     {
       "id": "cg-estuche-minis",
@@ -679,12 +1009,19 @@
       "priceLabel": "Precio base:",
       "description": "Espuma precortada o ranuras magnéticas para peanas de 25mm a 32mm. Evita roturas en el viaje.",
       "tags": [
-        { "text": "FDM Liviano", "type": "fdm" },
-        { "text": "Cierre Neodimio", "type": "scale" }
+        {
+          "text": "FDM Liviano",
+          "type": "fdm"
+        },
+        {
+          "text": "Cierre Neodimio",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Estuche Minis",
-      "icon": "box"
+      "icon": "box",
+      "tier": "caja-dados"
     },
     {
       "id": "cg-grimorio-hechizos",
@@ -695,12 +1032,19 @@
       "priceLabel": "Precio base:",
       "description": "Parece un libro antiguo cerrado. Al abrirse, incluye ranuras para dados, miniatura del héroe y lápiz.",
       "tags": [
-        { "text": "FDM Detallado", "type": "fdm" },
-        { "text": "Estilo Cuero Medieval", "type": "scale" }
+        {
+          "text": "FDM Detallado",
+          "type": "fdm"
+        },
+        {
+          "text": "Estilo Cuero Medieval",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Libro Grimorio",
-      "icon": "book"
+      "icon": "book",
+      "tier": "caja-dados"
     },
     {
       "id": "cg-cofre-tesoro",
@@ -711,12 +1055,19 @@
       "priceLabel": "Precio base:",
       "description": "Cofre pirata/medieval con tapa curva y bandeja interior extraíble para rodar dados.",
       "tags": [
-        { "text": "FDM Texturado", "type": "fdm" },
-        { "text": "Herrajes Clásicos", "type": "scale" }
+        {
+          "text": "FDM Texturado",
+          "type": "fdm"
+        },
+        {
+          "text": "Herrajes Clásicos",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Cofre Tesoro",
-      "icon": "box"
+      "icon": "box",
+      "tier": "caja-dados"
     },
     {
       "id": "cg-caja-hexagonal",
@@ -727,12 +1078,19 @@
       "priceLabel": "Precio base:",
       "description": "Compartimento individual para cada dado de tu set de rol (D4 a D20) con tapa magnética a presión.",
       "tags": [
-        { "text": "FDM Seda", "type": "fdm" },
-        { "text": "Set 7 Poliedros", "type": "scale" }
+        {
+          "text": "FDM Seda",
+          "type": "fdm"
+        },
+        {
+          "text": "Set 7 Poliedros",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Caja Hexagonal",
-      "icon": "dice"
+      "icon": "dice",
+      "tier": "caja-dados"
     },
     {
       "id": "cg-maletin-transporte",
@@ -743,14 +1101,20 @@
       "priceLabel": "Precio base:",
       "description": "Bandejas modulares encastrables con manija ergonómica y cierres reforzados para torneos.",
       "tags": [
-        { "text": "FDM Reforzado", "type": "fdm" },
-        { "text": "Hasta 30 Minis", "type": "scale" }
+        {
+          "text": "FDM Reforzado",
+          "type": "fdm"
+        },
+        {
+          "text": "Hasta 30 Minis",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto Maletín Táctico",
-      "icon": "box"
+      "icon": "box",
+      "tier": "caja-dados"
     },
-
     {
       "id": "acc-aros-condicion",
       "name": "Set x12 Aros de Condición D&D",
@@ -759,12 +1123,19 @@
       "priceLabel": "Precio set:",
       "description": "Para colgar de las miniaturas: Envenenado, Paralizado, Invisibilidad, Aturdido, etc. Letras en relieve legibles.",
       "tags": [
-        { "text": "FDM Bi-Color", "type": "fdm" },
-        { "text": "Set x12 Unidades", "type": "scale" }
+        {
+          "text": "FDM Bi-Color",
+          "type": "fdm"
+        },
+        {
+          "text": "Set x12 Unidades",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Accesorio",
-      "icon": "rings"
+      "icon": "rings",
+      "tier": "accesorio-mesa"
     },
     {
       "id": "acc-tracker-vida",
@@ -774,12 +1145,19 @@
       "priceLabel": "Precio base:",
       "description": "Mecanismo con imanes de neodimio para clicks firmes y placenteros. Chau a borrar la hoja de personaje.",
       "tags": [
-        { "text": "FDM Seda", "type": "fdm" },
-        { "text": "Ruedas 0 a 99 HP", "type": "scale" }
+        {
+          "text": "FDM Seda",
+          "type": "fdm"
+        },
+        {
+          "text": "Ruedas 0 a 99 HP",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Accesorio",
-      "icon": "clock"
+      "icon": "clock",
+      "tier": "accesorio-mesa"
     },
     {
       "id": "acc-bandeja-octogonal",
@@ -789,12 +1167,19 @@
       "priceLabel": "Precio base:",
       "description": "Borde alto antichispas con runas laterales y fondo acolchado para amortiguar el sonido del impacto.",
       "tags": [
-        { "text": "FDM + Paño", "type": "fdm" },
-        { "text": "20cm Diámetro", "type": "scale" }
+        {
+          "text": "FDM + Paño",
+          "type": "fdm"
+        },
+        {
+          "text": "20cm Diámetro",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Accesorio",
-      "icon": "dice"
+      "icon": "dice",
+      "tier": "accesorio-mesa"
     },
     {
       "id": "acc-spell-slots",
@@ -804,12 +1189,19 @@
       "priceLabel": "Precio base:",
       "description": "Tablero con clavijas o dados d6 pequeños para llevar el registro exacto de magia gastada en combate.",
       "tags": [
-        { "text": "FDM Detallado", "type": "fdm" },
-        { "text": "Nivel 1 al 9", "type": "scale" }
+        {
+          "text": "FDM Detallado",
+          "type": "fdm"
+        },
+        {
+          "text": "Nivel 1 al 9",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Accesorio",
-      "icon": "box"
+      "icon": "box",
+      "tier": "accesorio-mesa"
     },
     {
       "id": "acc-iniciativa-dm",
@@ -819,12 +1211,19 @@
       "priceLabel": "Precio base:",
       "description": "Se monta sobre el borde de tu pantalla de DM. Incluye fichas borrables visibles por ambos lados.",
       "tags": [
-        { "text": "FDM + 8 Marcadores", "type": "fdm" },
-        { "text": "Universal DM Screen", "type": "scale" }
+        {
+          "text": "FDM + 8 Marcadores",
+          "type": "fdm"
+        },
+        {
+          "text": "Universal DM Screen",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Accesorio",
-      "icon": "tower"
+      "icon": "tower",
+      "tier": "accesorio-mesa"
     },
     {
       "id": "acc-marcadores-objetivos",
@@ -834,12 +1233,89 @@
       "priceLabel": "Precio set:",
       "description": "Fichas escénicas numeradas del 1 al 6 en peanas de 40mm para misiones competitivas de Wargames.",
       "tags": [
-        { "text": "Resina 8K", "type": "resin" },
-        { "text": "Set 1 al 6", "type": "scale" }
+        {
+          "text": "Resina 8K",
+          "type": "resin"
+        },
+        {
+          "text": "Set 1 al 6",
+          "type": "scale"
+        }
       ],
       "image": "",
       "placeholderText": "Foto del Accesorio",
-      "icon": "target"
+      "icon": "target",
+      "tier": "accesorio-mesa"
     }
-  ]
+  ],
+  "tiers": {
+    "heroe": {
+      "name": "Héroes / Aventureros (Paladín, Mago, Bárbaro, etc.)",
+      "price": 3500,
+      "painting_cost": 4000,
+      "description": "Miniaturas de personajes jugadores o PNJ detallados escala 28-32mm"
+    },
+    "esbirro": {
+      "name": "Esbirros / Masillas (Goblins, Esqueletos, Kobolds)",
+      "price": 2800,
+      "painting_cost": 2500,
+      "description": "Miniaturas individuales de tropas básicas o monstruos pequeños"
+    },
+    "pack-esbirros-x5": {
+      "name": "Packs x5 Esbirros (Packs de Goblins, Esqueletos)",
+      "price": 7500,
+      "painting_cost": 12000,
+      "description": "Grupos de 5 miniaturas para encuentros rápidos"
+    },
+    "elite": {
+      "name": "Élites / Líderes / Sci-Fi (Capitanes, Campeones, Nobles)",
+      "price": 5000,
+      "painting_cost": 5000,
+      "description": "Oficiales, infantería pesada o campeones de wargames"
+    },
+    "escuadron-sci-fi-x5": {
+      "name": "Escuadrones Sci-Fi x5 (Tácticos, Asalto)",
+      "price": 11000,
+      "painting_cost": 14000,
+      "description": "Escuadrones de 5 miniaturas para wargames"
+    },
+    "monstruo-mediano": {
+      "name": "Monstruos Medianos / Jinetes (Corceles, Bestias)",
+      "price": 14000,
+      "painting_cost": 12000,
+      "description": "Criaturas medianas o caballería pesada"
+    },
+    "monstruo-grande": {
+      "name": "Monstruos Grandes / Jefes (Dragones, Trolls)",
+      "price": 9500,
+      "painting_cost": 7000,
+      "description": "Criaturas colosales o jefes de campaña"
+    },
+    "vehiculo-pesado": {
+      "name": "Vehículos / Caminantes / Dreadnoughts",
+      "price": 16500,
+      "painting_cost": 12000,
+      "description": "Mechs, vehículos de apoyo y tanques pesados"
+    },
+    "torre-dados": {
+      "name": "Torres de Dados Estándar",
+      "price": 14000,
+      "description": "Torres temáticas impresas en filamento de alta resistencia"
+    },
+    "torre-dados-premium": {
+      "name": "Torres de Dados Escénicas / Premium",
+      "price": 16500,
+      "description": "Torres de gran tamaño con detalles escultóricos complejos"
+    },
+    "caja-dados": {
+      "name": "Cajas de Guardado & Mímicos",
+      "price": 11000,
+      "description": "Cofres temáticos para sets completos de dados"
+    },
+    "accesorio-mesa": {
+      "name": "Accesorios de Mesa (Aros, Trackers, Marcadores)",
+      "price": 4000,
+      "description": "Herramientas de juego para Dungeon Masters y jugadores"
+    }
+  }
 }

@@ -33,7 +33,22 @@
     return '$' + Number(num || 0).toLocaleString('es-AR');
   }
 
-  function renderCardHTML(p) {
+  function renderCardHTML(p, tiers = {}) {
+    // 0. Resolve Tier Pricing & Painting Cost
+    const tier = (p.tier && tiers[p.tier]) ? tiers[p.tier] : null;
+
+    const basePrice = (tier && tier.price !== undefined && !p.overridePrice)
+      ? tier.price
+      : (p.price || 0);
+
+    let paintingCost = 0;
+    const hasPainting = p.painting && p.painting.available;
+    if (hasPainting) {
+      paintingCost = (tier && tier.painting_cost !== undefined && !p.overridePaintCost)
+        ? tier.painting_cost
+        : (p.painting.cost || 0);
+    }
+
     // 1. Tags
     const tagsHTML = (p.tags || []).map(t => {
       const typeClass = t.type ? `product-tag--${t.type}` : 'product-tag--resin';
@@ -50,8 +65,8 @@
 
     // 3. Painting Option Toggle
     let paintHTML = '';
-    if (p.painting && p.painting.available) {
-      const costFormatted = formatCurrency(p.painting.cost);
+    if (hasPainting) {
+      const costFormatted = formatCurrency(paintingCost);
       const discountHTML = p.painting.discountBadge
         ? `<span class="paint-option__discount">${p.painting.discountBadge}</span>`
         : '';
@@ -67,7 +82,7 @@
             <button type="button" class="paint-btn is-active" data-paint="no" data-add="0" data-paint-label="Sin pintar">
               ⚪ Sin pintar
             </button>
-            <button type="button" class="paint-btn" data-paint="yes" data-add="${p.painting.cost}" data-paint-label="${p.painting.label || 'Pintado'}">
+            <button type="button" class="paint-btn" data-paint="yes" data-add="${paintingCost}" data-paint-label="${p.painting.label || 'Pintado'}">
               🖌️ Pintado (+ ${costFormatted})
             </button>
           </div>
@@ -79,7 +94,7 @@
     let variantsHTML = '';
     let initialVariantId = '';
     let initialVariantName = '';
-    let currentBasePrice = p.price;
+    let currentBasePrice = basePrice;
 
     if (p.variants && p.variants.length > 0) {
       const activeVariant = p.variants[0];
@@ -120,8 +135,12 @@
           <span class="product-card__price" style="font-size: 1.1rem; color: var(--color-primary-light);">${p.priceDisplay || 'Presupuesto sin cargo'}</span>
         </div>
       `;
+      const waText = p.customCTA.waText || (p.customCTA.url && p.customCTA.url.includes('text=') ? decodeURIComponent(p.customCTA.url.split('text=')[1]) : (p.customCTA.text || 'Hola! Quiero pedir presupuesto 🎲'));
+      const customHref = (window.ForjaLeviConfig && typeof window.ForjaLeviConfig.getWhatsAppUrl === 'function')
+        ? window.ForjaLeviConfig.getWhatsAppUrl(waText)
+        : '#';
       actionHTML = `
-        <a href="${p.customCTA.url}" target="_blank" rel="noopener" class="btn btn--accent" style="width: 100%;">
+        <a href="${customHref}" data-wa-text="${waText}" target="_blank" rel="noopener noreferrer" class="btn btn--accent js-wa-link" style="width: 100%;">
           ${p.customCTA.text}
         </a>
       `;
@@ -152,7 +171,7 @@
     const subCategoryAttr = p.subCategory ? `data-category="${p.subCategory}"` : '';
 
     return `
-      <article class="product-card" data-id="${p.id}" data-name="${p.name}" data-price="${currentBasePrice}" ${subCategoryAttr}>
+      <article class="product-card" data-id="${p.id}" data-name="${p.name}" data-price="${currentBasePrice}" data-tier="${p.tier || ''}" ${subCategoryAttr}>
         <div class="product-card__media">
           <div class="product-card__tag-wrap">
             ${tagsHTML}
@@ -198,7 +217,7 @@
         }
 
         if (filtered.length > 0) {
-          container.innerHTML = filtered.map(renderCardHTML).join('');
+          container.innerHTML = filtered.map(p => renderCardHTML(p, data.tiers || {})).join('');
         }
       });
 

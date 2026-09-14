@@ -7,9 +7,36 @@
 (function () {
   'use strict';
 
-  // ── Config ──
+  // ── Config & Centralización de Contacto (WhatsApp) ──
+  // Cambiá este número en un solo lugar si en el futuro tenés una línea exclusiva:
   const WHATSAPP_PHONE = '5493416476504';
   const STORAGE_KEY = 'forjalevi_cart_v1';
+
+  function getWhatsAppUrl(message = '') {
+    const text = message ? `?text=${encodeURIComponent(message)}` : '';
+    return `https://wa.me/${WHATSAPP_PHONE}${text}`;
+  }
+
+  function initWhatsAppLinks() {
+    document.querySelectorAll('[data-wa-text]').forEach(el => {
+      const text = el.getAttribute('data-wa-text') || 'Hola! Quiero hacer una consulta 🎲';
+      el.href = getWhatsAppUrl(text);
+      el.target = '_blank';
+      el.rel = 'noopener noreferrer';
+    });
+  }
+
+  // Delegación de clics para enlaces y botones de WhatsApp
+  document.addEventListener('click', (e) => {
+    const waLink = e.target.closest('[data-wa-text]');
+    if (!waLink) return;
+    const href = waLink.getAttribute('href');
+    if (!href || href === '#' || href.startsWith('javascript:')) {
+      e.preventDefault();
+      const text = waLink.getAttribute('data-wa-text') || 'Hola! Quiero hacer una consulta 🎲';
+      window.open(getWhatsAppUrl(text), '_blank', 'noopener,noreferrer');
+    }
+  });
 
   // ── DOM References ──
   const header        = document.getElementById('header');
@@ -312,7 +339,7 @@
       lines.push('¿Tienen disponibilidad y tiempos estimados? ¡Muchas gracias! 🎲');
 
       const message = lines.join('\n');
-      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+      const whatsappUrl = getWhatsAppUrl(message);
 
       window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     });
@@ -348,7 +375,13 @@
     getCart: () => [...cart],
     addToCart,
     clearCart,
-    generateMercadoPagoPayload
+    generateMercadoPagoPayload,
+    getWhatsAppUrl
+  };
+
+  window.ForjaLeviConfig = {
+    whatsappPhone: WHATSAPP_PHONE,
+    getWhatsAppUrl
   };
 
   // ── Mobile Nav Toggle ──
@@ -650,6 +683,7 @@
     initVariantSelectors();
     initPaintingToggles();
     initReveal();
+    initWhatsAppLinks();
   }
   window.ForjaInitCatalogInteractions = initCatalogInteractions;
 
@@ -659,6 +693,7 @@
     initParticles();
     initDynamicFilters();
     initCatalogInteractions();
+    initWhatsAppLinks();
   });
 
 })();
