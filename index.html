@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Forja Levi — Impresión 3D de miniaturas, escenografía y accesorios para juegos de rol (D&D, Pathfinder) y wargames (Warhammer 40k, Age of Sigmar). Rosario, Argentina." />
+  <meta name="keywords" content="impresión 3D, miniaturas, D&D, Warhammer, wargames, escenografía, dados, resina, FDM, Rosario, Argentina, Forja Levi" />
+  <meta property="og:title" content="Forja Levi — Impresión 3D · Rol · Anime" />
+  <meta property="og:description" content="Miniaturas, escenografía y accesorios en resina y FDM de alta calidad para tus partidas de rol y wargames." />
+  <meta property="og:image" content="assets/img/logo-forjalevi.jpg" />
+  <meta property="og:type" content="website" />
+  <title>Forja Levi — Impresión 3D · Rol · Anime</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/img/logo-forjalevi.jpg" />
+</head>
+<body>
+
+  <!-- ========== HEADER / NAV ========== -->
+  <header id="header" class="header">
+    <div class="container header__inner">
+      <a href="#inicio" class="header__logo">
+        <img src="assets/img/logo-forjalevi.jpg" alt="Forja Levi Logo" class="header__logo-img" />
+        <span class="header__brand">Forja Levi</span>
+      </a>
+
+      <button class="header__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span class="header__toggle-bar"></span>
+        <span class="header__toggle-bar"></span>
+        <span class="header__toggle-bar"></span>
+      </button>
+
+      <nav class="header__nav" id="navMenu">
+        <ul class="header__list">
+          <li><a href="#inicio" class="header__link">Inicio</a></li>
+          <li><a href="#catalogo" class="header__link">Catálogo</a></li>
+          <li><a href="#como-comprar" class="header__link">Cómo Comprar</a></li>
+          <li><a href="#contacto" class="header__link">Contacto</a></li>
+        </ul>
+        <a href="https://wa.me/5493416161000?text=Hola!%20Quiero%20pedir%20un%20presupuesto%20🎲" target="_blank" rel="noopener" class="btn btn--accent header__cta">
+          <!-- WhatsApp icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pedir Presupuesto
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section id="inicio" class="hero">
+    <div class="hero__particles" id="heroParticles"></div>
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <h1 class="hero__title">Forjamos tus <span class="text-glow">aventuras</span> en la mesa</h1>
+        <p class="hero__subtitle">Miniaturas, escenografía y accesorios en resina y FDM de alta calidad para tus partidas de rol y wargames.</p>
+        <div class="hero__actions">
+          <a href="#catalogo" class="btn btn--primary btn--lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            Ver Catálogo
+          </a>
+          <a href="https://www.instagram.com/forjalevi/" target="_blank" rel="noopener" class="btn btn--outline btn--lg">
+            <!-- Instagram icon -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Contactar por Instagram
+          </a>
+        </div>
+      </div>
+      <div class="hero__image">
+        <img src="assets/img/hero-forjalevi.jpg" alt="Forja Levi — Taller de impresión 3D con miniaturas, dados y figuras" class="hero__img" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CATÁLOGO ========== -->
+  <section id="catalogo" class="catalog">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Nuestro <span class="text-glow">Catálogo</span></h2>
+        <p class="section-subtitle">Explorá nuestras categorías y encontrá lo que necesitás para tu próxima aventura.</p>
+      </div>
+
+      <div class="catalog__grid">
+
+        <!-- Card 1: Miniaturas D&D -->
+        <article class="card" data-category="miniaturas-dnd">
+          <div class="card__img-wrapper">
+            <div class="card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Miniaturas D&D / Pathfinder</h3>
+            <p class="card__desc">Héroes, monstruos, NPCs y criaturas épicas listas para pintar y llevar a la mesa.</p>
+            <a href="https://wa.me/5493416161000?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20Miniaturas%20D%26D%20/%20Pathfinder%20🎲" target="_blank" rel="noopener" class="btn btn--small btn--accent">Consultar disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- Card 2: Warhammer -->
+        <article class="card" data-category="warhammer">
+          <div class="card__img-wrapper">
+            <div class="card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Warhammer 40K / AoS / Fantasy</h3>
+            <p class="card__desc">Proxies, piezas de conversión y ejércitos completos en resina de alta definición.</p>
+            <a href="https://wa.me/5493416161000?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20Warhammer%20⚔️" target="_blank" rel="noopener" class="btn btn--small btn--accent">Consultar disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- Card 3: Escenografía -->
+        <article class="card" data-category="escenografia">
+          <div class="card__img-wrapper">
+            <div class="card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 21h18M3 7v1a3 3 0 006 0V7m0 0V4h6v3m0 0v1a3 3 0 006 0V7M6 21V11m12 0v10M9 21v-6h6v6"/></svg>
+            </div>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Escenografía y Estructuras</h3>
+            <p class="card__desc">Dungeons, ruinas, barricadas, puentes y terrenos modulares para tus escenarios.</p>
+            <a href="https://wa.me/5493416161000?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20Escenografía%20🏰" target="_blank" rel="noopener" class="btn btn--small btn--accent">Consultar disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- Card 4: Torres de Dados -->
+        <article class="card" data-category="torres-dados">
+          <div class="card__img-wrapper">
+            <div class="card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 7h6M9 12h6M9 17h6"/></svg>
+            </div>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Torres de Dados</h3>
+            <p class="card__desc">Diseños fijos y plegables con temática medieval, gótica y sci-fi. Tirá tus dados con estilo.</p>
+            <a href="https://wa.me/5493416161000?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20Torres%20de%20Dados%20🎲" target="_blank" rel="noopener" class="btn btn--small btn--accent">Consultar disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- Card 5: Cajas de Guardado -->
+        <article class="card" data-category="cajas-guardado">
+          <div class="card__img-wrapper">
+            <div class="card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 8V5a2 2 0 00-2-2H5a2 2 0 00-2 2v3m18 0v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8m18 0H3m9 4v4m-2-2h4"/></svg>
+            </div>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Cajas de Guardado</h3>
+            <p class="card__desc">Cajas para minis y dados, mímicos y diseños exclusivos para organizar tu colección.</p>
+            <a href="https://wa.me/5493416161000?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20Cajas%20de%20Guardado%20📦" target="_blank" rel="noopener" class="btn btn--small btn--accent">Consultar disponibilidad</a>
+          </div>
+        </article>
+
+        <!-- Card 6: Dados y Accesorios -->
+        <article class="card" data-category="dados-accesorios">
+          <div class="card__img-wrapper">
+            <div class="card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Dados y Accesorios</h3>
+            <p class="card__desc">Aros de condición, trackers de vida, marcadores de estados y más complementos.</p>
+            <a href="https://wa.me/5493416161000?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20Dados%20y%20Accesorios%20🎯" target="_blank" rel="noopener" class="btn btn--small btn--accent">Consultar disponibilidad</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CÓMO COMPRAR ========== -->
+  <section id="como-comprar" class="how-to">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Cómo <span class="text-glow">Comprar</span></h2>
+        <p class="section-subtitle">En 3 simples pasos tenés tu pedido listo.</p>
+      </div>
+
+      <div class="how-to__steps">
+        <!-- Step 1 -->
+        <div class="step">
+          <div class="step__icon">
+            <span class="step__number">1</span>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <h3 class="step__title">Explorá</h3>
+          <p class="step__desc">Recorré nuestro catálogo o envíanos tu propio archivo <strong>STL</strong> si tenés un diseño personalizado.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+          <div class="step__icon">
+            <span class="step__number">2</span>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3 class="step__title">Escribinos</h3>
+          <p class="step__desc">Envíanos un mensaje por <strong>WhatsApp</strong> o <strong>Instagram</strong> indicando qué necesitás, cantidades o si es pedido mayorista.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+          <div class="step__icon">
+            <span class="step__number">3</span>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <h3 class="step__title">Recibí</h3>
+          <p class="step__desc">Te enviamos la cotización y coordinamos la entrega. <strong>Envíos a todo el país</strong> o retiro en <strong>Rosario, Argentina</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contacto" class="footer">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        <img src="assets/img/logo-forjalevi.jpg" alt="Forja Levi" class="footer__logo" />
+        <p class="footer__tagline">Impresión 3D · Rol · Anime</p>
+      </div>
+
+      <div class="footer__links">
+        <h4 class="footer__heading">Contacto directo</h4>
+        <a href="https://wa.me/5493416161000?text=Hola!%20Quiero%20hacer%20una%20consulta%20🎲" target="_blank" rel="noopener" class="footer__social-link footer__social-link--wa">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="https://www.instagram.com/forjalevi/" target="_blank" rel="noopener" class="footer__social-link footer__social-link--ig">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram
+        </a>
+      </div>
+
+      <div class="footer__info">
+        <h4 class="footer__heading">Ubicación</h4>
+        <p>📍 Rosario, Santa Fe, Argentina</p>
+        <p class="footer__note">Ventas por menor y mayor. Consultar por impresiones personalizadas.</p>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container">
+        <p>&copy; 2025 Forja Levi. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== FLOATING WHATSAPP BUTTON ========== -->
+  <a href="https://wa.me/5493416161000?text=Hola!%20Quiero%20hacer%20una%20consulta%20🎲" target="_blank" rel="noopener" class="fab-whatsapp" aria-label="Contactar por WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- JS -->
+  <script src="js/main.js"></script>
+</body>
+</html>
