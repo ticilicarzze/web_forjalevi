@@ -81,14 +81,18 @@
     });
   }
 
-  // ── Cart Operations ──
-  function addToCart(id, name, price) {
-    const existing = cart.find(item => item.id === id);
+  // ── Cart Operations (with Variant & MP Support) ──
+  function addToCart(id, name, price, variantId = null, variantName = null) {
+    const key = variantId ? `${id}__${variantId}` : id;
+    const existing = cart.find(item => (item.cartItemId === key) || (item.id === id && item.variantId === variantId));
     if (existing) {
       existing.qty += 1;
     } else {
       cart.push({
         id: id,
+        cartItemId: key,
+        variantId: variantId || null,
+        variantName: variantName || null,
         name: name,
         price: Number(price) || 0,
         qty: 1
@@ -97,23 +101,24 @@
     saveCart();
     renderCart();
     bumpBadges();
-    showToast(`⚔️ Agregado: <strong>${name}</strong>`);
+    const displayName = variantName ? `${name} (${variantName})` : name;
+    showToast(`⚔️ Agregado: <strong>${displayName}</strong>`);
   }
 
-  function updateQty(id, delta) {
-    const item = cart.find(i => i.id === id);
+  function updateQty(key, delta) {
+    const item = cart.find(i => (i.cartItemId || i.id) === key);
     if (!item) return;
 
     item.qty += delta;
     if (item.qty <= 0) {
-      cart = cart.filter(i => i.id !== id);
+      cart = cart.filter(i => (i.cartItemId || i.id) !== key);
     }
     saveCart();
     renderCart();
   }
 
-  function removeItem(id) {
-    cart = cart.filter(i => i.id !== id);
+  function removeItem(key) {
+    cart = cart.filter(i => (i.cartItemId || i.id) !== key);
     saveCart();
     renderCart();
   }
@@ -178,35 +183,39 @@
     }
 
     // Render items
-    cartItemsCont.innerHTML = cart.map(item => `
-      <div class="cart-item" data-id="${item.id}">
-        <div class="cart-item__info">
-          <h4 class="cart-item__title" title="${item.name}">${item.name}</h4>
-          <span class="cart-item__price">${formatCurrency(item.price)} c/u &middot; <strong style="color:var(--text-primary);">${formatCurrency(item.price * item.qty)}</strong></span>
+    cartItemsCont.innerHTML = cart.map(item => {
+      const itemKey = item.cartItemId || item.id;
+      return `
+        <div class="cart-item" data-key="${itemKey}">
+          <div class="cart-item__info">
+            <h4 class="cart-item__title" title="${item.name}">${item.name}</h4>
+            ${item.variantName ? `<div class="cart-item__variant"><span>🎨</span> ${item.variantName}</div>` : ''}
+            <span class="cart-item__price">${formatCurrency(item.price)} c/u &middot; <strong style="color:var(--text-primary);">${formatCurrency(item.price * item.qty)}</strong></span>
+          </div>
+          <div class="cart-item__controls">
+            <button class="cart-item__btn-qty js-qty-minus" data-key="${itemKey}" aria-label="Restar uno">&minus;</button>
+            <span class="cart-item__qty">${item.qty}</span>
+            <button class="cart-item__btn-qty js-qty-plus" data-key="${itemKey}" aria-label="Sumar uno">&plus;</button>
+          </div>
+          <button class="cart-item__remove js-remove-item" data-key="${itemKey}" aria-label="Eliminar producto">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
         </div>
-        <div class="cart-item__controls">
-          <button class="cart-item__btn-qty js-qty-minus" data-id="${item.id}" aria-label="Restar uno">&minus;</button>
-          <span class="cart-item__qty">${item.qty}</span>
-          <button class="cart-item__btn-qty js-qty-plus" data-id="${item.id}" aria-label="Sumar uno">&plus;</button>
-        </div>
-        <button class="cart-item__remove js-remove-item" data-id="${item.id}" aria-label="Eliminar producto">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          </svg>
-        </button>
-      </div>
-    `).join('');
+      `;
+    }).join('');
 
     // Attach item events
     cartItemsCont.querySelectorAll('.js-qty-minus').forEach(btn => {
-      btn.addEventListener('click', () => updateQty(btn.dataset.id, -1));
+      btn.addEventListener('click', () => updateQty(btn.dataset.key, -1));
     });
     cartItemsCont.querySelectorAll('.js-qty-plus').forEach(btn => {
-      btn.addEventListener('click', () => updateQty(btn.dataset.id, 1));
+      btn.addEventListener('click', () => updateQty(btn.dataset.key, 1));
     });
     cartItemsCont.querySelectorAll('.js-remove-item').forEach(btn => {
-      btn.addEventListener('click', () => removeItem(btn.dataset.id));
+      btn.addEventListener('click', () => removeItem(btn.dataset.key));
     });
   }
 
@@ -247,7 +256,9 @@
       const id = btn.dataset.id;
       const name = btn.dataset.name;
       const price = btn.dataset.price;
-      addToCart(id, name, price);
+      const variantId = btn.dataset.variantId || null;
+      const variantName = btn.dataset.variantName || null;
+      addToCart(id, name, price, variantId, variantName);
     });
   });
 
@@ -270,7 +281,8 @@
 
       cart.forEach(item => {
         const itemSubtotal = formatCurrency(item.price * item.qty);
-        lines.push(`• *${item.qty}x* ${item.name} (${itemSubtotal})`);
+        const varText = item.variantName ? ` [${item.variantName}]` : '';
+        lines.push(`• *${item.qty}x* ${item.name}${varText} (${itemSubtotal})`);
       });
 
       lines.push('━━━━━━━━━━━━━━━━━━━━');
@@ -293,6 +305,35 @@
       window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     });
   }
+
+  // ── Mercado Pago Payload Generator (Ready for Backend/Preference API) ──
+  function generateMercadoPagoPayload(customer = {}) {
+    return {
+      items: cart.map(item => ({
+        id: item.variantId ? `${item.id}-${item.variantId}` : item.id,
+        title: item.variantName ? `${item.name} (${item.variantName})` : item.name,
+        unit_price: Number(item.price),
+        quantity: Number(item.qty),
+        currency_id: 'ARS'
+      })),
+      payer: {
+        name: customer.name || (orderNameInp ? orderNameInp.value.trim() : ''),
+        email: customer.email || ''
+      },
+      metadata: {
+        notes: customer.notes || (orderNotesInp ? orderNotesInp.value.trim() : ''),
+        source: 'forjalevi_web'
+      }
+    };
+  }
+
+  // Expose API for future MP or external integrations
+  window.ForjaLeviAPI = {
+    getCart: () => [...cart],
+    addToCart,
+    clearCart,
+    generateMercadoPagoPayload
+  };
 
   // ── Mobile Nav Toggle ──
   if (navToggle && navMenu) {
@@ -491,6 +532,39 @@
     });
   }
 
+  // ── Product Variants Selection Handler ──
+  function initVariantSelectors() {
+    document.querySelectorAll('.product-card').forEach(card => {
+      const pills = card.querySelectorAll('.variant-pill');
+      if (pills.length === 0) return;
+
+      const priceEl = card.querySelector('.product-card__price');
+      const addBtn = card.querySelector('.js-add-to-cart');
+
+      pills.forEach(pill => {
+        pill.addEventListener('click', (e) => {
+          e.preventDefault();
+          pills.forEach(p => p.classList.remove('is-active'));
+          pill.classList.add('is-active');
+
+          const varPrice = pill.dataset.price;
+          const varId = pill.dataset.variantId;
+          const varName = pill.dataset.variantName;
+
+          if (priceEl && varPrice) {
+            priceEl.textContent = formatCurrency(Number(varPrice));
+          }
+
+          if (addBtn) {
+            if (varPrice) addBtn.dataset.price = varPrice;
+            if (varId) addBtn.dataset.variantId = varId;
+            if (varName) addBtn.dataset.variantName = varName;
+          }
+        });
+      });
+    });
+  }
+
   // ── Smooth scroll for anchor links ──
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -510,6 +584,7 @@
     initReveal();
     initParticles();
     initDynamicFilters();
+    initVariantSelectors();
   });
 
 })();

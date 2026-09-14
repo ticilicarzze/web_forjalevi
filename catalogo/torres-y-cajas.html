@@ -288,7 +288,7 @@
       <div class="product-grid">
 
         <!-- Caja 1 -->
-        <article class="product-card" data-id="cg-mimico" data-name="Caja Mímico para Dados y Minis" data-price="11000">
+        <article class="product-card" data-id="cg-mimico" data-name="Caja Mímico Come-Dados" data-price="11000">
           <div class="product-card__media">
             <div class="product-card__tag-wrap">
               <span class="product-tag product-tag--resin">FDM + Resina</span>
@@ -302,12 +302,32 @@
           <div class="product-card__body">
             <h3 class="product-card__title">Caja Mímico Come-Dados</h3>
             <p class="product-card__desc">Tapa articulada con colmillos afilados y lengua esculpida. El guardián definitivo para tus dados.</p>
+
+            <!-- Selector de Variantes / Color -->
+            <div class="variant-selector">
+              <span class="variant-label">Acabado / Color:</span>
+              <div class="variant-pills">
+                <button type="button" class="variant-pill is-active" data-variant-id="madera" data-variant-name="Madera Antigua" data-price="11000" title="Madera Antigua & Bronce ($11.000)">
+                  <span class="variant-dot" style="background: #8b5a2b;"></span>
+                  Madera Antigua
+                </button>
+                <button type="button" class="variant-pill" data-variant-id="obsidiana" data-variant-name="Obsidiana Carmesí" data-price="12500" title="Obsidiana & Ojos Carmesí ($12.500)">
+                  <span class="variant-dot" style="background: #2b1b3d;"></span>
+                  Obsidiana
+                </button>
+                <button type="button" class="variant-pill" data-variant-id="oro-forja" data-variant-name="Oro de la Forja" data-price="13000" title="Oro de la Forja & Dientes Marfil ($13.000)">
+                  <span class="variant-dot" style="background: #d4af37;"></span>
+                  Oro Forja
+                </button>
+              </div>
+            </div>
+
             <div class="product-card__price-row">
-              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price-label">Precio según variante:</span>
               <span class="product-card__price">$11.000</span>
             </div>
             <div class="product-card__actions">
-              <button class="btn btn--accent btn--small js-add-to-cart" data-id="cg-mimico" data-name="Caja Mímico para Dados y Minis" data-price="11000">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="cg-mimico" data-name="Caja Mímico Come-Dados" data-price="11000" data-variant-id="madera" data-variant-name="Madera Antigua">
                 + Agregar al pedido
               </button>
               <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20la%20Caja%20Mímico%20📦" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
@@ -542,6 +562,7 @@
   <div class="toast" id="toastNotification" aria-live="polite"></div>
 
   <!-- JS -->
+  <script src="../js/products-data.js"></script>
   <script src="../js/main.js"></script>
 </body>
 </html>

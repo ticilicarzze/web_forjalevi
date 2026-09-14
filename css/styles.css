@@ -938,6 +938,15 @@ button, input, textarea {
   text-overflow: ellipsis;
 }
 
+.cart-item__variant {
+  font-size: 0.76rem;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
 .cart-item__price {
   font-size: 0.85rem;
   color: var(--accent-light);
@@ -1810,6 +1819,68 @@ body.nav-open::before {
 
 .product-card__actions .btn {
   flex: 1;
+}
+
+/* ============================================
+   PRODUCT VARIANTS (Colores, Escalas, Acabados)
+   ============================================ */
+.variant-selector {
+  margin-bottom: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.variant-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.variant-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.variant-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.variant-pill:hover {
+  border-color: var(--accent-dark);
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+.variant-pill.is-active {
+  border-color: var(--accent);
+  background: rgba(255, 87, 34, 0.14);
+  color: var(--accent-light);
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(255, 87, 34, 0.25);
+}
+
+.variant-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 /* ============================================
