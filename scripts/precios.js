@@ -8,8 +8,9 @@
  *
  * Ejemplos de uso:
  *   node scripts/precios.js                     -> Ver tabla de todas las tarifas y productos
- *   node scripts/precios.js --set heroe 3800    -> Cambia precio base de todos los héroes a $3.800
- *   node scripts/precios.js --set esbirro 3000 --paint 2800 -> Cambia base y pintado de esbirros
+ *   node scripts/precios.js --sync              -> Sincroniza todos los productos con sus tiers y actualiza products-data.js
+ *   node scripts/precios.js --set heroe 5000    -> Cambia precio base de todos los héroes a $5.000
+ *   node scripts/precios.js --set esbirro 4000 --paint 2500 -> Cambia base y pintado de esbirros
  *   node scripts/precios.js --inflate 10        -> Aplica +10% de aumento a todos los tiers (redondeado a $100)
  */
 
@@ -17,6 +18,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PRODUCTS_JSON_PATH = path.resolve(__dirname, '../data/products.json');
+const PRODUCTS_DATA_JS_PATH = path.resolve(__dirname, '../js/products-data.js');
 
 function loadData() {
   if (!fs.existsSync(PRODUCTS_JSON_PATH)) {
@@ -27,8 +29,21 @@ function loadData() {
 }
 
 function saveData(data) {
+  // 1. Guardar data/products.json
   fs.writeFileSync(PRODUCTS_JSON_PATH, JSON.stringify(data, null, 2) + '\n', 'utf8');
-  console.log('✅ Archivo data/products.json actualizado con éxito.\n');
+
+  // 2. Guardar js/products-data.js para soporte file://, offline y carga ultra rápida
+  const jsContent = `/**
+ * FORJA LEVI — Catálogo de Productos y Modelo Canónico
+ * Sincronizado automáticamente por scripts/precios.js
+ */
+
+window.FORJA_CATALOG_DATA = ${JSON.stringify(data, null, 2)};
+window.FORJA_CATALOG = window.FORJA_CATALOG_DATA.products;
+`;
+  fs.writeFileSync(PRODUCTS_DATA_JS_PATH, jsContent, 'utf8');
+
+  console.log('✅ Archivos data/products.json y js/products-data.js actualizados y sincronizados con éxito.\n');
 }
 
 function formatAR(num) {
@@ -42,6 +57,7 @@ FORJA LEVI — Gestor de Tarifas y Precios
 
 Uso:
   node scripts/precios.js                          Lista todos los tiers y productos vinculados
+  node scripts/precios.js --sync                   Sincroniza todos los productos con sus tiers
   node scripts/precios.js --set <tier> <precio>    Modifica el precio base de un tier
   node scripts/precios.js --set <tier> <precio> --paint <costo>
                                                    Modifica precio base y costo de pintura
@@ -49,10 +65,11 @@ Uso:
   node scripts/precios.js --help                   Muestra esta ayuda
 
 Ejemplos:
-  node scripts/precios.js --set heroe 4000
-  node scripts/precios.js --set esbirro 2900 --paint 2600
-  node scripts/precios.js --set pack-esbirros-x5 8000 --paint 13000
+  node scripts/precios.js --set heroe 5000 --paint 10000
+  node scripts/precios.js --set esbirro 4000 --paint 2500
+  node scripts/precios.js --set pack-esbirros-x5 18000 --paint 25000
   node scripts/precios.js --inflate 15
+  node scripts/precios.js --sync
 `);
 }
 
@@ -96,6 +113,27 @@ function listTiers(data) {
 
   console.log('─'.repeat(88));
   console.log(`Total productos vinculados a tiers: ${products.filter(p => p.tier).length} de ${products.length}\n`);
+}
+
+function syncAll(data) {
+  const tiers = data.tiers || {};
+  let count = 0;
+  (data.products || []).forEach(p => {
+    if (p.tier && tiers[p.tier]) {
+      const t = tiers[p.tier];
+      if (!p.overridePrice && t.price !== undefined) {
+        p.price = t.price;
+        count++;
+      }
+      if (p.painting && p.painting.available && !p.overridePaintCost && t.painting_cost !== undefined) {
+        p.painting.cost = t.painting_cost;
+      }
+    }
+  });
+
+  console.log(`\n🔄 Sincronizando ${count} productos según sus tarifas vigentes...`);
+  saveData(data);
+  listTiers(data);
 }
 
 function setTierPrice(data, tierKey, newPrice, newPaint) {
@@ -144,7 +182,6 @@ function inflateAll(data, percentage) {
 
   for (const [key, tier] of Object.entries(data.tiers)) {
     if (typeof tier.price === 'number' && tier.price > 0) {
-      // Redondear a la centena más cercana (ej: 3850 -> 3900 o similar)
       const rawPrice = tier.price * factor;
       tier.price = Math.round(rawPrice / 100) * 100;
     }
@@ -178,6 +215,11 @@ const data = loadData();
 
 if (args.length === 0 || args.includes('--list')) {
   listTiers(data);
+  process.exit(0);
+}
+
+if (args.includes('--sync')) {
+  syncAll(data);
   process.exit(0);
 }
 

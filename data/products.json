@@ -30,7 +30,7 @@
       "id": "dnd-paladin",
       "name": "Paladín Humano en Armadura",
       "category": "miniaturas-dnd",
-      "price": 3500,
+      "price": 5000,
       "priceLabel": "Precio total:",
       "description": "Armadura de placas pesada, escudo heráldico y espada bendecida. Incluye peana de 28mm.",
       "tags": [
@@ -48,7 +48,7 @@
       "icon": "shield",
       "painting": {
         "available": true,
-        "cost": 4000,
+        "cost": 10000,
         "label": "Pintado Tabletop"
       },
       "tier": "heroe"
@@ -57,7 +57,7 @@
       "id": "dnd-mago-elfo",
       "name": "Mago Elfo Arcano con Báculo",
       "category": "miniaturas-dnd",
-      "price": 3500,
+      "price": 5000,
       "priceLabel": "Precio total:",
       "description": "Toga con runas arcanas, báculo de cristal y efectos elementales. Incluye peana de 28mm.",
       "tags": [
@@ -75,7 +75,7 @@
       "icon": "sparkles",
       "painting": {
         "available": true,
-        "cost": 4000,
+        "cost": 10000,
         "label": "Pintado Tabletop"
       },
       "tier": "heroe"
@@ -84,7 +84,7 @@
       "id": "dnd-barbaro-enano",
       "name": "Bárbaro Enano Furioso",
       "category": "miniaturas-dnd",
-      "price": 3500,
+      "price": 5000,
       "priceLabel": "Precio total:",
       "description": "Hacha de batalla a dos manos, barba trenzada y armadura de cuero tachonado. Incluye peana de 28mm.",
       "tags": [
@@ -102,7 +102,7 @@
       "icon": "axe",
       "painting": {
         "available": true,
-        "cost": 4000,
+        "cost": 10000,
         "label": "Pintado Tabletop"
       },
       "tier": "heroe"
@@ -111,7 +111,7 @@
       "id": "dnd-picaro-tiefling",
       "name": "Pícaro Tiefling con Dagas",
       "category": "miniaturas-dnd",
-      "price": 3500,
+      "price": 5000,
       "priceLabel": "Precio total:",
       "description": "Capa dinámica, cola prensil, cuernos esculpidos y dagas gemelas. Incluye peana de 28mm.",
       "tags": [
@@ -129,7 +129,7 @@
       "icon": "dagger",
       "painting": {
         "available": true,
-        "cost": 4000,
+        "cost": 10000,
         "label": "Pintado Tabletop"
       },
       "tier": "heroe"
@@ -156,7 +156,7 @@
       "icon": "dragon",
       "painting": {
         "available": true,
-        "cost": 7000,
+        "cost": 15000,
         "label": "Pintado Tabletop Dragón"
       },
       "tier": "monstruo-grande"
@@ -165,7 +165,7 @@
       "id": "dnd-pack-goblins",
       "name": "Pack x5 Goblins de Asalto",
       "category": "miniaturas-dnd",
-      "price": 7500,
+      "price": 18000,
       "priceLabel": "Precio total:",
       "description": "5 miniaturas con poses y armas distintas (arco, espada corta, lanza). Incluye 5 peanas.",
       "tags": [
@@ -183,7 +183,7 @@
       "icon": "pack",
       "painting": {
         "available": true,
-        "cost": 12000,
+        "cost": 25000,
         "label": "Pintado Pack x5",
         "discountBadge": "Ahorro Lote"
       },
@@ -194,7 +194,7 @@
       "name": "Pack x5 Esqueletos de la Cripta",
       "category": "miniaturas-dnd",
       "tier": "pack-esbirros-x5",
-      "price": 7500,
+      "price": 18000,
       "priceLabel": "Precio total:",
       "description": "5 esqueletos no-muertos armados con cimitarras oxidadas, arcos y escudos antiguos. Peanas 25mm incluidas.",
       "tags": [
@@ -212,7 +212,7 @@
       "icon": "pack",
       "painting": {
         "available": true,
-        "cost": 12000,
+        "cost": 25000,
         "label": "Pintado Pack x5",
         "discountBadge": "Ahorro Lote"
       }
@@ -222,7 +222,7 @@
       "name": "Goblin Arquero Emboscador",
       "category": "miniaturas-dnd",
       "tier": "esbirro",
-      "price": 2800,
+      "price": 4000,
       "priceLabel": "Precio total:",
       "description": "Goblin en pose de tiro con arco corto y carcaj a la espalda. Ideal para encuentros aleatorios en mazmorra.",
       "tags": [
@@ -249,7 +249,7 @@
       "name": "Esqueleto Guerrero con Escudo y Espada",
       "category": "miniaturas-dnd",
       "tier": "esbirro",
-      "price": 2800,
+      "price": 4000,
       "priceLabel": "Precio total:",
       "description": "Guerrero caído reanimado con cota de malla rota, espada hendida y escudo mellado. Peana de 25mm.",
       "tags": [
@@ -293,7 +293,7 @@
       "icon": "shield",
       "painting": {
         "available": true,
-        "cost": 4000,
+        "cost": 5000,
         "label": "Pintado Tabletop"
       },
       "tier": "elite"
@@ -320,7 +320,7 @@
       "icon": "pack",
       "painting": {
         "available": true,
-        "cost": 16000,
+        "cost": 14000,
         "label": "Pintado Squad x5",
         "discountBadge": "Ahorro Squad"
       },
@@ -376,7 +376,7 @@
       "icon": "knight",
       "painting": {
         "available": true,
-        "cost": 9000,
+        "cost": 12000,
         "label": "Pintado Caballería",
         "discountBadge": "Caballería"
       },
@@ -386,7 +386,7 @@
       "id": "wh-berserker-orco",
       "name": "Noble Orco con Doble Rebanadora",
       "category": "warhammer",
-      "price": 4500,
+      "price": 5000,
       "priceLabel": "Precio total:",
       "description": "Musculatura colosal, mandíbula con colmillos y armadura chatarra improvisada. Base 32mm.",
       "tags": [
@@ -404,7 +404,7 @@
       "icon": "axe",
       "painting": {
         "available": true,
-        "cost": 4000,
+        "cost": 5000,
         "label": "Pintado Tabletop"
       },
       "tier": "elite"
@@ -821,7 +821,7 @@
       "name": "Torre Castillo Medieval con Foso",
       "category": "torres-y-cajas",
       "subCategory": "torres",
-      "price": 14000,
+      "price": 20000,
       "priceLabel": "Precio base:",
       "description": "Bafles internos escalonados para giros aleatorios perfectos y bandeja que retiene los dados.",
       "tags": [
@@ -844,7 +844,7 @@
       "name": "Torre Cráneo de Dragón",
       "category": "torres-y-cajas",
       "subCategory": "torres",
-      "price": 16500,
+      "price": 40000,
       "priceLabel": "Precio base:",
       "description": "Los dados entran por la corona craneal y ruedan a través de las fauces abiertas del dragón.",
       "tags": [
@@ -867,7 +867,7 @@
       "name": "Torre Espiral Gótica con Bandeja",
       "category": "torres-y-cajas",
       "subCategory": "torres",
-      "price": 15000,
+      "price": 20000,
       "priceLabel": "Precio base:",
       "description": "Ventanas caladas que permiten ver los dados bajando por la escalera de caracol interna.",
       "tags": [
@@ -890,7 +890,7 @@
       "name": "Torre de Dados Plegable de Viaje",
       "category": "torres-y-cajas",
       "subCategory": "torres",
-      "price": 11000,
+      "price": 20000,
       "priceLabel": "Precio base:",
       "description": "Se pliega sobre sí misma como un estuche compacto. Entra en cualquier mochila sin ocupar espacio.",
       "tags": [
@@ -913,7 +913,7 @@
       "name": "Torre de la Forja Enana",
       "category": "torres-y-cajas",
       "subCategory": "torres",
-      "price": 14500,
+      "price": 20000,
       "priceLabel": "Precio base:",
       "description": "Homenaje a nuestro logo. Los dados caen por un horno en llamas y salen hacia un yunque de piedra.",
       "tags": [
@@ -936,7 +936,7 @@
       "name": "Torre Cthulhu Tentáculos",
       "category": "torres-y-cajas",
       "subCategory": "torres",
-      "price": 17500,
+      "price": 40000,
       "priceLabel": "Precio base:",
       "description": "Monolito ancestral envuelto en tentáculos alienígenas con bandeja de invocación cósmica.",
       "tags": [
@@ -1005,7 +1005,7 @@
       "name": "Estuche Portátil para 6 Miniaturas",
       "category": "torres-y-cajas",
       "subCategory": "cajas",
-      "price": 8500,
+      "price": 11000,
       "priceLabel": "Precio base:",
       "description": "Espuma precortada o ranuras magnéticas para peanas de 25mm a 32mm. Evita roturas en el viaje.",
       "tags": [
@@ -1028,7 +1028,7 @@
       "name": "Tomo Grimorio de Hechizos",
       "category": "torres-y-cajas",
       "subCategory": "cajas",
-      "price": 13500,
+      "price": 11000,
       "priceLabel": "Precio base:",
       "description": "Parece un libro antiguo cerrado. Al abrirse, incluye ranuras para dados, miniatura del héroe y lápiz.",
       "tags": [
@@ -1051,7 +1051,7 @@
       "name": "Cofre del Tesoro con Bandeja",
       "category": "torres-y-cajas",
       "subCategory": "cajas",
-      "price": 12000,
+      "price": 11000,
       "priceLabel": "Precio base:",
       "description": "Cofre pirata/medieval con tapa curva y bandeja interior extraíble para rodar dados.",
       "tags": [
@@ -1074,7 +1074,7 @@
       "name": "Caja Hexagonal para 7 Dados",
       "category": "torres-y-cajas",
       "subCategory": "cajas",
-      "price": 6500,
+      "price": 11000,
       "priceLabel": "Precio base:",
       "description": "Compartimento individual para cada dado de tu set de rol (D4 a D20) con tapa magnética a presión.",
       "tags": [
@@ -1097,7 +1097,7 @@
       "name": "Maletín Táctico de Transporte",
       "category": "torres-y-cajas",
       "subCategory": "cajas",
-      "price": 19000,
+      "price": 11000,
       "priceLabel": "Precio base:",
       "description": "Bandejas modulares encastrables con manija ergonómica y cierres reforzados para torneos.",
       "tags": [
@@ -1119,7 +1119,7 @@
       "id": "acc-aros-condicion",
       "name": "Set x12 Aros de Condición D&D",
       "category": "dados-accesorios",
-      "price": 4500,
+      "price": 4000,
       "priceLabel": "Precio set:",
       "description": "Para colgar de las miniaturas: Envenenado, Paralizado, Invisibilidad, Aturdido, etc. Letras en relieve legibles.",
       "tags": [
@@ -1141,7 +1141,7 @@
       "id": "acc-tracker-vida",
       "name": "Tracker de Vida (Dial Giratorio)",
       "category": "dados-accesorios",
-      "price": 3200,
+      "price": 4000,
       "priceLabel": "Precio base:",
       "description": "Mecanismo con imanes de neodimio para clicks firmes y placenteros. Chau a borrar la hoja de personaje.",
       "tags": [
@@ -1163,7 +1163,7 @@
       "id": "acc-bandeja-octogonal",
       "name": "Bandeja Octogonal para Rodar Dados",
       "category": "dados-accesorios",
-      "price": 7500,
+      "price": 4000,
       "priceLabel": "Precio base:",
       "description": "Borde alto antichispas con runas laterales y fondo acolchado para amortiguar el sonido del impacto.",
       "tags": [
@@ -1207,7 +1207,7 @@
       "id": "acc-iniciativa-dm",
       "name": "Torre de Iniciativa para Pantalla DM",
       "category": "dados-accesorios",
-      "price": 5500,
+      "price": 4000,
       "priceLabel": "Precio base:",
       "description": "Se monta sobre el borde de tu pantalla de DM. Incluye fichas borrables visibles por ambos lados.",
       "tags": [
@@ -1229,7 +1229,7 @@
       "id": "acc-marcadores-objetivos",
       "name": "Set x6 Marcadores de Objetivos",
       "category": "dados-accesorios",
-      "price": 3000,
+      "price": 4000,
       "priceLabel": "Precio set:",
       "description": "Fichas escénicas numeradas del 1 al 6 en peanas de 40mm para misiones competitivas de Wargames.",
       "tags": [
@@ -1251,20 +1251,20 @@
   "tiers": {
     "heroe": {
       "name": "Héroes / Aventureros (Paladín, Mago, Bárbaro, etc.)",
-      "price": 3500,
-      "painting_cost": 4000,
+      "price": 5000,
+      "painting_cost": 10000,
       "description": "Miniaturas de personajes jugadores o PNJ detallados escala 28-32mm"
     },
     "esbirro": {
       "name": "Esbirros / Masillas (Goblins, Esqueletos, Kobolds)",
-      "price": 2800,
+      "price": 4000,
       "painting_cost": 2500,
       "description": "Miniaturas individuales de tropas básicas o monstruos pequeños"
     },
     "pack-esbirros-x5": {
       "name": "Packs x5 Esbirros (Packs de Goblins, Esqueletos)",
-      "price": 7500,
-      "painting_cost": 12000,
+      "price": 18000,
+      "painting_cost": 25000,
       "description": "Grupos de 5 miniaturas para encuentros rápidos"
     },
     "elite": {
@@ -1288,7 +1288,7 @@
     "monstruo-grande": {
       "name": "Monstruos Grandes / Jefes (Dragones, Trolls)",
       "price": 9500,
-      "painting_cost": 7000,
+      "painting_cost": 15000,
       "description": "Criaturas colosales o jefes de campaña"
     },
     "vehiculo-pesado": {
@@ -1299,12 +1299,12 @@
     },
     "torre-dados": {
       "name": "Torres de Dados Estándar",
-      "price": 14000,
+      "price": 20000,
       "description": "Torres temáticas impresas en filamento de alta resistencia"
     },
     "torre-dados-premium": {
       "name": "Torres de Dados Escénicas / Premium",
-      "price": 16500,
+      "price": 40000,
       "description": "Torres de gran tamaño con detalles escultóricos complejos"
     },
     "caja-dados": {

@@ -192,41 +192,52 @@
     `;
   }
 
+  function renderAllWithData(data, containers) {
+    if (!data || !data.products) return;
+    window.ForjaCatalogData = data;
+
+    containers.forEach(container => {
+      const category = container.getAttribute('data-catalog-category');
+      const subCategory = container.getAttribute('data-catalog-subcategory');
+
+      let filtered = data.products.filter(p => p.category === category);
+      if (subCategory) {
+        filtered = filtered.filter(p => p.subCategory === subCategory);
+      }
+
+      if (filtered.length > 0) {
+        container.innerHTML = filtered.map(p => renderCardHTML(p, data.tiers || {})).join('');
+      }
+    });
+
+    // Re-bind interactive events in main.js
+    if (typeof window.ForjaInitCatalogInteractions === 'function') {
+      window.ForjaInitCatalogInteractions();
+    }
+  }
+
   async function loadAndRenderProducts() {
     const containers = document.querySelectorAll('[data-catalog-category]');
     if (containers.length === 0) return;
 
-    // Detect path to data/products.json depending on current location
+    // 1. Render inmediato si existe window.FORJA_CATALOG_DATA (soporte total para file:// y offline)
+    if (window.FORJA_CATALOG_DATA) {
+      renderAllWithData(window.FORJA_CATALOG_DATA, containers);
+    }
+
+    // 2. Fetch asíncrono para recargar data/products.json en entornos web/HTTP
     const jsonPath = window.location.pathname.includes('/catalogo/')
       ? '../data/products.json'
       : 'data/products.json';
 
     try {
       const response = await fetch(jsonPath);
-      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-      const data = await response.json();
-      window.ForjaCatalogData = data;
-
-      containers.forEach(container => {
-        const category = container.getAttribute('data-catalog-category');
-        const subCategory = container.getAttribute('data-catalog-subcategory');
-
-        let filtered = data.products.filter(p => p.category === category);
-        if (subCategory) {
-          filtered = filtered.filter(p => p.subCategory === subCategory);
-        }
-
-        if (filtered.length > 0) {
-          container.innerHTML = filtered.map(p => renderCardHTML(p, data.tiers || {})).join('');
-        }
-      });
-
-      // Re-bind interactive events in main.js
-      if (typeof window.ForjaInitCatalogInteractions === 'function') {
-        window.ForjaInitCatalogInteractions();
+      if (response.ok) {
+        const freshData = await response.json();
+        renderAllWithData(freshData, containers);
       }
     } catch (err) {
-      console.warn('Forja Levi: Carga dinámica fallback (usando contenido local si existe)', err);
+      // En modo file:// o si fetch falla, ya fue renderizado arriba con window.FORJA_CATALOG_DATA
     }
   }
 
