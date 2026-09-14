@@ -100,10 +100,23 @@
         <p class="section-subtitle">Explorá nuestras categorías, armá tu lista de pedido y envianos el presupuesto directo por WhatsApp.</p>
       </div>
 
-      <div class="catalog__grid">
+      <!-- Interactive Dynamic Filter Chips -->
+      <div class="catalog-filter-bar js-filter-bar" data-target="#catalogGrid">
+        <button type="button" class="filter-chip is-active" data-filter="all">
+          🔥 Todos los Productos <span class="filter-chip__count">6</span>
+        </button>
+        <button type="button" class="filter-chip" data-filter="minis">
+          ⚔️ Miniaturas & Packs <span class="filter-chip__count">3</span>
+        </button>
+        <button type="button" class="filter-chip" data-filter="mesa">
+          🏰 Mesa & Accesorios <span class="filter-chip__count">3</span>
+        </button>
+      </div>
+
+      <div class="catalog__grid" id="catalogGrid">
 
         <!-- Card 1: Miniaturas D&D -->
-        <article class="card" data-id="mini-dnd" data-name="Miniaturas D&D / Pathfinder" data-price="3500">
+        <article class="card" data-category="minis" data-id="mini-dnd" data-name="Miniaturas D&D / Pathfinder" data-price="3500">
           <a href="catalogo/miniaturas-dnd.html" class="card__img-wrapper" title="Ver modelos de D&D / Pathfinder">
             <div class="card__placeholder">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -128,7 +141,7 @@
         </article>
 
         <!-- Card 2: Warhammer -->
-        <article class="card" data-id="warhammer" data-name="Warhammer 40K / AoS / Fantasy" data-price="5000">
+        <article class="card" data-category="minis" data-id="warhammer" data-name="Warhammer 40K / AoS / Fantasy" data-price="5000">
           <a href="catalogo/warhammer.html" class="card__img-wrapper" title="Ver modelos de Warhammer">
             <div class="card__placeholder">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -152,22 +165,22 @@
           </div>
         </article>
 
-        <!-- Card 3: Packs de Miniaturas -->
-        <article class="card" data-id="packs-miniaturas" data-name="Packs de Miniaturas (10, 25, 50 y 100)" data-price="30000">
-          <a href="catalogo/packs-miniaturas.html" class="card__img-wrapper" title="Ver Packs de Miniaturas">
+        <!-- Card 3: Packs & Kits de Campaña (Fusionado) -->
+        <article class="card" data-category="minis" data-id="packs-y-campanas" data-name="Packs de Miniaturas & Kits de Campaña" data-price="30000">
+          <a href="catalogo/packs-y-campanas.html" class="card__img-wrapper" title="Ver Packs y Kits de Campaña">
             <div class="card__placeholder">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 17h7M17.5 13.5v7"/></svg>
             </div>
           </a>
           <div class="card__body">
             <div class="card__header-info">
-              <h3 class="card__title"><a href="catalogo/packs-miniaturas.html">Packs de Miniaturas (10, 25, 50, 100)</a></h3>
-              <span class="card__price">Desde $30.000</span>
+              <h3 class="card__title"><a href="catalogo/packs-y-campanas.html">Packs & Kits de Campaña</a></h3>
+              <span class="card__price">Desde $24.000</span>
             </div>
-            <p class="card__desc">Packs mayoristas y para grupos. Ahorrá imprimiendo en volumen en resina 8K.</p>
+            <p class="card__desc">Packs por volumen (10 a 100 minis en resina 8K) y sets completos listos para jugar o a medida.</p>
             <div class="card__actions">
-              <a href="catalogo/packs-miniaturas.html" class="btn btn--primary btn--small">
-                Ver Packs
+              <a href="catalogo/packs-y-campanas.html" class="btn btn--primary btn--small">
+                Ver Packs & Kits
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
               <button class="btn btn--outline btn--small js-add-to-cart" data-id="pack-10-minis" data-name="Pack x10 Miniaturas (Iniciación)" data-price="30000" title="Agregar al pedido">
@@ -177,33 +190,8 @@
           </div>
         </article>
 
-        <!-- Card 4: Kits para Campañas -->
-        <article class="card" data-id="kits-campanas" data-name="Kits para Campañas (Starter Set & Medida)" data-price="48000">
-          <a href="catalogo/campanas.html" class="card__img-wrapper" title="Ver Kits para Campañas">
-            <div class="card__placeholder">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v6l4 2"/></svg>
-            </div>
-          </a>
-          <div class="card__body">
-            <div class="card__header-info">
-              <h3 class="card__title"><a href="catalogo/campanas.html">Kits para Campañas de Rol</a></h3>
-              <span class="card__price">Starter Set & Medida</span>
-            </div>
-            <p class="card__desc">Héroes, esbirros, jefes y escenografía lista para jugar o presupuestos a medida de tu historia.</p>
-            <div class="card__actions">
-              <a href="catalogo/campanas.html" class="btn btn--primary btn--small">
-                Ver Kits
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20cotizar%20un%20Kit%20de%20Campaña%20🎲" target="_blank" rel="noopener" class="btn btn--outline btn--small">
-                Cotizar
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 5: Escenografía -->
-        <article class="card" data-id="escenografia" data-name="Escenografía y Estructuras" data-price="9500">
+        <!-- Card 4: Escenografía y Estructuras -->
+        <article class="card" data-category="mesa" data-id="escenografia" data-name="Escenografía y Estructuras" data-price="9500">
           <a href="catalogo/escenografia.html" class="card__img-wrapper" title="Ver modelos de Escenografía">
             <div class="card__placeholder">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 21h18M3 7v1a3 3 0 006 0V7m0 0V4h6v3m0 0v1a3 3 0 006 0V7M6 21V11m12 0v10M9 21v-6h6v6"/></svg>
@@ -227,8 +215,8 @@
           </div>
         </article>
 
-        <!-- Card 6: Torres de Dados & Cajas de Guardado -->
-        <article class="card" data-id="torres-y-cajas" data-name="Torres de Dados & Cajas de Guardado" data-price="11000">
+        <!-- Card 5: Torres de Dados & Cajas de Guardado -->
+        <article class="card" data-category="mesa" data-id="torres-y-cajas" data-name="Torres de Dados & Cajas de Guardado" data-price="11000">
           <a href="catalogo/torres-y-cajas.html" class="card__img-wrapper" title="Ver Torres de Dados y Cajas">
             <div class="card__placeholder">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 7h6M9 12h6M9 17h6"/></svg>
@@ -252,11 +240,11 @@
           </div>
         </article>
 
-        <!-- Card 7: Dados y Accesorios -->
-        <article class="card" data-id="dados-accesorios" data-name="Dados y Accesorios" data-price="2500">
+        <!-- Card 6: Dados y Accesorios -->
+        <article class="card" data-category="mesa" data-id="dados-accesorios" data-name="Dados y Accesorios" data-price="2500">
           <a href="catalogo/dados-accesorios.html" class="card__img-wrapper" title="Ver modelos de Dados y Accesorios">
             <div class="card__placeholder">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
             </div>
           </a>
           <div class="card__body">

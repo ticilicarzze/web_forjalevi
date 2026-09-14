@@ -1546,6 +1546,80 @@ body.nav-open::before {
   box-shadow: 0 0 14px var(--accent-glow);
 }
 
+/* ============================================
+   INTERACTIVE DYNAMIC FILTER CHIPS & TABS
+   ============================================ */
+.catalog-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 0 auto 2.5rem;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 50px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  user-select: none;
+}
+
+.filter-chip:hover {
+  border-color: var(--accent-dark);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+
+.filter-chip.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #0d0d0f;
+  border-color: var(--accent);
+  box-shadow: 0 0 18px var(--accent-glow);
+  font-weight: 700;
+}
+
+.filter-chip__count {
+  display: inline-block;
+  padding: 0.12rem 0.48rem;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Dynamic card show/hide transitions */
+.product-card.is-hidden,
+.card.is-hidden {
+  display: none !important;
+}
+
+.product-card,
+.card {
+  animation: cardFadeIn 0.35s ease forwards;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Category Catalog Main Content */
 .category-content {
   padding: 4rem 0 6rem;

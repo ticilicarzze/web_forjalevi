@@ -460,6 +460,37 @@
     });
   }
 
+  // ── Dynamic Interactive Filter Tabs ──
+  function initDynamicFilters() {
+    const filterBars = document.querySelectorAll('.js-filter-bar');
+    filterBars.forEach(bar => {
+      const chips = bar.querySelectorAll('[data-filter]');
+      const targetSelector = bar.getAttribute('data-target') || '.product-grid, .catalog__grid';
+      const targetContainer = document.querySelector(targetSelector);
+      if (!targetContainer) return;
+
+      const items = targetContainer.querySelectorAll('[data-category]');
+
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('is-active'));
+          chip.classList.add('is-active');
+
+          const filterVal = chip.getAttribute('data-filter');
+
+          items.forEach(item => {
+            const itemCats = (item.getAttribute('data-category') || '').split(' ');
+            if (filterVal === 'all' || itemCats.includes(filterVal)) {
+              item.classList.remove('is-hidden');
+            } else {
+              item.classList.add('is-hidden');
+            }
+          });
+        });
+      });
+    });
+  }
+
   // ── Smooth scroll for anchor links ──
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -478,6 +509,8 @@
     renderCart();
     initReveal();
     initParticles();
+    initDynamicFilters();
   });
 
 })();
+
