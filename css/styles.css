@@ -1884,6 +1884,95 @@ body.nav-open::before {
 }
 
 /* ============================================
+   PAINTING SERVICE TOGGLE (Pintado Sí / No)
+   ============================================ */
+.paint-option {
+  margin-bottom: 1.15rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: border-color var(--transition);
+}
+
+.paint-option:hover {
+  border-color: rgba(255, 87, 34, 0.35);
+}
+
+.paint-option__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paint-option__label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.paint-option__discount {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #ffa726;
+  background: rgba(255, 167, 38, 0.15);
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 167, 38, 0.25);
+}
+
+.paint-option__toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.paint-btn {
+  padding: 0.38rem 0.5rem;
+  border-radius: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.paint-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-dark);
+  background: var(--bg-card-hover);
+}
+
+.paint-btn.is-active {
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.2), rgba(216, 58, 0, 0.15));
+  border-color: var(--accent);
+  color: var(--accent-light);
+  box-shadow: 0 0 10px rgba(255, 87, 34, 0.2);
+}
+
+.product-card__actions .js-add-to-cart {
+  width: 100%;
+  justify-content: center;
+  font-weight: 700;
+  padding: 0.65rem 1rem;
+}
+
+/* ============================================
    SERVICIOS DE LA FORJA (Pintado & Modelado 3D)
    ============================================ */
 .services {

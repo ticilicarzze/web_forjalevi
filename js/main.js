@@ -81,10 +81,13 @@
     });
   }
 
-  // ── Cart Operations (with Variant & MP Support) ──
-  function addToCart(id, name, price, variantId = null, variantName = null) {
-    const key = variantId ? `${id}__${variantId}` : id;
-    const existing = cart.find(item => (item.cartItemId === key) || (item.id === id && item.variantId === variantId));
+  // ── Cart Operations (with Variant, Painting & MP Support) ──
+  function addToCart(id, name, price, variantId = null, variantName = null, isPainted = false, paintLabel = null) {
+    const paintKey = isPainted ? 'painted' : 'raw';
+    const variantKey = variantId || 'std';
+    const key = `${id}__${variantKey}__${paintKey}`;
+    const existing = cart.find(item => item.cartItemId === key);
+
     if (existing) {
       existing.qty += 1;
     } else {
@@ -93,6 +96,8 @@
         cartItemId: key,
         variantId: variantId || null,
         variantName: variantName || null,
+        isPainted: Boolean(isPainted),
+        paintLabel: paintLabel || (isPainted ? 'Con Pintado Tabletop' : 'Sin pintar'),
         name: name,
         price: Number(price) || 0,
         qty: 1
@@ -102,7 +107,8 @@
     renderCart();
     bumpBadges();
     const displayName = variantName ? `${name} (${variantName})` : name;
-    showToast(`⚔️ Agregado: <strong>${displayName}</strong>`);
+    const paintTag = isPainted ? ' [Pintado]' : '';
+    showToast(`⚔️ Agregado: <strong>${displayName}${paintTag}</strong>`);
   }
 
   function updateQty(key, delta) {
@@ -190,6 +196,9 @@
           <div class="cart-item__info">
             <h4 class="cart-item__title" title="${item.name}">${item.name}</h4>
             ${item.variantName ? `<div class="cart-item__variant"><span>🎨</span> ${item.variantName}</div>` : ''}
+            <div class="cart-item__variant" style="color: ${item.isPainted ? '#ffb74d' : 'var(--text-muted)'}; font-size: 0.74rem;">
+              <span>${item.isPainted ? '🖌️' : '⚪'}</span> ${item.paintLabel || (item.isPainted ? 'Pintado Tabletop' : 'Sin pintar')}
+            </div>
             <span class="cart-item__price">${formatCurrency(item.price)} c/u &middot; <strong style="color:var(--text-primary);">${formatCurrency(item.price * item.qty)}</strong></span>
           </div>
           <div class="cart-item__controls">
@@ -258,7 +267,9 @@
       const price = btn.dataset.price;
       const variantId = btn.dataset.variantId || null;
       const variantName = btn.dataset.variantName || null;
-      addToCart(id, name, price, variantId, variantName);
+      const isPainted = btn.dataset.painted === 'yes';
+      const paintLabel = btn.dataset.paintLabel || (isPainted ? 'Con Pintado Tabletop' : 'Sin pintar');
+      addToCart(id, name, price, variantId, variantName, isPainted, paintLabel);
     });
   });
 
@@ -282,7 +293,8 @@
       cart.forEach(item => {
         const itemSubtotal = formatCurrency(item.price * item.qty);
         const varText = item.variantName ? ` [${item.variantName}]` : '';
-        lines.push(`• *${item.qty}x* ${item.name}${varText} (${itemSubtotal})`);
+        const paintText = item.isPainted ? ` 🖌️(${item.paintLabel || 'Pintado Tabletop'})` : ` ⚪(Sin pintar)`;
+        lines.push(`• *${item.qty}x* ${item.name}${varText}${paintText} (${itemSubtotal})`);
       });
 
       lines.push('━━━━━━━━━━━━━━━━━━━━');
@@ -309,13 +321,17 @@
   // ── Mercado Pago Payload Generator (Ready for Backend/Preference API) ──
   function generateMercadoPagoPayload(customer = {}) {
     return {
-      items: cart.map(item => ({
-        id: item.variantId ? `${item.id}-${item.variantId}` : item.id,
-        title: item.variantName ? `${item.name} (${item.variantName})` : item.name,
-        unit_price: Number(item.price),
-        quantity: Number(item.qty),
-        currency_id: 'ARS'
-      })),
+      items: cart.map(item => {
+        const paintSuffix = item.isPainted ? ' (Pintado)' : ' (Sin pintar)';
+        const variantSuffix = item.variantName ? ` - ${item.variantName}` : '';
+        return {
+          id: item.cartItemId || item.id,
+          title: `${item.name}${variantSuffix}${paintSuffix}`,
+          unit_price: Number(item.price),
+          quantity: Number(item.qty),
+          currency_id: 'ARS'
+        };
+      }),
       payer: {
         name: customer.name || (orderNameInp ? orderNameInp.value.trim() : ''),
         email: customer.email || ''
@@ -547,19 +563,72 @@
           pills.forEach(p => p.classList.remove('is-active'));
           pill.classList.add('is-active');
 
-          const varPrice = pill.dataset.price;
+          const varPrice = Number(pill.dataset.price || 0);
           const varId = pill.dataset.variantId;
           const varName = pill.dataset.variantName;
 
+          // Check if painting option is currently active on this card
+          const activePaint = card.querySelector('.paint-btn.is-active[data-paint="yes"]');
+          const paintExtra = activePaint ? Number(activePaint.dataset.add || 0) : 0;
+          const finalPrice = varPrice + paintExtra;
+
           if (priceEl && varPrice) {
-            priceEl.textContent = formatCurrency(Number(varPrice));
+            priceEl.textContent = formatCurrency(finalPrice);
           }
 
           if (addBtn) {
-            if (varPrice) addBtn.dataset.price = varPrice;
+            addBtn.dataset.basePrice = varPrice;
+            addBtn.dataset.price = finalPrice;
             if (varId) addBtn.dataset.variantId = varId;
             if (varName) addBtn.dataset.variantName = varName;
           }
+        });
+      });
+    });
+  }
+
+  // ── Painting Service Toggle Handler (Pintado Sí / No) ──
+  function initPaintingToggles() {
+    document.querySelectorAll('.product-card').forEach(card => {
+      const paintOption = card.querySelector('.paint-option');
+      if (!paintOption) return;
+
+      const paintBtns = paintOption.querySelectorAll('.paint-btn');
+      const priceEl = card.querySelector('.product-card__price');
+      const addBtn = card.querySelector('.js-add-to-cart');
+      if (!priceEl || !addBtn) return;
+
+      // Ensure base price is recorded
+      if (!addBtn.dataset.basePrice) {
+        addBtn.dataset.basePrice = addBtn.dataset.price || card.dataset.price;
+      }
+      if (!card.dataset.basePrice) {
+        card.dataset.basePrice = card.dataset.price || addBtn.dataset.price;
+      }
+
+      const getBasePrice = () => {
+        const activeVariant = card.querySelector('.variant-pill.is-active');
+        if (activeVariant && activeVariant.dataset.price) {
+          return Number(activeVariant.dataset.price);
+        }
+        return Number(card.dataset.basePrice || addBtn.dataset.basePrice || 0);
+      };
+
+      paintBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          paintBtns.forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+
+          const isPainted = btn.dataset.paint === 'yes';
+          const extraCost = Number(btn.dataset.add || 0);
+          const currentBase = getBasePrice();
+          const finalPrice = currentBase + extraCost;
+
+          priceEl.textContent = formatCurrency(finalPrice);
+          addBtn.dataset.price = finalPrice;
+          addBtn.dataset.painted = isPainted ? 'yes' : 'no';
+          addBtn.dataset.paintLabel = btn.dataset.paintLabel || (isPainted ? 'Con Pintado Tabletop' : 'Sin pintar');
         });
       });
     });
@@ -585,6 +654,7 @@
     initParticles();
     initDynamicFilters();
     initVariantSelectors();
+    initPaintingToggles();
   });
 
 })();
