@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Torres de Dados y Cajas de Guardado — Forja Levi Rosario. Torres temáticas con bafles internos y cajas organizadoras magnéticas para dados y miniaturas." />
+  <title>Torres de Dados & Cajas de Guardado — Forja Levi</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="icon" type="image/jpeg" href="../assets/img/logo-forjalevi.jpg" />
+</head>
+<body>
+
+  <!-- ========== HEADER / NAV ========== -->
+  <header id="header" class="header">
+    <div class="container header__inner">
+      <a href="../index.html" class="header__logo">
+        <img src="../assets/img/logo-forjalevi.jpg" alt="Forja Levi Logo" class="header__logo-img" />
+        <span class="header__brand">Forja Levi</span>
+      </a>
+
+      <div class="header__actions-group">
+        <button class="header__cart-btn" id="cartToggle" aria-label="Abrir carrito de pedidos" title="Ver pedido">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="header__cart-badge" id="cartCount">0</span>
+        </button>
+
+        <button class="header__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+          <span class="header__toggle-bar"></span>
+          <span class="header__toggle-bar"></span>
+          <span class="header__toggle-bar"></span>
+        </button>
+      </div>
+
+      <nav class="header__nav" id="navMenu">
+        <ul class="header__list">
+          <li><a href="../index.html#inicio" class="header__link">Inicio</a></li>
+          <li><a href="../index.html#catalogo" class="header__link active">Catálogo</a></li>
+          <li><a href="../index.html#servicios" class="header__link">Servicios</a></li>
+          <li><a href="../index.html#como-comprar" class="header__link">Cómo Comprar</a></li>
+          <li><a href="../index.html#contacto" class="header__link">Contacto</a></li>
+        </ul>
+        <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20pedir%20presupuesto%20de%20Torres%20y%20Cajas%20🎲" target="_blank" rel="noopener" class="btn btn--accent header__cta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pedir Presupuesto
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== CATEGORY HEADER ========== -->
+  <section class="category-header">
+    <div class="container">
+      <div class="category-header__top">
+        <nav class="breadcrumb" aria-label="Navegación">
+          <a href="../index.html" class="breadcrumb__link">Inicio</a>
+          <span class="breadcrumb__separator">/</span>
+          <a href="../index.html#catalogo" class="breadcrumb__link">Catálogo</a>
+          <span class="breadcrumb__separator">/</span>
+          <span class="breadcrumb__current">Torres de Dados & Cajas</span>
+        </nav>
+        <a href="../index.html#catalogo" class="category-header__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Volver al Catálogo
+        </a>
+      </div>
+
+      <span class="category-header__badge">🏰 Organización & Tiradas Épicas</span>
+      <h1 class="category-header__title">Torres de Dados & <span class="text-glow">Cajas de Guardado</span></h1>
+      <p class="category-header__desc">Tiradas justas sin que los dados caigan de la mesa, y protección premium para tus miniaturas y sets poliedrales. Fabricadas en FDM y resina de alta resistencia con cierres magnéticos de neodimio.</p>
+
+      <!-- Quick Category Nav Pills -->
+      <div class="category-pills-wrap">
+        <div class="category-pills">
+          <a href="miniaturas-dnd.html" class="category-pill">Miniaturas D&D</a>
+          <a href="warhammer.html" class="category-pill">Warhammer</a>
+          <a href="packs-miniaturas.html" class="category-pill">Packs de Minis</a>
+          <a href="campanas.html" class="category-pill">Kits Campañas</a>
+          <a href="escenografia.html" class="category-pill">Escenografía</a>
+          <a href="torres-y-cajas.html" class="category-pill is-active">Torres & Cajas</a>
+          <a href="dados-accesorios.html" class="category-pill">Dados & Accesorios</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MODEL GRID CONTENT ========== -->
+  <main class="category-content">
+    <div class="container">
+
+      <div class="category-notice">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <span><strong>Personalización de colores y grabados:</strong> Podés pedir tus torres y cajas en colores sólidos (negro carbón, cobre, plata, dorado, seda) o con grabado de nombre / logo de tu party en la tapa. ¡Consultanos por WhatsApp!</span>
+      </div>
+
+      <!-- SECCIÓN TORRES -->
+      <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-primary-light); margin: 2rem 0 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="display:inline-block; width: 4px; height: 1.2em; background: var(--color-primary); border-radius: 2px;"></span>
+        Torres de Dados
+      </h2>
+
+      <div class="product-grid" style="margin-bottom: 3.5rem;">
+
+        <!-- Modelo 1 -->
+        <article class="product-card" data-id="td-castillo-medieval" data-name="Torre Castillo Medieval con Foso" data-price="14000">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM Premium</span>
+              <span class="product-tag product-tag--scale">20cm · Bandeja fija</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 7h6M9 12h6M9 17h6"/></svg>
+              <span class="product-card__placeholder-text">Foto Torre Castillo</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Torre Castillo Medieval con Foso</h3>
+            <p class="product-card__desc">Bafles internos escalonados para giros aleatorios perfectos y bandeja que retiene los dados.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$14.000</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="td-castillo-medieval" data-name="Torre Castillo Medieval con Foso" data-price="14000">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20la%20Torre%20Castillo%20Medieval%20🎲" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Modelo 2 -->
+        <article class="product-card" data-id="td-craneo-dragon" data-name="Torre Cráneo de Dragón" data-price="16500">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM / Resina</span>
+              <span class="product-tag product-tag--scale">22cm · Salida Mandíbula</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <span class="product-card__placeholder-text">Foto Torre Cráneo</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Torre Cráneo de Dragón</h3>
+            <p class="product-card__desc">Los dados entran por la corona craneal y ruedan a través de las fauces abiertas del dragón.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$16.500</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="td-craneo-dragon" data-name="Torre Cráneo de Dragón" data-price="16500">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20la%20Torre%20Cráneo%20de%20Dragón%20🎲" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Modelo 3 -->
+        <article class="product-card" data-id="td-espiral-gotica" data-name="Torre Espiral Gótica con Bandeja" data-price="15000">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM Detallado</span>
+              <span class="product-tag product-tag--scale">Escalera Espiral visible</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span class="product-card__placeholder-text">Foto Torre Espiral</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Torre Espiral Gótica</h3>
+            <p class="product-card__desc">Ventanas caladas que permiten ver los dados bajando por la escalera de caracol interna.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$15.000</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="td-espiral-gotica" data-name="Torre Espiral Gótica con Bandeja" data-price="15000">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20la%20Torre%20Espiral%20Gótica%20🎲" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Modelo 4 -->
+        <article class="product-card" data-id="td-plegable-viaje" data-name="Torre de Dados Plegable de Viaje" data-price="11000">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM Compacto</span>
+              <span class="product-tag product-tag--scale">Cierre Magnético</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              <span class="product-card__placeholder-text">Foto Torre Plegable</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Torre Plegable de Viaje</h3>
+            <p class="product-card__desc">Se pliega sobre sí misma como un estuche compacto. Entra en cualquier mochila sin ocupar espacio.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$11.000</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="td-plegable-viaje" data-name="Torre de Dados Plegable de Viaje" data-price="11000">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20la%20Torre%20Plegable%20🎲" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Modelo 5 -->
+        <article class="product-card" data-id="td-yunque-enano" data-name="Torre de Forja Enana con Yunque" data-price="14500">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM Temática</span>
+              <span class="product-tag product-tag--scale">Estilo Forja Levi</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <span class="product-card__placeholder-text">Foto Torre Forja Enana</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Torre de la Forja Enana</h3>
+            <p class="product-card__desc">Homenaje a nuestro logo. Los dados caen por un horno en llamas y salen hacia un yunque de piedra.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$14.500</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="td-yunque-enano" data-name="Torre de Forja Enana con Yunque" data-price="14500">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20la%20Torre%20de%20la%20Forja%20🎲" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Modelo 6 -->
+        <article class="product-card" data-id="td-cthulhu-tentaculos" data-name="Torre Cthulhu Tentáculos del Abismo" data-price="17500">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM / Resina</span>
+              <span class="product-tag product-tag--scale">24cm · Gran Detalle</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/></svg>
+              <span class="product-card__placeholder-text">Foto Torre Cthulhu</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Torre Cthulhu Tentáculos</h3>
+            <p class="product-card__desc">Monolito ancestral envuelto en tentáculos alienígenas con bandeja de invocación cósmica.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$17.500</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="td-cthulhu-tentaculos" data-name="Torre Cthulhu Tentáculos del Abismo" data-price="17500">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20la%20Torre%20Cthulhu%20🎲" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- SECCIÓN CAJAS DE GUARDADO -->
+      <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-primary-light); margin: 2rem 0 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="display:inline-block; width: 4px; height: 1.2em; background: var(--color-primary); border-radius: 2px;"></span>
+        Cajas de Guardado & Estuches
+      </h2>
+
+      <div class="product-grid">
+
+        <!-- Caja 1 -->
+        <article class="product-card" data-id="cg-mimico" data-name="Caja Mímico para Dados y Minis" data-price="11000">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--resin">FDM + Resina</span>
+              <span class="product-tag product-tag--scale">Capacidad: 21 Dados</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 8V5a2 2 0 00-2-2H5a2 2 0 00-2 2v3m18 0v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8m18 0H3m9 4v4m-2-2h4"/></svg>
+              <span class="product-card__placeholder-text">Foto Caja Mímico</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Caja Mímico Come-Dados</h3>
+            <p class="product-card__desc">Tapa articulada con colmillos afilados y lengua esculpida. El guardián definitivo para tus dados.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$11.000</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="cg-mimico" data-name="Caja Mímico para Dados y Minis" data-price="11000">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20la%20Caja%20Mímico%20📦" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caja 2 -->
+        <article class="product-card" data-id="cg-estuche-minis" data-name="Estuche Magnético para 6 Miniaturas" data-price="8500">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM Liviano</span>
+              <span class="product-tag product-tag--scale">Cierre Neodimio</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+              <span class="product-card__placeholder-text">Foto Estuche Minis</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Estuche Portátil para 6 Miniaturas</h3>
+            <p class="product-card__desc">Espuma precortada o ranuras magnéticas para peanas de 25mm a 32mm. Evita roturas en el viaje.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$8.500</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="cg-estuche-minis" data-name="Estuche Magnético para 6 Miniaturas" data-price="8500">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20el%20Estuche%20de%20Miniaturas%20📦" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caja 3 -->
+        <article class="product-card" data-id="cg-grimorio-hechizos" data-name="Tomo Grimorio Libro de Dados" data-price="13500">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM Detallado</span>
+              <span class="product-tag product-tag--scale">Estilo Cuero Medieval</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <span class="product-card__placeholder-text">Foto Libro Grimorio</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Tomo Grimorio de Hechizos</h3>
+            <p class="product-card__desc">Parece un libro antiguo cerrado. Al abrirse, incluye ranuras para dados, miniatura del héroe y lápiz.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$13.500</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="cg-grimorio-hechizos" data-name="Tomo Grimorio Libro de Dados" data-price="13500">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20el%20Tomo%20Grimorio%20📦" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caja 4 -->
+        <article class="product-card" data-id="cg-cofre-tesoro" data-name="Cofre del Tesoro con Bandeja" data-price="12000">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM Texturado</span>
+              <span class="product-tag product-tag--scale">Herrajes Clásicos</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              <span class="product-card__placeholder-text">Foto Cofre Tesoro</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Cofre del Tesoro con Bandeja</h3>
+            <p class="product-card__desc">Cofre pirata/medieval con tapa curva y bandeja interior extraíble para rodar dados.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$12.000</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="cg-cofre-tesoro" data-name="Cofre del Tesoro con Bandeja" data-price="12000">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20el%20Cofre%20del%20Tesoro%20📦" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caja 5 -->
+        <article class="product-card" data-id="cg-caja-hexagonal" data-name="Caja Hexagonal para Set de 7 Dados" data-price="6500">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM Seda</span>
+              <span class="product-tag product-tag--scale">Set 7 Poliedros</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg>
+              <span class="product-card__placeholder-text">Foto Caja Hexagonal</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Caja Hexagonal para 7 Dados</h3>
+            <p class="product-card__desc">Compartimento individual para cada dado de tu set de rol (D4 a D20) con tapa magnética a presión.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$6.500</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="cg-caja-hexagonal" data-name="Caja Hexagonal para Set de 7 Dados" data-price="6500">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20la%20Caja%20Hexagonal%20📦" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Caja 6 -->
+        <article class="product-card" data-id="cg-maletin-transporte" data-name="Maletín Táctico de Transporte de Ejército" data-price="19000">
+          <div class="product-card__media">
+            <div class="product-card__tag-wrap">
+              <span class="product-tag product-tag--fdm">FDM Reforzado</span>
+              <span class="product-tag product-tag--scale">Hasta 30 Minis</span>
+            </div>
+            <div class="product-card__placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3"/></svg>
+              <span class="product-card__placeholder-text">Foto Maletín Táctico</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__title">Maletín Táctico de Transporte</h3>
+            <p class="product-card__desc">Bandejas modulares encastrables con manija ergonómica y cierres reforzados para torneos.</p>
+            <div class="product-card__price-row">
+              <span class="product-card__price-label">Precio base:</span>
+              <span class="product-card__price">$19.000</span>
+            </div>
+            <div class="product-card__actions">
+              <button class="btn btn--accent btn--small js-add-to-cart" data-id="cg-maletin-transporte" data-name="Maletín Táctico de Transporte de Ejército" data-price="19000">
+                + Agregar al pedido
+              </button>
+              <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20consultar%20por%20el%20Maletín%20Táctico%20📦" target="_blank" rel="noopener" class="btn btn--outline btn--small">Consultar</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contacto" class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="../assets/img/logo-forjalevi.jpg" alt="Forja Levi" class="footer__logo" />
+        <p class="footer__tagline">Impresión 3D · Rol · Anime</p>
+      </div>
+
+      <div class="footer__links">
+        <h4 class="footer__heading">Contacto directo</h4>
+        <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20hacer%20una%20consulta%20🎲" target="_blank" rel="noopener" class="footer__social-link footer__social-link--wa">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp: 341 647-6504
+        </a>
+        <a href="https://www.instagram.com/forja_levi/" target="_blank" rel="noopener" class="footer__social-link footer__social-link--ig">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram: @forja_levi
+        </a>
+      </div>
+
+      <div class="footer__info">
+        <h4 class="footer__heading">Ubicación</h4>
+        <p>📍 Rosario, Santa Fe, Argentina</p>
+        <p class="footer__note">Ventas por menor y mayor. Descuentos especiales por lotes grandes.</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>&copy; 2025 Forja Levi. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== FLOATING ACTION BUTTONS ========== -->
+  <div class="fab-group">
+    <button class="fab-cart" id="fabCart" aria-label="Abrir pedido">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      <span class="fab-cart__badge" id="fabCartBadge">0</span>
+    </button>
+    <a href="https://wa.me/5493416476504?text=Hola!%20Quiero%20hacer%20una%20consulta%20🎲" target="_blank" rel="noopener" class="fab-whatsapp" aria-label="Contactar por WhatsApp">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+
+  <!-- ========== CARRITO / DRAWER OFF-CANVAS ========== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="cart-drawer__header">
+      <div class="cart-drawer__title-wrap">
+        <span class="cart-drawer__badge">⚔️ Tu Pedido</span>
+        <h2 class="cart-drawer__title" id="cartTitle">Lista de la Forja</h2>
+      </div>
+      <button class="cart-drawer__close" id="cartClose" aria-label="Cerrar carrito">&times;</button>
+    </div>
+    <div class="cart-drawer__body" id="cartItemsContainer"></div>
+    <div class="cart-drawer__footer" id="cartFooter">
+      <div class="cart-drawer__inputs">
+        <label for="orderName" class="cart-drawer__label">Tu Nombre (opcional):</label>
+        <input type="text" id="orderName" class="cart-drawer__input" placeholder="Ej: Lucas / Dungeon Master" />
+        <label for="orderNotes" class="cart-drawer__label">Detalles / Color / Grabado:</label>
+        <textarea id="orderNotes" class="cart-drawer__textarea" rows="2" placeholder="Ej: Color negro mate con detalles dorados, grabado personalizado..."></textarea>
+      </div>
+      <div class="cart-drawer__summary">
+        <span class="cart-drawer__total-label">Total estimado:</span>
+        <span class="cart-drawer__total-value" id="cartTotal">$0</span>
+      </div>
+      <p class="cart-drawer__disclaimer">* El total es referencial. Te confirmaremos el precio final y tiempos de producción por WhatsApp.</p>
+      <button class="btn btn--primary btn--checkout" id="cartCheckoutBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enviar Pedido por WhatsApp
+      </button>
+      <button class="cart-drawer__clear-btn" id="cartClearBtn" type="button">Vaciar lista</button>
+    </div>
+  </aside>
+
+  <!-- ========== TOAST ========== -->
+  <div class="toast" id="toastNotification" aria-live="polite"></div>
+
+  <!-- JS -->
+  <script src="../js/main.js"></script>
+</body>
+</html>
