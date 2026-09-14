@@ -1,0 +1,10 @@
+{
+  "name": "web-forjalevi",
+  "version": "1.0.0",
+  "description": "Forja Levi — Tienda de Impresión 3D para Rol y Wargames",
+  "scripts": {
+    "dev":     "npx serve . --listen 3000",
+    "precios": "node scripts/precios.js",
+    "deploy":  "git add data/tiers.json data/products.json js/products-data.js && git commit -m 'update: precios actualizados' && git push origin main"
+  }
+}

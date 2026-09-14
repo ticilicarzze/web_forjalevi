@@ -35,6 +35,7 @@
 
   function renderCardHTML(p, tiers = {}) {
     // 0. Resolve Tier Pricing & Painting Cost
+    // tiers.json uses { price, paint } — products.json legacy tiers used { price, painting_cost }
     const tier = (p.tier && tiers[p.tier]) ? tiers[p.tier] : null;
 
     const basePrice = (tier && tier.price !== undefined && !p.overridePrice)
@@ -44,8 +45,9 @@
     let paintingCost = 0;
     const hasPainting = p.painting && p.painting.available;
     if (hasPainting) {
-      paintingCost = (tier && tier.painting_cost !== undefined && !p.overridePaintCost)
-        ? tier.painting_cost
+      const tierPaint = tier ? (tier.paint ?? tier.painting_cost) : undefined;
+      paintingCost = (tierPaint !== undefined && !p.overridePaintCost)
+        ? tierPaint
         : (p.painting.cost || 0);
     }
 
@@ -192,25 +194,23 @@
     `;
   }
 
-  function renderAllWithData(data, containers) {
-    if (!data || !data.products) return;
-    window.ForjaCatalogData = data;
+  function renderAllWithData(products, tiers, containers) {
+    if (!products || !products.length) return;
 
     containers.forEach(container => {
       const category = container.getAttribute('data-catalog-category');
       const subCategory = container.getAttribute('data-catalog-subcategory');
 
-      let filtered = data.products.filter(p => p.category === category);
+      let filtered = products.filter(p => p.category === category);
       if (subCategory) {
         filtered = filtered.filter(p => p.subCategory === subCategory);
       }
 
       if (filtered.length > 0) {
-        container.innerHTML = filtered.map(p => renderCardHTML(p, data.tiers || {})).join('');
+        container.innerHTML = filtered.map(p => renderCardHTML(p, tiers)).join('');
       }
     });
 
-    // Re-bind interactive events in main.js
     if (typeof window.ForjaInitCatalogInteractions === 'function') {
       window.ForjaInitCatalogInteractions();
     }
@@ -220,24 +220,35 @@
     const containers = document.querySelectorAll('[data-catalog-category]');
     if (containers.length === 0) return;
 
-    // 1. Render inmediato si existe window.FORJA_CATALOG_DATA (soporte total para file:// y offline)
-    if (window.FORJA_CATALOG_DATA) {
-      renderAllWithData(window.FORJA_CATALOG_DATA, containers);
+    // Resolve base paths depending on location (web vs /catalogo/ subfolder)
+    const base = window.location.pathname.includes('/catalogo/') ? '../' : '';
+
+    // Fetch products and tiers in parallel for maximum speed
+    // tiers.json is tiny (~500 bytes) so it loads near-instantly
+    try {
+      const [productsRes, tiersRes] = await Promise.all([
+        fetch(base + 'data/products.json'),
+        fetch(base + 'data/tiers.json')
+      ]);
+
+      const products = productsRes.ok ? (await productsRes.json()).products : null;
+      const tiers    = tiersRes.ok    ? await tiersRes.json()              : {};
+
+      if (products) {
+        window.ForjaCatalogData = { products, tiers };
+        renderAllWithData(products, tiers, containers);
+        return;
+      }
+    } catch (_) {
+      // fetch failed (e.g. file:// protocol) — fall through to inline fallback
     }
 
-    // 2. Fetch asíncrono para recargar data/products.json en entornos web/HTTP
-    const jsonPath = window.location.pathname.includes('/catalogo/')
-      ? '../data/products.json'
-      : 'data/products.json';
-
-    try {
-      const response = await fetch(jsonPath);
-      if (response.ok) {
-        const freshData = await response.json();
-        renderAllWithData(freshData, containers);
-      }
-    } catch (err) {
-      // En modo file:// o si fetch falla, ya fue renderizado arriba con window.FORJA_CATALOG_DATA
+    // Offline / file:// fallback: use data embedded in js/products-data.js
+    if (window.FORJA_CATALOG_DATA) {
+      const { products, tiers } = window.FORJA_CATALOG_DATA;
+      // Override tiers from window.FORJA_TIERS if precios.js was run recently
+      const activeTiers = window.FORJA_TIERS || tiers || {};
+      renderAllWithData(products, activeTiers, containers);
     }
   }
 
@@ -248,9 +259,7 @@
     loadAndRenderProducts();
   }
 
-  // Global helper
-  window.ForjaCatalog = {
-    load: loadAndRenderProducts
-  };
+  window.ForjaCatalog = { load: loadAndRenderProducts };
 
 })();
+

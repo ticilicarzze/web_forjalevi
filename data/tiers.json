@@ -1,0 +1,14 @@
+{
+  "heroe":              { "price": 5000, "paint": 10000 },
+  "esbirro":            { "price": 4000, "paint": 2500  },
+  "pack-esbirros-x5":  { "price": 18000, "paint": 25000 },
+  "elite":              { "price": 5000, "paint": 5000  },
+  "escuadron-sci-fi-x5":{ "price": 11000, "paint": 14000 },
+  "monstruo-mediano":   { "price": 14000, "paint": 12000 },
+  "monstruo-grande":    { "price": 9500,  "paint": 15000 },
+  "vehiculo-pesado":    { "price": 16500, "paint": 12000 },
+  "torre-dados":        { "price": 20000 },
+  "torre-dados-premium":{ "price": 40000 },
+  "caja-dados":         { "price": 11000 },
+  "accesorio-mesa":     { "price": 4000  }
+}
