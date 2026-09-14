@@ -258,19 +258,19 @@
     }
   });
 
-  // ── Add to Cart Buttons in Grid ──
-  document.querySelectorAll('.js-add-to-cart').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const id = btn.dataset.id;
-      const name = btn.dataset.name;
-      const price = btn.dataset.price;
-      const variantId = btn.dataset.variantId || null;
-      const variantName = btn.dataset.variantName || null;
-      const isPainted = btn.dataset.painted === 'yes';
-      const paintLabel = btn.dataset.paintLabel || (isPainted ? 'Con Pintado Tabletop' : 'Sin pintar');
-      addToCart(id, name, price, variantId, variantName, isPainted, paintLabel);
-    });
+  // ── Add to Cart Buttons in Grid (Event Delegation for static + dynamic products) ──
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.js-add-to-cart');
+    if (!btn) return;
+    e.preventDefault();
+    const id = btn.dataset.id;
+    const name = btn.dataset.name;
+    const price = btn.dataset.price;
+    const variantId = btn.dataset.variantId || null;
+    const variantName = btn.dataset.variantName || null;
+    const isPainted = btn.dataset.painted === 'yes';
+    const paintLabel = btn.dataset.paintLabel || (isPainted ? 'Con Pintado Tabletop' : 'Sin pintar');
+    addToCart(id, name, price, variantId, variantName, isPainted, paintLabel);
   });
 
   // ── WhatsApp Checkout Compilation ──
@@ -526,14 +526,13 @@
       const targetContainer = document.querySelector(targetSelector);
       if (!targetContainer) return;
 
-      const items = targetContainer.querySelectorAll('[data-category]');
-
       chips.forEach(chip => {
         chip.addEventListener('click', () => {
           chips.forEach(c => c.classList.remove('is-active'));
           chip.classList.add('is-active');
 
           const filterVal = chip.getAttribute('data-filter');
+          const items = targetContainer.querySelectorAll('[data-category]');
 
           items.forEach(item => {
             const itemCats = (item.getAttribute('data-category') || '').split(' ');
@@ -647,14 +646,19 @@
     });
   });
 
+  function initCatalogInteractions() {
+    initVariantSelectors();
+    initPaintingToggles();
+    initReveal();
+  }
+  window.ForjaInitCatalogInteractions = initCatalogInteractions;
+
   // ── Init ──
   document.addEventListener('DOMContentLoaded', () => {
     renderCart();
-    initReveal();
     initParticles();
     initDynamicFilters();
-    initVariantSelectors();
-    initPaintingToggles();
+    initCatalogInteractions();
   });
 
 })();
