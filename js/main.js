@@ -390,6 +390,18 @@
     }
   });
 
+  // ── Sync Cart Across Tabs ──
+  window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY) {
+      try {
+        cart = e.newValue ? JSON.parse(e.newValue) : [];
+        renderCart();
+      } catch (err) {
+        console.warn('Error syncing cart from storage', err);
+      }
+    }
+  });
+
   // ── Add to Cart Buttons in Grid (Event Delegation for static + dynamic products) ──
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.js-add-to-cart');
