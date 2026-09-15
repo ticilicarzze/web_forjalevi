@@ -971,6 +971,57 @@ button, input, textarea {
   gap: 0.35rem;
 }
 
+/* Cart Item Paint Toggle (Seleccionar / Deseleccionar Pintado en Carrito) */
+.cart-item__paint-section {
+  margin: 0.35rem 0 0.45rem;
+}
+
+.cart-item__paint-toggle {
+  display: inline-flex;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.cart-paint-pill {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 0.22rem 0.55rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.cart-paint-pill:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cart-paint-pill.is-active {
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.25), rgba(255, 167, 38, 0.18));
+  color: var(--accent-light);
+  font-weight: 700;
+  border-color: rgba(255, 87, 34, 0.45);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cart-paint-pill.is-active[data-paint="no"] {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--text-primary);
+}
+
 .cart-item__price {
   font-size: 0.85rem;
   color: var(--accent-light);

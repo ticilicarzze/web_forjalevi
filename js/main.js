@@ -108,12 +108,46 @@
     });
   }
 
+  // ── Helper para obtener información de precios y pintura del catálogo ──
+  function getProductInfo(productId) {
+    const catalog = window.ForjaCatalogData || window.FORJA_CATALOG_DATA;
+    if (!catalog || !catalog.products) return null;
+    const product = catalog.products.find(p => p.id === productId);
+    if (!product) return null;
+
+    const tiers = catalog.tiers || {};
+    const tier = (product.tier && tiers[product.tier]) ? tiers[product.tier] : null;
+
+    const basePrice = (tier && tier.price !== undefined && !product.overridePrice)
+      ? tier.price
+      : (product.price || 0);
+
+    let hasPainting = false;
+    let paintCost = 0;
+    if (product.painting && product.painting.available) {
+      hasPainting = true;
+      const tierPaint = tier ? (tier.paint ?? tier.painting_cost) : undefined;
+      paintCost = (tierPaint !== undefined && !product.overridePaintCost)
+        ? tierPaint
+        : (product.painting.cost || 0);
+    }
+
+    return { product, basePrice, hasPainting, paintCost };
+  }
+
   // ── Cart Operations (with Variant, Painting & MP Support) ──
   function addToCart(id, name, price, variantId = null, variantName = null, isPainted = false, paintLabel = null) {
+    const info = getProductInfo(id);
+    const hasPainting = info ? info.hasPainting : Boolean(isPainted);
+    const paintCost = info ? info.paintCost : 0;
+    const basePrice = info
+      ? (variantId && info.product.variants?.find(v => v.id === variantId)?.price || info.basePrice)
+      : (isPainted ? (Number(price) - paintCost) : Number(price));
+
     const paintKey = isPainted ? 'painted' : 'raw';
     const variantKey = variantId || 'std';
     const key = `${id}__${variantKey}__${paintKey}`;
-    const existing = cart.find(item => item.cartItemId === key);
+    const existing = cart.find(item => (item.cartItemId || item.id) === key);
 
     if (existing) {
       existing.qty += 1;
@@ -123,6 +157,9 @@
         cartItemId: key,
         variantId: variantId || null,
         variantName: variantName || null,
+        hasPainting: Boolean(hasPainting),
+        basePrice: Number(basePrice) || 0,
+        paintCost: Number(paintCost) || 0,
         isPainted: Boolean(isPainted),
         paintLabel: paintLabel || (isPainted ? 'Con Pintado Tabletop' : 'Sin pintar'),
         name: name,
@@ -136,6 +173,41 @@
     const displayName = variantName ? `${name} (${variantName})` : name;
     const paintTag = isPainted ? ' [Pintado]' : '';
     showToast(`⚔️ Agregado: <strong>${displayName}${paintTag}</strong>`);
+  }
+
+  // Permite seleccionar o deseleccionar el servicio de pintado directamente desde el carrito
+  function setCartItemPainting(key, isPainted) {
+    const item = cart.find(i => (i.cartItemId || i.id) === key);
+    if (!item) return;
+
+    if (item.isPainted === isPainted) return;
+
+    const info = getProductInfo(item.id);
+    const paintCost = item.paintCost || (info ? info.paintCost : 0);
+    const basePrice = item.basePrice || (info ? (item.variantId && info.product.variants?.find(v => v.id === item.variantId)?.price || info.basePrice) : (item.isPainted ? (item.price - paintCost) : item.price));
+
+    const variantKey = item.variantId || 'std';
+    const newKey = `${item.id}__${variantKey}__${isPainted ? 'painted' : 'raw'}`;
+
+    // Si al cambiar el estado de pintado coincide con otro item ya existente en el carrito, se fusionan
+    const existingOther = cart.find(i => (i.cartItemId || i.id) === newKey);
+    if (existingOther) {
+      existingOther.qty += item.qty;
+      cart = cart.filter(i => (i.cartItemId || i.id) !== key);
+      showToast(`Combinado: <strong>${existingOther.qty}x ${existingOther.name}</strong> ${isPainted ? '[Pintado]' : '[Sin pintar]'}`);
+    } else {
+      item.cartItemId = newKey;
+      item.isPainted = isPainted;
+      item.hasPainting = true;
+      item.basePrice = Number(basePrice) || 0;
+      item.paintCost = Number(paintCost) || 0;
+      item.price = isPainted ? (basePrice + paintCost) : basePrice;
+      item.paintLabel = isPainted ? 'Con Pintado Tabletop' : 'Sin pintar';
+      showToast(`${item.name}: <strong>${isPainted ? '🖌️ Con Pintado' : '⚪ Sin pintar'}</strong>`);
+    }
+
+    saveCart();
+    renderCart();
   }
 
   function updateQty(key, delta) {
@@ -218,14 +290,38 @@
     // Render items
     cartItemsCont.innerHTML = cart.map(item => {
       const itemKey = item.cartItemId || item.id;
+      const info = getProductInfo(item.id);
+      const hasPainting = item.hasPainting ?? (info ? info.hasPainting : false);
+      const paintCost = item.paintCost || (info ? info.paintCost : 0);
+
+      let paintSectionHTML = '';
+      if (hasPainting && paintCost > 0) {
+        paintSectionHTML = `
+          <div class="cart-item__paint-section">
+            <div class="cart-item__paint-toggle">
+              <button type="button" class="cart-paint-pill ${!item.isPainted ? 'is-active' : ''} js-cart-paint-btn" data-key="${itemKey}" data-paint="no" title="Sin servicio de pintura">
+                ⚪ Sin pintar
+              </button>
+              <button type="button" class="cart-paint-pill ${item.isPainted ? 'is-active' : ''} js-cart-paint-btn" data-key="${itemKey}" data-paint="yes" title="Sumar acabado tabletop pintado">
+                🖌️ Pintado (+${formatCurrency(paintCost)})
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (item.isPainted) {
+        paintSectionHTML = `
+          <div class="cart-item__variant" style="color: #ffb74d; font-size: 0.74rem;">
+            <span>🖌️</span> ${item.paintLabel || 'Pintado Tabletop'}
+          </div>
+        `;
+      }
+
       return `
         <div class="cart-item" data-key="${itemKey}">
           <div class="cart-item__info">
             <h4 class="cart-item__title" title="${item.name}">${item.name}</h4>
             ${item.variantName ? `<div class="cart-item__variant"><span>🎨</span> ${item.variantName}</div>` : ''}
-            <div class="cart-item__variant" style="color: ${item.isPainted ? '#ffb74d' : 'var(--text-muted)'}; font-size: 0.74rem;">
-              <span>${item.isPainted ? '🖌️' : '⚪'}</span> ${item.paintLabel || (item.isPainted ? 'Pintado Tabletop' : 'Sin pintar')}
-            </div>
+            ${paintSectionHTML}
             <span class="cart-item__price">${formatCurrency(item.price)} c/u &middot; <strong style="color:var(--text-primary);">${formatCurrency(item.price * item.qty)}</strong></span>
           </div>
           <div class="cart-item__controls">
@@ -252,6 +348,13 @@
     });
     cartItemsCont.querySelectorAll('.js-remove-item').forEach(btn => {
       btn.addEventListener('click', () => removeItem(btn.dataset.key));
+    });
+    cartItemsCont.querySelectorAll('.js-cart-paint-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.key;
+        const isPainted = btn.dataset.paint === 'yes';
+        setCartItemPainting(key, isPainted);
+      });
     });
   }
 
