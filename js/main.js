@@ -679,6 +679,329 @@
     });
   });
 
+  // ── Global Live Search System ──
+  function initGlobalSearch() {
+    let searchModal = document.getElementById('searchModal');
+    if (!searchModal) {
+      searchModal = document.createElement('div');
+      searchModal.id = 'searchModal';
+      searchModal.className = 'search-modal';
+      searchModal.setAttribute('role', 'dialog');
+      searchModal.setAttribute('aria-modal', 'true');
+      searchModal.setAttribute('aria-label', 'Buscador de modelos de Forja Levi');
+      searchModal.innerHTML = `
+        <div class="search-modal__backdrop" id="searchBackdrop"></div>
+        <div class="search-modal__box">
+          <div class="search-modal__header">
+            <div class="search-modal__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <input type="search" id="searchInput" class="search-modal__input" placeholder="Buscar miniaturas, dragones, packs, torres, accesorios..." autocomplete="off" spellcheck="false" />
+            <button type="button" class="search-modal__clear" id="searchClear" aria-label="Limpiar búsqueda" style="display: none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <span class="search-modal__esc">ESC</span>
+          </div>
+          <div class="search-modal__chips" id="searchCategoryChips">
+            <button type="button" class="search-chip is-active" data-cat="all">Todos</button>
+            <button type="button" class="search-chip" data-cat="miniaturas-dnd">D&D / Rol</button>
+            <button type="button" class="search-chip" data-cat="warhammer">Warhammer</button>
+            <button type="button" class="search-chip" data-cat="packs-y-campanas">Packs & Kits</button>
+            <button type="button" class="search-chip" data-cat="escenografia">Escenografía</button>
+            <button type="button" class="search-chip" data-cat="torres-y-cajas">Torres & Cajas</button>
+            <button type="button" class="search-chip" data-cat="dados-accesorios">Dados & Acc.</button>
+          </div>
+          <div class="search-modal__body" id="searchResultsBody"></div>
+          <div class="search-modal__footer">
+            <div class="search-modal__hints">
+              <span class="search-modal__hint"><kbd>ESC</kbd> cerrar</span>
+              <span class="search-modal__hint"><kbd>Ctrl</kbd> + <kbd>K</kbd> abrir</span>
+            </div>
+            <span style="color: var(--accent-light); font-size: 0.8rem; font-weight: 600;">⚔️ Forja Levi 3D</span>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(searchModal);
+    }
+
+    const backdrop = document.getElementById('searchBackdrop');
+    const input = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('searchClear');
+    const chipsCont = document.getElementById('searchCategoryChips');
+    const resultsBody = document.getElementById('searchResultsBody');
+
+    let currentCat = 'all';
+
+    function normalize(str) {
+      return (str || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+    }
+
+    function highlightMatch(text, query) {
+      if (!query || !text) return text;
+      const terms = query.split(/\s+/).filter(t => t.length > 0);
+      if (terms.length === 0) return text;
+
+      let result = text;
+      terms.forEach(term => {
+        const regex = new RegExp(`(${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+        result = result.replace(regex, '<mark class="search-highlight">$1</mark>');
+      });
+      return result;
+    }
+
+    function getProducts() {
+      if (window.ForjaCatalogData && window.ForjaCatalogData.products) {
+        return {
+          products: window.ForjaCatalogData.products,
+          tiers: window.ForjaCatalogData.tiers || (window.FORJA_CATALOG_DATA ? window.FORJA_CATALOG_DATA.tiers : {})
+        };
+      }
+      if (window.FORJA_CATALOG_DATA && window.FORJA_CATALOG_DATA.products) {
+        return {
+          products: window.FORJA_CATALOG_DATA.products,
+          tiers: window.FORJA_CATALOG_DATA.tiers || {}
+        };
+      }
+      return { products: [], tiers: {} };
+    }
+
+    function getCategoryName(catId) {
+      const names = {
+        'miniaturas-dnd': 'D&D / Pathfinder',
+        'warhammer': 'Warhammer 40K / AoS',
+        'packs-y-campanas': 'Packs & Campañas',
+        'escenografia': 'Escenografía',
+        'torres-y-cajas': 'Torres & Cajas',
+        'dados-accesorios': 'Dados & Accesorios'
+      };
+      return names[catId] || catId;
+    }
+
+    function getCategoryUrl(catId) {
+      const isSub = window.location.pathname.includes('/catalogo/');
+      return isSub ? `${catId}.html` : `catalogo/${catId}.html`;
+    }
+
+    function renderInitialState() {
+      const popular = [
+        { label: '🐉 Dragón Joven Rojo', q: 'dragon' },
+        { label: '🦷 Mímico Come-Dados', q: 'mimico' },
+        { label: '🛡️ Paladín Humano', q: 'paladin' },
+        { label: '📦 Pack x25 Escaramuza', q: 'pack 25' },
+        { label: '💀 Esqueletos de la Cripta', q: 'esqueletos' },
+        { label: '🏰 Torre Castillo Medieval', q: 'castillo' },
+        { label: '🎲 Aros de Condición', q: 'aros condicion' },
+        { label: '⚔️ Capitán Espacial', q: 'capitan espacial' }
+      ];
+
+      const pillsHTML = popular.map(p => `
+        <button type="button" class="search-suggestion-pill" data-q="${p.q}">
+          ${p.label}
+        </button>
+      `).join('');
+
+      resultsBody.innerHTML = `
+        <div class="search-modal__suggestions">
+          <div class="search-modal__section-label">🔥 Búsquedas Populares</div>
+          <div class="search-modal__pills-wrap">
+            ${pillsHTML}
+          </div>
+          <div class="search-modal__section-label">💡 Tip de Búsqueda</div>
+          <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5;">
+            Podés buscar por facción, tipo de criatura (ej: <em>goblin, orco, dragón</em>), accesorios (<em>aros, dados, torre</em>) o packs de campaña.
+          </p>
+        </div>
+      `;
+
+      resultsBody.querySelectorAll('.search-suggestion-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          input.value = btn.dataset.q;
+          clearBtn.style.display = 'flex';
+          executeSearch();
+          input.focus();
+        });
+      });
+    }
+
+    function executeSearch() {
+      const rawQuery = input.value.trim();
+      const normQuery = normalize(rawQuery);
+
+      if (!normQuery) {
+        clearBtn.style.display = 'none';
+        renderInitialState();
+        return;
+      }
+
+      clearBtn.style.display = 'flex';
+
+      const { products, tiers } = getProducts();
+      const queryTokens = normQuery.split(/\s+/).filter(t => t.length > 0);
+
+      // Filter
+      let results = products.filter(p => {
+        if (currentCat !== 'all' && p.category !== currentCat) {
+          return false;
+        }
+
+        const normName = normalize(p.name);
+        const normDesc = normalize(p.description);
+        const normTags = normalize((p.tags || []).map(t => t.text).join(' '));
+        const normCat = normalize(getCategoryName(p.category));
+
+        const fullHaystack = `${normName} ${normDesc} ${normTags} ${normCat}`;
+        return queryTokens.every(tok => fullHaystack.includes(tok));
+      });
+
+      if (results.length === 0) {
+        resultsBody.innerHTML = `
+          <div class="search-modal__empty">
+            <div class="search-modal__empty-icon">🎲</div>
+            <h4>No encontramos modelos para "${rawQuery}"</h4>
+            <p>¿Buscás un modelo que no está en la lista o tenés tu propio archivo STL? ¡Podemos presupuestarlo e imprimirlo en resina 8K!</p>
+            <a href="#" data-wa-text="Hola! Estaba buscando '${rawQuery}' en la web de Forja Levi y quería saber si lo pueden imprimir en 3D 🎲" target="_blank" rel="noopener noreferrer" class="btn btn--accent btn--small js-wa-link">
+              Consultar por WhatsApp
+            </a>
+          </div>
+        `;
+        if (typeof initWhatsAppLinks === 'function') initWhatsAppLinks();
+        return;
+      }
+
+      const resultsHTML = results.map(p => {
+        const tier = (p.tier && tiers[p.tier]) ? tiers[p.tier] : null;
+        const effectivePrice = (tier && tier.price !== undefined && !p.overridePrice)
+          ? tier.price
+          : (p.price || 0);
+
+        const priceDisplay = formatCurrency(effectivePrice);
+        const catName = getCategoryName(p.category);
+        const catUrl = getCategoryUrl(p.category);
+
+        const titleHighlighted = highlightMatch(p.name, rawQuery);
+        const descHighlighted = highlightMatch(p.description, rawQuery);
+
+        const tagsHTML = (p.tags || []).slice(0, 2).map(t => `<span class="search-result-card__tag">${t.text}</span>`).join('');
+
+        const mediaHTML = p.image
+          ? `<img src="${p.image}" alt="${p.name}" loading="lazy" />`
+          : `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+
+        return `
+          <div class="search-result-card">
+            <div class="search-result-card__media">
+              ${mediaHTML}
+            </div>
+            <div class="search-result-card__info">
+              <span class="search-result-card__cat">${catName}</span>
+              <h4 class="search-result-card__title">${titleHighlighted}</h4>
+              <p class="search-result-card__desc">${descHighlighted}</p>
+              <div class="search-result-card__tags">${tagsHTML}</div>
+            </div>
+            <div class="search-result-card__side">
+              <span class="search-result-card__price">${priceDisplay}</span>
+              <div class="search-result-card__actions">
+                <button type="button" class="btn btn--accent btn--small search-result-card__btn js-add-to-cart" data-id="${p.id}" data-name="${p.name}" data-price="${effectivePrice}" data-painted="no" data-paint-label="Sin pintar">
+                  + Pedido
+                </button>
+                <a href="${catUrl}" class="search-result-card__link" title="Ver categoría">
+                  Ver ➜
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      resultsBody.innerHTML = `
+        <div class="search-modal__count">
+          Se encontraron <strong>${results.length}</strong> modelo${results.length === 1 ? '' : 's'}:
+        </div>
+        <div class="search-modal__list">
+          ${resultsHTML}
+        </div>
+      `;
+    }
+
+    function openSearch() {
+      searchModal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      clearBtn.style.display = 'none';
+      renderInitialState();
+      setTimeout(() => input.focus(), 50);
+    }
+
+    function closeSearch() {
+      searchModal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    // Listeners
+    if (backdrop) backdrop.addEventListener('click', closeSearch);
+
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      clearBtn.style.display = 'none';
+      renderInitialState();
+      input.focus();
+    });
+
+    input.addEventListener('input', executeSearch);
+
+    chipsCont.querySelectorAll('.search-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        chipsCont.querySelectorAll('.search-chip').forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        currentCat = chip.dataset.cat;
+        executeSearch();
+      });
+    });
+
+    // Open triggers
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.js-open-search, #searchToggle');
+      if (trigger) {
+        e.preventDefault();
+        openSearch();
+      }
+    });
+
+    // Global keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (searchModal.classList.contains('is-open')) {
+          closeSearch();
+        } else {
+          openSearch();
+        }
+        return;
+      }
+
+      if (e.key === '/' && !searchModal.classList.contains('is-open')) {
+        const tag = (document.activeElement && document.activeElement.tagName) || '';
+        if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+          e.preventDefault();
+          openSearch();
+          return;
+        }
+      }
+
+      if (e.key === 'Escape' && searchModal.classList.contains('is-open')) {
+        e.preventDefault();
+        closeSearch();
+      }
+    });
+  }
+
   function initCatalogInteractions() {
     initVariantSelectors();
     initPaintingToggles();
@@ -694,6 +1017,7 @@
     initDynamicFilters();
     initCatalogInteractions();
     initWhatsAppLinks();
+    initGlobalSearch();
   });
 
 })();

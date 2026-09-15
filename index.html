@@ -32,8 +32,15 @@
         <span class="header__brand">Forja Levi</span>
       </a>
 
-      <!-- Header actions (Cart + Mobile Toggle) -->
+      <!-- Header actions (Search + Cart + Mobile Toggle) -->
       <div class="header__actions-group">
+        <button class="header__search-btn js-open-search" id="searchToggle" aria-label="Buscar en el catálogo" title="Buscar modelos (Ctrl + K)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
         <button class="header__cart-btn" id="cartToggle" aria-label="Abrir carrito de pedidos" title="Ver pedido">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="9" cy="21" r="1"></circle>
@@ -98,6 +105,18 @@
       <div class="section-header">
         <h2 class="section-title">Nuestro <span class="text-glow">Catálogo</span></h2>
         <p class="section-subtitle">Explorá nuestras categorías, armá tu lista de pedido y envianos el presupuesto directo por WhatsApp.</p>
+      </div>
+
+      <!-- Live Search Trigger Bar -->
+      <div class="catalog-search-trigger js-open-search" tabindex="0" role="button" aria-label="Abrir buscador del catálogo">
+        <div class="catalog-search-trigger__icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <span class="catalog-search-trigger__text">Buscá entre +45 modelos (paladín, dragón, mímico, dados, packs...)</span>
+        <kbd class="catalog-search-trigger__kbd">Ctrl + K</kbd>
       </div>
 
       <!-- Interactive Dynamic Filter Chips -->
