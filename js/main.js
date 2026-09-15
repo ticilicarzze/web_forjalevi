@@ -230,6 +230,7 @@
 
   function clearCart() {
     if (cart.length === 0) return;
+    if (!confirm('¿Seguro que querés vaciar todos los productos del pedido?')) return;
     cart = [];
     saveCart();
     renderCart();
@@ -253,6 +254,7 @@
     if (cartCountEl) cartCountEl.textContent = totalCount;
     if (fabCartBadge) fabCartBadge.textContent = totalCount;
     if (cartTotalEl) cartTotalEl.textContent = formatCurrency(totalAmount);
+    if (cartClearBtn) cartClearBtn.style.display = cart.length === 0 ? 'none' : 'inline-flex';
 
     if (!cartItemsCont) return;
 
