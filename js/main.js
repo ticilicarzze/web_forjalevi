@@ -743,17 +743,47 @@
         .trim();
     }
 
+    // Genera una expresión regular tolerante a acentos para cualquier término
+    // Ej: "paladin" o "paladín" coincidirán tanto con "Paladín" como con "Paladin"
+    function createAccentRegex(term) {
+      const map = {
+        'a': '[aáàäâAÁÀÄÂ]',
+        'e': '[eéèëêEÉÈËÊ]',
+        'i': '[iíìïîIÍÌÏÎ]',
+        'o': '[oóòöôOÓÒÖÔ]',
+        'u': '[uúùüûUÚÙÜÛ]',
+        'n': '[nñNÑ]',
+        'c': '[cçCÇ]'
+      };
+      const clean = (term || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      let pattern = '';
+      for (const ch of clean) {
+        pattern += map[ch] || ch.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+      }
+      return new RegExp(`(${pattern})`, 'gi');
+    }
+
     function highlightMatch(text, query) {
       if (!query || !text) return text;
-      const terms = query.split(/\s+/).filter(t => t.length > 0);
+      const terms = query.trim().split(/\s+/).filter(t => t.length > 0);
       if (terms.length === 0) return text;
 
       let result = text;
       terms.forEach(term => {
-        const regex = new RegExp(`(${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
-        result = result.replace(regex, '<mark class="search-highlight">$1</mark>');
+        try {
+          const regex = createAccentRegex(term);
+          result = result.replace(regex, '<mark class="search-highlight">$1</mark>');
+        } catch (e) {
+          // fallback si hay algún caracter especial
+        }
       });
       return result;
+    }
+
+    function extractTagText(t) {
+      if (!t) return '';
+      if (typeof t === 'string') return t;
+      return t.text || '';
     }
 
     function getProducts() {
@@ -815,7 +845,7 @@
           </div>
           <div class="search-modal__section-label">💡 Tip de Búsqueda</div>
           <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5;">
-            Podés buscar por facción, tipo de criatura (ej: <em>goblin, orco, dragón</em>), accesorios (<em>aros, dados, torre</em>) o packs de campaña.
+            Podés buscar con o sin tildes (ej: <em>paladin</em> o <em>paladín</em>, <em>dragon</em> o <em>dragón</em>), por criatura, facción o accesorios.
           </p>
         </div>
       `;
@@ -845,19 +875,33 @@
       const { products, tiers } = getProducts();
       const queryTokens = normQuery.split(/\s+/).filter(t => t.length > 0);
 
-      // Filter
+      // Filter con soporte 100% tolerante a acentos y mayúsculas
       let results = products.filter(p => {
         if (currentCat !== 'all' && p.category !== currentCat) {
           return false;
         }
 
+        const catName = getCategoryName(p.category);
+        const tagsStr = (p.tags || []).map(extractTagText).join(' ');
+
+        // Comparación normalizada sin tildes
         const normName = normalize(p.name);
         const normDesc = normalize(p.description);
-        const normTags = normalize((p.tags || []).map(t => t.text).join(' '));
-        const normCat = normalize(getCategoryName(p.category));
+        const normTags = normalize(tagsStr);
+        const normCat = normalize(catName);
+        const fullHaystack = `${normName} ${normDesc} ${normTags} ${normCat} ${p.id || ''}`;
 
-        const fullHaystack = `${normName} ${normDesc} ${normTags} ${normCat}`;
-        return queryTokens.every(tok => fullHaystack.includes(tok));
+        return queryTokens.every(tok => {
+          // 1. Coincidencia directa en texto normalizado
+          if (fullHaystack.includes(tok)) return true;
+
+          // 2. Coincidencia por regex fonética / acentos
+          const reg = createAccentRegex(tok);
+          return reg.test(p.name) ||
+                 reg.test(p.description) ||
+                 reg.test(catName) ||
+                 reg.test(tagsStr);
+        });
       });
 
       if (results.length === 0) {
