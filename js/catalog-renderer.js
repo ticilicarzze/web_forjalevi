@@ -173,7 +173,7 @@
     const subCategoryAttr = p.subCategory ? `data-category="${p.subCategory}"` : '';
 
     return `
-      <article class="product-card" data-id="${p.id}" data-name="${p.name}" data-price="${currentBasePrice}" data-tier="${p.tier || ''}" ${subCategoryAttr}>
+      <article class="product-card" id="${p.id}" data-id="${p.id}" data-name="${p.name}" data-price="${currentBasePrice}" data-tier="${p.tier || ''}" ${subCategoryAttr}>
         <div class="product-card__media">
           <div class="product-card__tag-wrap">
             ${tagsHTML}
@@ -213,6 +213,20 @@
 
     if (typeof window.ForjaInitCatalogInteractions === 'function') {
       window.ForjaInitCatalogInteractions();
+    }
+
+    // Auto-scroll y destello visual si se llega con ancla (ej: #dnd-picaro-tiefling)
+    if (window.location.hash) {
+      setTimeout(() => {
+        try {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            target.classList.add('highlight-target');
+            setTimeout(() => target.classList.remove('highlight-target'), 2500);
+          }
+        } catch (_) {}
+      }, 150);
     }
   }
 

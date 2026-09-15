@@ -1693,6 +1693,7 @@ body.nav-open::before {
   flex-direction: column;
   transition: all var(--transition);
   position: relative;
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
 }
 
 .product-card:hover {
@@ -2341,6 +2342,36 @@ body.nav-open::before {
   flex-shrink: 0;
 }
 
+/* Close Button (Cruz para salir en mobile y desktop) */
+.search-modal__close {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition);
+  margin-left: 0.25rem;
+}
+
+.search-modal__close:hover,
+.search-modal__close:focus-visible {
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+  color: var(--accent-light);
+  box-shadow: 0 0 12px var(--accent-glow);
+  transform: scale(1.05);
+}
+
+.search-modal__close:active {
+  transform: scale(0.95);
+}
+
 /* Category Filter Chips */
 .search-modal__chips {
   display: flex;
@@ -2646,10 +2677,21 @@ body.nav-open::before {
 
 @media (max-width: 600px) {
   .search-modal {
-    padding: 1rem 0.5rem;
+    padding: 0.75rem 0.5rem;
   }
   .search-modal__box {
-    max-height: 92vh;
+    max-height: 94vh;
+  }
+  .search-modal__header {
+    padding: 0.85rem 1rem;
+    gap: 0.5rem;
+  }
+  .search-modal__esc {
+    display: none;
+  }
+  .search-modal__close {
+    width: 42px;
+    height: 42px;
   }
   .search-result-card {
     flex-direction: column;
@@ -2667,6 +2709,37 @@ body.nav-open::before {
     display: none;
   }
 }
+
+/* Service Card scroll margin */
+.service-card {
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+
+/* Card Target Highlight Pulse (al navegar desde el buscador) */
+@keyframes cardTargetPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.9);
+    border-color: var(--accent-light);
+    transform: scale(1.02);
+  }
+  40% {
+    box-shadow: 0 0 32px 8px rgba(255, 87, 34, 0.75);
+    border-color: var(--spark);
+    transform: scale(1.03);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 87, 34, 0);
+    border-color: var(--border);
+    transform: scale(1);
+  }
+}
+
+.product-card.highlight-target {
+  animation: cardTargetPulse 2.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border-color: var(--accent-light) !important;
+  z-index: 10;
+}
+
 
 
 

@@ -704,6 +704,12 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
             <span class="search-modal__esc">ESC</span>
+            <button type="button" class="search-modal__close" id="searchClose" aria-label="Cerrar buscador" title="Cerrar buscador (ESC)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
           </div>
           <div class="search-modal__chips" id="searchCategoryChips">
             <button type="button" class="search-chip is-active" data-cat="all">Todos</button>
@@ -730,6 +736,7 @@
     const backdrop = document.getElementById('searchBackdrop');
     const input = document.getElementById('searchInput');
     const clearBtn = document.getElementById('searchClear');
+    const closeBtn = document.getElementById('searchClose');
     const chipsCont = document.getElementById('searchCategoryChips');
     const resultsBody = document.getElementById('searchResultsBody');
 
@@ -955,7 +962,7 @@
                 <button type="button" class="btn btn--accent btn--small search-result-card__btn js-add-to-cart" data-id="${p.id}" data-name="${p.name}" data-price="${effectivePrice}" data-painted="no" data-paint-label="Sin pintar">
                   + Pedido
                 </button>
-                <a href="${catUrl}" class="search-result-card__link" title="Ver categoría">
+                <a href="${catUrl}#${p.id}" class="search-result-card__link js-search-view-link" data-cat="${p.category}" data-id="${p.id}" title="Ver tarjeta de este modelo">
                   Ver ➜
                 </a>
               </div>
@@ -972,6 +979,48 @@
           ${resultsHTML}
         </div>
       `;
+
+      // Navegar directo a la tarjeta específica al tocar "Ver" o la información de la tarjeta
+      resultsBody.querySelectorAll('.js-search-view-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          navigateToProduct(link.dataset.cat, link.dataset.id);
+        });
+      });
+
+      resultsBody.querySelectorAll('.search-result-card__info, .search-result-card__media').forEach(clickable => {
+        clickable.style.cursor = 'pointer';
+        clickable.addEventListener('click', () => {
+          const card = clickable.closest('.search-result-card');
+          const viewLink = card.querySelector('.js-search-view-link');
+          if (viewLink) {
+            navigateToProduct(viewLink.dataset.cat, viewLink.dataset.id);
+          }
+        });
+      });
+    }
+
+    // Navega a la tarjeta del modelo, haciendo scroll suave y destello visual
+    function navigateToProduct(catId, productId) {
+      closeSearch();
+      const isCurrentSubpage = window.location.pathname.endsWith(`${catId}.html`);
+      const targetHash = `#${productId}`;
+
+      if (isCurrentSubpage) {
+        const targetEl = document.getElementById(productId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          targetEl.classList.add('highlight-target');
+          setTimeout(() => targetEl.classList.remove('highlight-target'), 2500);
+          try {
+            history.replaceState(null, '', targetHash);
+          } catch (_) {}
+        }
+      } else {
+        const isSub = window.location.pathname.includes('/catalogo/');
+        const base = isSub ? `${catId}.html` : `catalogo/${catId}.html`;
+        window.location.href = `${base}${targetHash}`;
+      }
     }
 
     function openSearch() {
@@ -990,6 +1039,7 @@
 
     // Listeners
     if (backdrop) backdrop.addEventListener('click', closeSearch);
+    if (closeBtn) closeBtn.addEventListener('click', closeSearch);
 
     clearBtn.addEventListener('click', () => {
       input.value = '';
@@ -1062,6 +1112,20 @@
     initCatalogInteractions();
     initWhatsAppLinks();
     initGlobalSearch();
+
+    // Auto-scroll y destello si se ingresa directamente con ancla (ej: #dnd-picaro-tiefling o #servicio-foto)
+    if (window.location.hash) {
+      setTimeout(() => {
+        try {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            target.classList.add('highlight-target');
+            setTimeout(() => target.classList.remove('highlight-target'), 2500);
+          }
+        } catch (_) {}
+      }, 250);
+    }
   });
 
 })();
