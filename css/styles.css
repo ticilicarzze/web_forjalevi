@@ -216,12 +216,16 @@ button, input, textarea {
 }
 
 .header__logo-img {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 12px var(--accent-glow);
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  background: transparent;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+  transition: transform var(--transition);
+}
+
+.header__logo:hover .header__logo-img {
+  transform: scale(1.05);
 }
 
 .header__brand {
@@ -719,11 +723,12 @@ button, input, textarea {
 }
 
 .footer__logo {
-  width: 80px;
   height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--accent-dark);
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  background: transparent;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
 
 .footer__tagline {
