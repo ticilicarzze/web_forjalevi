@@ -1,0 +1,4 @@
+node_modules/
+.DS_Store
+assets/img/raw/*
+!assets/img/raw/.gitkeep

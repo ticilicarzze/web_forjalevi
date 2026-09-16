@@ -58,8 +58,12 @@
     }).join('');
 
     // 2. Media / Image or SVG Placeholder
+    const imgSrc = (p.image && !p.image.startsWith('http') && !p.image.startsWith('/') && window.location.pathname.includes('/catalogo/'))
+      ? '../' + p.image
+      : p.image;
+
     const mediaHTML = p.image
-      ? `<img src="${p.image}" alt="${p.name}" class="product-card__img" loading="lazy" />`
+      ? `<img src="${imgSrc}" alt="${p.name}" class="product-card__img" loading="lazy" />`
       : `<div class="product-card__placeholder">
           ${ICONS[p.icon] || ICONS.shield}
           <span class="product-card__placeholder-text">${p.placeholderText || 'Foto del Producto'}</span>

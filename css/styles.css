@@ -457,12 +457,15 @@ button, input, textarea {
 
 .hero__img {
   width: 100%;
-  max-width: 480px;
-  border-radius: var(--radius);
-  border: 2px solid var(--border);
-  box-shadow:
-    0 0 50px rgba(255,87,34,0.14),
-    0 12px 50px rgba(0,0,0,.6);
+  max-width: 440px;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 45px rgba(255, 87, 34, 0.3))
+    drop-shadow(0 15px 35px rgba(0, 0, 0, 0.7));
   animation: float 6s ease-in-out infinite;
 }
 
@@ -1387,7 +1390,7 @@ button, input, textarea {
   }
 
   .hero__img {
-    max-width: 380px;
+    max-width: 320px;
   }
 
   .footer__inner {
@@ -1400,6 +1403,10 @@ button, input, textarea {
 @media (max-width: 768px) {
   :root {
     --header-h: 68px;
+  }
+
+  .hero__img {
+    max-width: 270px;
   }
 
   .header__toggle {

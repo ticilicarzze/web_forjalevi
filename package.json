@@ -5,6 +5,7 @@
   "scripts": {
     "dev":     "npx serve . --listen 3000",
     "precios": "node scripts/precios.js",
-    "deploy":  "git add data/tiers.json data/products.json js/products-data.js && git commit -m 'update: precios actualizados' && git push origin main"
+    "fotos":   "python3 scripts/optimizar-fotos.py",
+    "deploy":  "git add data/tiers.json data/products.json js/products-data.js assets/img/ && git commit -m 'update: catalogo actualizado' && git push origin main"
   }
 }
