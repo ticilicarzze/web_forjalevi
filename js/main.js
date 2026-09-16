@@ -969,17 +969,128 @@
       return isSub ? `${catId}.html` : `catalogo/${catId}.html`;
     }
 
-    function renderInitialState() {
-      const popular = [
+    const POPULAR_SEARCHES = {
+      'all': [
         { label: '🐉 Dragón Joven Rojo', q: 'dragon' },
-        { label: '🦷 Mímico Come-Dados', q: 'mimico' },
+        { label: '🤖 Dreadnought Pesado', q: 'dreadnought' },
         { label: '🛡️ Paladín Humano', q: 'paladin' },
-        { label: '📦 Pack x25 Escaramuza', q: 'pack 25' },
-        { label: '💀 Esqueletos de la Cripta', q: 'esqueletos' },
+        { label: '📦 Pack Escaramuza x25', q: 'pack 25' },
         { label: '🏰 Torre Castillo Medieval', q: 'castillo' },
+        { label: '💀 Esqueletos de Cripta', q: 'esqueletos' },
         { label: '🎲 Aros de Condición', q: 'aros condicion' },
-        { label: '⚔️ Capitán Espacial', q: 'capitan espacial' }
-      ];
+        { label: '⚔️ Capitán en Servoarmadura', q: 'capitan' }
+      ],
+      'miniaturas-dnd': [
+        { label: '🐉 Dragón Joven Rojo', q: 'dragon' },
+        { label: '🛡️ Paladín Humano', q: 'paladin' },
+        { label: '🔮 Mago Elfo Arcano', q: 'mago' },
+        { label: '🪓 Bárbaro Enano', q: 'barbaro' },
+        { label: '🗡️ Pícaro Mediano', q: 'picaro' },
+        { label: '💀 Esqueletos x5', q: 'esqueletos' },
+        { label: '🧟 Goblins Saqueadores', q: 'goblins' },
+        { label: '✨ Clérigo de la Luz', q: 'clerigo' }
+      ],
+      'warhammer': [
+        { label: '🤖 Dreadnought de Combate', q: 'dreadnought' },
+        { label: '⚔️ Capitán en Servoarmadura', q: 'capitan' },
+        { label: '🛡️ Escuadrón Táctico x5', q: 'escuadron' },
+        { label: '🐎 Caballero del Caos', q: 'caos' },
+        { label: '🪓 Noble Orco Rebanadora', q: 'orco' },
+        { label: '⚙️ Bits de Conversión x10', q: 'bits' },
+        { label: '🔫 Tropas de Asalto', q: 'asalto' },
+        { label: '⚡ Armadura de Élite', q: 'armadura' }
+      ],
+      'packs-y-campanas': [
+        { label: '📦 Pack Escaramuza x25', q: 'pack 25' },
+        { label: '🛡️ Pack Iniciación x10', q: 'pack 10' },
+        { label: '⚔️ Pack Ejército x50', q: 'pack 50' },
+        { label: '👑 Gran Campaña x100', q: 'pack 100' },
+        { label: '🗺️ Campaña Starter Set', q: 'starter' },
+        { label: '💀 Horda No-Muertos x18', q: 'no muertos' },
+        { label: '🏰 Castillo & Mazmorras', q: 'castillo' },
+        { label: '🐉 Guarida del Dragón Rojo', q: 'guarida' }
+      ],
+      'escenografia': [
+        { label: '🏰 Ruinas Góticas 2 Niveles', q: 'ruinas' },
+        { label: '🛡️ Barricadas y Muros x4', q: 'barricadas' },
+        { label: '🧱 Dungeon Tiles x16', q: 'dungeon tiles' },
+        { label: '🗼 Torre Fortificada', q: 'torre' },
+        { label: '🌀 Portal Arcano', q: 'portal' },
+        { label: '🪨 Muros Defensivos', q: 'muros' },
+        { label: '🚪 Puertas & Pasillos', q: 'puertas' },
+        { label: '🎯 Cobertura Táctica', q: 'cobertura' }
+      ],
+      'torres-y-cajas': [
+        { label: '🏰 Torre Castillo Medieval', q: 'castillo' },
+        { label: '🐉 Torre Cráneo Dragón', q: 'craneo dragon' },
+        { label: '🌀 Torre Espiral Gótica', q: 'espiral' },
+        { label: '🦷 Mímico Come-Dados', q: 'mimico' },
+        { label: '🎒 Torre Plegable Viaje', q: 'plegable' },
+        { label: '📖 Libro Grimorio', q: 'grimorio' },
+        { label: '🏴‍☠️ Cofre del Tesoro', q: 'cofre' },
+        { label: '⬡ Caja Hexagonal Dados', q: 'hexagonal' }
+      ],
+      'dados-accesorios': [
+        { label: '🎲 Aros de Condición D&D', q: 'aros condicion' },
+        { label: '❤️ Tracker de Vida Dial', q: 'tracker vida' },
+        { label: '🎒 Bandeja Octogonal', q: 'bandeja octogonal' },
+        { label: '✨ Tracker Spell Slots', q: 'spell slots' },
+        { label: '⚔️ Marcadores Iniciativa', q: 'iniciativa' },
+        { label: '🎯 Marcadores Objetivos x6', q: 'objetivos' },
+        { label: '🎲 Accesorios de Mesa', q: 'accesorios' },
+        { label: '🛡️ Pantalla DM', q: 'dm' }
+      ]
+    };
+
+    function getCategoryTip(catId) {
+      const tips = {
+        'all': 'Podés buscar con o sin tildes (ej: <em>paladin</em> o <em>paladín</em>, <em>dragon</em> o <em>dragón</em>), por criatura, facción o accesorios.',
+        'miniaturas-dnd': 'Filtrando por <strong>D&D / Rol</strong>. Buscá por clase (paladín, pícaro, mago, bárbaro), monstruos o esbirros.',
+        'warhammer': 'Filtrando por <strong>Warhammer 40K / AoS</strong>. Buscá por dreadnought, servoarmadura, escuadrones, orcos, caos o bits.',
+        'packs-y-campanas': 'Filtrando por <strong>Packs & Kits</strong>. Buscá por cantidad (x10, x25, x50, x100) o sets temáticos de campaña.',
+        'escenografia': 'Filtrando por <strong>Escenografía</strong>. Buscá por ruinas, baldosas modulares de dungeon, barricadas o portales.',
+        'torres-y-cajas': 'Filtrando por <strong>Torres & Cajas</strong>. Buscá por castillo medieval, cráneo de dragón, cofres o grimorios.',
+        'dados-accesorios': 'Filtrando por <strong>Dados & Accesorios</strong>. Buscá por aros de condición, bandejas, diales de vida o marcadores.'
+      };
+      return tips[catId] || tips['all'];
+    }
+
+    function detectCategoryFromQuery(query) {
+      const q = normalize(query);
+      if (!q) return null;
+      if (q.includes('warhammer') || q.includes('40k') || q.includes('aos') || q.includes('sigmar') || q.includes('space marine') || q.includes('marine')) return 'warhammer';
+      if (q.includes('dnd') || q.includes('d&d') || q.includes('pathfinder') || q.includes('rol') || q.includes('dungeon master')) return 'miniaturas-dnd';
+      if (q.includes('pack') || q.includes('kit') || q.includes('campana') || q.includes('lote')) return 'packs-y-campanas';
+      if (q.includes('escenografia') || q.includes('ruina') || q.includes('dungeon tile') || q.includes('terreno')) return 'escenografia';
+      if (q.includes('torre') || q.includes('caja') || q.includes('grimorio') || q.includes('cofre') || q.includes('maletin')) return 'torres-y-cajas';
+      if (q.includes('dado') || q.includes('accesorio') || q.includes('aro') || q.includes('tracker') || q.includes('bandeja')) return 'dados-accesorios';
+      return null;
+    }
+
+    function detectPageCategory() {
+      const path = window.location.pathname;
+      const cats = ['miniaturas-dnd', 'warhammer', 'packs-y-campanas', 'escenografia', 'torres-y-cajas', 'dados-accesorios'];
+      for (const c of cats) {
+        if (path.includes(c)) return c;
+      }
+      return 'all';
+    }
+
+    function setCategory(catId) {
+      currentCat = catId;
+      chipsCont.querySelectorAll('.search-chip').forEach(c => {
+        if (c.dataset.cat === catId) {
+          c.classList.add('is-active');
+        } else {
+          c.classList.remove('is-active');
+        }
+      });
+    }
+
+    function renderInitialState(cat = currentCat) {
+      const popular = POPULAR_SEARCHES[cat] || POPULAR_SEARCHES['all'];
+      const catLabel = cat === 'all' ? '' : ` en ${getCategoryName(cat)}`;
+      const tipText = getCategoryTip(cat);
 
       const pillsHTML = popular.map(p => `
         <button type="button" class="search-suggestion-pill" data-q="${p.q}">
@@ -989,13 +1100,13 @@
 
       resultsBody.innerHTML = `
         <div class="search-modal__suggestions">
-          <div class="search-modal__section-label">🔥 Búsquedas Populares</div>
+          <div class="search-modal__section-label">🔥 Búsquedas Populares${catLabel}</div>
           <div class="search-modal__pills-wrap">
             ${pillsHTML}
           </div>
           <div class="search-modal__section-label">💡 Tip de Búsqueda</div>
           <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5;">
-            Podés buscar con o sin tildes (ej: <em>paladin</em> o <em>paladín</em>, <em>dragon</em> o <em>dragón</em>), por criatura, facción o accesorios.
+            ${tipText}
           </p>
         </div>
       `;
@@ -1016,7 +1127,7 @@
 
       if (!normQuery) {
         clearBtn.style.display = 'none';
-        renderInitialState();
+        renderInitialState(currentCat);
         return;
       }
 
@@ -1039,7 +1150,7 @@
         const normDesc = normalize(p.description);
         const normTags = normalize(tagsStr);
         const normCat = normalize(catName);
-        const fullHaystack = `${normName} ${normDesc} ${normTags} ${normCat} ${p.id || ''}`;
+        const fullHaystack = `${normName} ${normDesc} ${normTags} ${normCat} ${p.id || ''} ${p.category || ''}`;
 
         return queryTokens.every(tok => {
           // 1. Coincidencia directa en texto normalizado
@@ -1050,23 +1161,68 @@
           return reg.test(p.name) ||
                  reg.test(p.description) ||
                  reg.test(catName) ||
-                 reg.test(tagsStr);
+                 reg.test(tagsStr) ||
+                 reg.test(p.category);
         });
       });
 
       if (results.length === 0) {
+        const fallbackCat = currentCat !== 'all' ? currentCat : (detectCategoryFromQuery(rawQuery) || 'all');
+        const fallbackPills = POPULAR_SEARCHES[fallbackCat] || POPULAR_SEARCHES['all'];
+        const fallbackPillsHTML = fallbackPills.map(p => `
+          <button type="button" class="search-suggestion-pill" data-q="${p.q}">
+            ${p.label}
+          </button>
+        `).join('');
+
         resultsBody.innerHTML = `
           <div class="search-modal__empty">
             <div class="search-modal__empty-icon">🎲</div>
-            <h4>No encontramos modelos para "${rawQuery}"</h4>
+            <h4>No encontramos modelos para "${rawQuery}"${currentCat !== 'all' ? ` en ${getCategoryName(currentCat)}` : ''}</h4>
             <p>¿Buscás un modelo que no está en la lista o tenés tu propio archivo STL? ¡Podemos presupuestarlo e imprimirlo en resina 8K!</p>
             <a href="#" data-wa-text="Hola! Estaba buscando '${rawQuery}' en la web de Forja Levi y quería saber si lo pueden imprimir en 3D 🎲" target="_blank" rel="noopener noreferrer" class="btn btn--accent btn--small js-wa-link">
               Consultar por WhatsApp
             </a>
+            <div class="search-modal__empty-suggestions">
+              <div class="search-modal__section-label">🔥 Quizás te interese buscar${fallbackCat !== 'all' ? ` en ${getCategoryName(fallbackCat)}` : ''}:</div>
+              <div class="search-modal__pills-wrap search-modal__pills-wrap--inline">
+                ${fallbackPillsHTML}
+              </div>
+            </div>
           </div>
         `;
         if (typeof initWhatsAppLinks === 'function') initWhatsAppLinks();
+
+        resultsBody.querySelectorAll('.search-suggestion-pill').forEach(btn => {
+          btn.addEventListener('click', () => {
+            input.value = btn.dataset.q;
+            clearBtn.style.display = 'flex';
+            executeSearch();
+            input.focus();
+          });
+        });
         return;
+      }
+
+      // Quick Context Pills si hay un filtro de categoría o coincidencia de categoría en la búsqueda
+      const contextCat = currentCat !== 'all' ? currentCat : detectCategoryFromQuery(rawQuery);
+      let contextPillsHTML = '';
+      if (contextCat && POPULAR_SEARCHES[contextCat]) {
+        const catPills = POPULAR_SEARCHES[contextCat].slice(0, 6);
+        const pillsMarkup = catPills.map(p => `
+          <button type="button" class="search-suggestion-pill" data-q="${p.q}">
+            ${p.label}
+          </button>
+        `).join('');
+
+        contextPillsHTML = `
+          <div class="search-modal__cat-quick-pills">
+            <span class="search-modal__cat-quick-title">🔥 Más buscados en ${getCategoryName(contextCat)}:</span>
+            <div class="search-modal__pills-wrap search-modal__pills-wrap--inline">
+              ${pillsMarkup}
+            </div>
+          </div>
+        `;
       }
 
       const resultsHTML = results.map(p => {
@@ -1116,12 +1272,23 @@
 
       resultsBody.innerHTML = `
         <div class="search-modal__count">
-          Se encontraron <strong>${results.length}</strong> modelo${results.length === 1 ? '' : 's'}:
+          Se encontraron <strong>${results.length}</strong> modelo${results.length === 1 ? '' : 's'}${currentCat !== 'all' ? ` en ${getCategoryName(currentCat)}` : ''}:
         </div>
+        ${contextPillsHTML}
         <div class="search-modal__list">
           ${resultsHTML}
         </div>
       `;
+
+      // Quick Context Pills click event
+      resultsBody.querySelectorAll('.search-modal__cat-quick-pills .search-suggestion-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          input.value = btn.dataset.q;
+          clearBtn.style.display = 'flex';
+          executeSearch();
+          input.focus();
+        });
+      });
 
       // Navegar directo a la tarjeta específica al tocar "Ver" o la información de la tarjeta
       resultsBody.querySelectorAll('.js-search-view-link').forEach(link => {
@@ -1171,7 +1338,9 @@
       document.body.style.overflow = 'hidden';
       input.value = '';
       clearBtn.style.display = 'none';
-      renderInitialState();
+      const pageCat = detectPageCategory();
+      setCategory(pageCat);
+      renderInitialState(currentCat);
       setTimeout(() => input.focus(), 50);
     }
 
@@ -1187,7 +1356,7 @@
     clearBtn.addEventListener('click', () => {
       input.value = '';
       clearBtn.style.display = 'none';
-      renderInitialState();
+      renderInitialState(currentCat);
       input.focus();
     });
 
@@ -1195,9 +1364,7 @@
 
     chipsCont.querySelectorAll('.search-chip').forEach(chip => {
       chip.addEventListener('click', () => {
-        chipsCont.querySelectorAll('.search-chip').forEach(c => c.classList.remove('is-active'));
-        chip.classList.add('is-active');
-        currentCat = chip.dataset.cat;
+        setCategory(chip.dataset.cat);
         executeSearch();
       });
     });

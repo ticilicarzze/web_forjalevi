@@ -2538,6 +2538,38 @@ body.nav-open::before {
   margin-bottom: 1.5rem;
 }
 
+.search-modal__pills-wrap--inline {
+  margin-bottom: 0;
+}
+
+.search-modal__cat-quick-pills {
+  background: rgba(255, 87, 34, 0.05);
+  border: 1px solid rgba(255, 87, 34, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.85rem;
+  margin-bottom: 1.15rem;
+}
+
+.search-modal__cat-quick-title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-light);
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+}
+
+.search-modal__empty-suggestions {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--border);
+  width: 100%;
+  text-align: left;
+}
+
 .search-suggestion-pill {
   background: var(--bg-secondary);
   border: 1px solid var(--border);
