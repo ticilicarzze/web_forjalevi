@@ -339,10 +339,20 @@
     <div class="cart-drawer__body" id="cartItemsContainer"></div>
     <div class="cart-drawer__footer" id="cartFooter">
       <div class="cart-drawer__inputs">
-        <label for="orderName" class="cart-drawer__label">Tu Nombre (opcional):</label>
-        <input type="text" id="orderName" class="cart-drawer__input" placeholder="Ej: Lucas / Dungeon Master" />
-        <label for="orderNotes" class="cart-drawer__label">Detalles / STL / Personalización:</label>
-        <textarea id="orderNotes" class="cart-drawer__textarea" rows="2" placeholder="Ej: Color de filamento, combinaciones..."></textarea>
+        <div class="cart-drawer__field">
+          <label for="orderName" class="cart-drawer__label">👤 Tu Nombre:</label>
+          <input type="text" id="orderName" class="cart-drawer__input" placeholder="Ej: Lucas / Dungeon Master" />
+        </div>
+
+        <div class="cart-drawer__field">
+          <label for="orderLocation" class="cart-drawer__label">📍 Ciudad o Código Postal:</label>
+          <input type="text" id="orderLocation" class="cart-drawer__input" placeholder="Ej: Rosario (retiro en punto) / CP 2000 / Buenos Aires" />
+        </div>
+
+        <div class="cart-drawer__field">
+          <label for="orderNotes" class="cart-drawer__label">📝 Detalles / STL / Personalización:</label>
+          <textarea id="orderNotes" class="cart-drawer__textarea" rows="2" placeholder="Ej: Color de filamento, combinaciones..."></textarea>
+        </div>
       </div>
       <div class="cart-drawer__summary">
         <span class="cart-drawer__total-label">Total estimado:</span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Forja Levi — Impresión 3D de miniaturas, escenografía y accesorios para juegos de rol (D&D, Pathfinder) y wargames (Warhammer 40k, Age of Sigmar). Rosario, Argentina." />
-  <meta name="keywords" content="impresión 3D, miniaturas, D&D, Warhammer, wargames, escenografía, dados, resina, FDM, Rosario, Argentina, Forja Levi" />
+  <meta name="keywords" content="impresión 3D, miniaturas, D&D, Warhammer, wargames, escenografía, dados, resina, FDM, Rosario, Argentina, Forja Levi, forjalevi, forja levi, ForjaLevi" />
   <meta property="og:title" content="Forja Levi — Impresión 3D · Rol · Anime" />
   <meta property="og:description" content="Miniaturas, escenografía y accesorios en resina y FDM de alta calidad para tus partidas de rol y wargames." />
   <meta property="og:image" content="assets/img/logo-forjalevi.jpg" />
@@ -21,6 +21,28 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpeg" href="assets/img/logo-forjalevi.jpg" />
+
+  <!-- Schema.org JSON-LD para SEO Local y Marca -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Forja Levi",
+    "alternateName": ["ForjaLevi", "forjalevi", "forja levi"],
+    "image": "https://tudominio.com.ar/assets/img/logo-forjalevi.jpg",
+    "description": "Impresión 3D de miniaturas, escenografía y accesorios para juegos de rol (D&D, Pathfinder) y wargames. Rosario, Argentina.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Rosario",
+      "addressRegion": "Santa Fe",
+      "addressCountry": "AR"
+    },
+    "url": "https://tudominio.com.ar",
+    "sameAs": [
+      "https://www.instagram.com/forja_levi/"
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -508,11 +530,20 @@
     <!-- Customer info & Checkout footer -->
     <div class="cart-drawer__footer" id="cartFooter">
       <div class="cart-drawer__inputs">
-        <label for="orderName" class="cart-drawer__label">Tu Nombre (opcional):</label>
-        <input type="text" id="orderName" class="cart-drawer__input" placeholder="Ej: Lucas / Dungeon Master" />
+        <div class="cart-drawer__field">
+          <label for="orderName" class="cart-drawer__label">👤 Tu Nombre:</label>
+          <input type="text" id="orderName" class="cart-drawer__input" placeholder="Ej: Lucas / Dungeon Master" />
+        </div>
 
-        <label for="orderNotes" class="cart-drawer__label">Detalles / STL / Personalización:</label>
-        <textarea id="orderNotes" class="cart-drawer__textarea" rows="2" placeholder="Ej: Miniaturas en 32mm, resina gris, o enlaces a STLs..."></textarea>
+        <div class="cart-drawer__field">
+          <label for="orderLocation" class="cart-drawer__label">📍 Ciudad o Código Postal:</label>
+          <input type="text" id="orderLocation" class="cart-drawer__input" placeholder="Ej: Rosario (retiro en punto) / CP 2000 / Buenos Aires" />
+        </div>
+
+        <div class="cart-drawer__field">
+          <label for="orderNotes" class="cart-drawer__label">📝 Detalles / STL / Personalización:</label>
+          <textarea id="orderNotes" class="cart-drawer__textarea" rows="2" placeholder="Ej: Miniaturas en 32mm, resina gris, o enlaces a STLs..."></textarea>
+        </div>
       </div>
 
       <div class="cart-drawer__summary">

@@ -57,9 +57,30 @@
   const cartTotalEl   = document.getElementById('cartTotal');
   const cartCheckout  = document.getElementById('cartCheckoutBtn');
   const cartClearBtn  = document.getElementById('cartClearBtn');
-  const orderNameInp  = document.getElementById('orderName');
-  const orderNotesInp = document.getElementById('orderNotes');
-  const toastEl       = document.getElementById('toastNotification');
+  const orderNameInp     = document.getElementById('orderName');
+  const orderLocationInp = document.getElementById('orderLocation');
+  const orderNotesInp    = document.getElementById('orderNotes');
+  const toastEl          = document.getElementById('toastNotification');
+
+  // ── Persistent Customer Info (Name & Location) ──
+  const CUSTOMER_INFO_KEY = 'forjalevi_customer_info_v1';
+  try {
+    const savedCustomer = JSON.parse(localStorage.getItem(CUSTOMER_INFO_KEY) || '{}');
+    if (orderNameInp && savedCustomer.name) orderNameInp.value = savedCustomer.name;
+    if (orderLocationInp && savedCustomer.location) orderLocationInp.value = savedCustomer.location;
+  } catch (e) {}
+
+  [orderNameInp, orderLocationInp].forEach(inp => {
+    if (!inp) return;
+    inp.addEventListener('input', () => {
+      try {
+        localStorage.setItem(CUSTOMER_INFO_KEY, JSON.stringify({
+          name: orderNameInp ? orderNameInp.value.trim() : '',
+          location: orderLocationInp ? orderLocationInp.value.trim() : ''
+        }));
+      } catch (e) {}
+    });
+  });
 
   // ── State ──
   let cart = [];
@@ -426,8 +447,9 @@
       }
 
       const total = getCartTotal();
-      const customerName = orderNameInp ? orderNameInp.value.trim() : '';
-      const orderNotes   = orderNotesInp ? orderNotesInp.value.trim() : '';
+      const customerName     = orderNameInp ? orderNameInp.value.trim() : '';
+      const customerLocation = orderLocationInp ? orderLocationInp.value.trim() : '';
+      const orderNotes       = orderNotesInp ? orderNotesInp.value.trim() : '';
 
       // Format WhatsApp Message
       let lines = [];
@@ -447,11 +469,15 @@
       if (customerName) {
         lines.push(`👤 *Nombre:* ${customerName}`);
       }
+      if (customerLocation) {
+        lines.push(`📍 *Ciudad / CP:* ${customerLocation}`);
+      } else {
+        lines.push('📍 *Ubicación:* Rosario / Envío a coordinar');
+      }
       if (orderNotes) {
         lines.push(`📝 *Detalles / STL:* ${orderNotes}`);
       }
 
-      lines.push('📍 *Ubicación:* Rosario / Envío');
       lines.push('━━━━━━━━━━━━━━━━━━━━');
       lines.push('¿Tienen disponibilidad y tiempos estimados? ¡Muchas gracias! 🎲');
 
