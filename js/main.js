@@ -842,7 +842,7 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
             </div>
-            <input type="search" id="searchInput" class="search-modal__input" placeholder="Buscar miniaturas, dragones, packs, torres, accesorios..." autocomplete="off" spellcheck="false" />
+            <input type="search" id="searchInput" class="search-modal__input" placeholder="Buscar miniaturas, dados, packs..." autocomplete="off" spellcheck="false" />
             <button type="button" class="search-modal__clear" id="searchClear" aria-label="Limpiar búsqueda" style="display: none;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
