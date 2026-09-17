@@ -174,10 +174,11 @@
       `;
     }
 
-    const subCategoryAttr = p.subCategory ? `data-category="${p.subCategory}"` : '';
+    const subCat1Attr = p.subCategory ? `data-subcategory="${p.subCategory}"` : '';
+    const subCat2Attr = p.subCategory2 ? `data-subcategory2="${p.subCategory2}"` : '';
 
     return `
-      <article class="product-card" id="${p.id}" data-id="${p.id}" data-name="${p.name}" data-price="${currentBasePrice}" data-tier="${p.tier || ''}" ${subCategoryAttr}>
+      <article class="product-card" id="${p.id}" data-id="${p.id}" data-name="${p.name}" data-price="${currentBasePrice}" data-tier="${p.tier || ''}" ${subCat1Attr} ${subCat2Attr}>
         <div class="product-card__media">
           <div class="product-card__tag-wrap">
             ${tagsHTML}
@@ -198,7 +199,136 @@
     `;
   }
 
-  function renderAllWithData(products, tiers, containers) {
+
+  function renderFilters(categoryId, container, categoriesData) {
+    if (container.hasAttribute('data-catalog-subcategory')) return;
+
+    const cats = categoriesData || (window.FORJA_CATALOG_DATA && window.FORJA_CATALOG_DATA.categories) || (window.ForjaCatalogData && window.ForjaCatalogData.categories);
+    if (!cats) return;
+    
+    const catData = cats.find(c => c.id === categoryId);
+    if (!catData || !catData.subcategories || catData.subcategories.length === 0) return;
+
+    // Check if filters already exist to avoid duplicating
+    if (container.previousElementSibling && container.previousElementSibling.classList.contains('catalog-filters')) {
+      return;
+    }
+
+    let filtersHTML = '<div class="catalog-filters">';
+    
+    // Primary Row
+    filtersHTML += '<div class="filter-row filter-row-primary">';
+    filtersHTML += '<button type="button" class="filter-chip is-active" data-filter="all">Todos</button>';
+    catData.subcategories.forEach(sub => {
+      filtersHTML += `<button type="button" class="filter-chip" data-filter="${sub.id}">${sub.name}</button>`;
+    });
+    filtersHTML += '</div>';
+
+    // Secondary Rows (One for each subcategory that has children)
+    catData.subcategories.forEach(sub => {
+      if (sub.children && sub.children.length > 0) {
+        filtersHTML += `<div class="filter-row filter-row-secondary" data-parent="${sub.id}">`;
+        filtersHTML += `<button type="button" class="filter-chip is-active" data-subfilter="all">Todos en ${sub.name}</button>`;
+        sub.children.forEach(child => {
+          filtersHTML += `<button type="button" class="filter-chip" data-subfilter="${child.id}">${child.name}</button>`;
+        });
+        filtersHTML += '</div>';
+      }
+    });
+
+    filtersHTML += '</div>';
+
+    container.insertAdjacentHTML('beforebegin', filtersHTML);
+
+    const filterContainer = container.previousElementSibling;
+    const primaryChips = filterContainer.querySelectorAll('.filter-row-primary .filter-chip');
+    const secondaryRows = filterContainer.querySelectorAll('.filter-row-secondary');
+    const secondaryChips = filterContainer.querySelectorAll('.filter-row-secondary .filter-chip');
+    const cards = container.querySelectorAll('.product-card');
+
+    let activePrimary = 'all';
+    let activeSecondary = 'all';
+
+    function applyFilters() {
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const cat1 = card.getAttribute('data-subcategory');
+        const cat2 = card.getAttribute('data-subcategory2');
+
+        let show = true;
+        if (activePrimary !== 'all' && cat1 !== activePrimary) show = false;
+        if (show && activePrimary !== 'all' && activeSecondary !== 'all' && cat2 !== activeSecondary) show = false;
+
+        if (show) {
+          card.style.display = '';
+          card.classList.remove('is-hidden');
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+          card.classList.add('is-hidden');
+        }
+      });
+
+      let emptyNotice = container.querySelector('.catalog-filter-empty');
+      if (!emptyNotice) {
+        emptyNotice = document.createElement('div');
+        emptyNotice.className = 'catalog-filter-empty';
+        emptyNotice.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 3rem 1.5rem; background: var(--color-bg-card, #1c1c24); border: 1px dashed var(--color-border, #333); border-radius: 12px; margin: 1.5rem 0; width: 100%;';
+        const waUrl = (window.ForjaLeviConfig && typeof window.ForjaLeviConfig.getWhatsAppUrl === 'function')
+          ? window.ForjaLeviConfig.getWhatsAppUrl('Hola! Busco miniaturas para imprimir en 3D 🎲')
+          : '#';
+        emptyNotice.innerHTML = `
+          <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">⚔️</div>
+          <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Modelos listos a pedido</h4>
+          <p style="color: var(--color-text-muted, #aaa); max-width: 500px; margin: 0 auto 1.25rem; font-size: 0.95rem; line-height: 1.5;">
+            Actualmente estamos agregando más piezas de esta selección a la galería web. Si tenés tu propio archivo STL o querés que busquemos uno de esta clase o raza, ¡te lo cotizamos e imprimimos en resina 8K!
+          </p>
+          <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn btn--accent js-wa-link" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+            Pedir cotización por WhatsApp 💬
+          </a>
+        `;
+        container.appendChild(emptyNotice);
+      }
+
+      emptyNotice.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    primaryChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        primaryChips.forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        activePrimary = chip.getAttribute('data-filter');
+        activeSecondary = 'all';
+
+        // Hide all secondary rows
+        secondaryRows.forEach(row => row.classList.remove('is-visible'));
+        
+        // Show secondary row for this primary filter if it exists
+        const targetRow = filterContainer.querySelector(`.filter-row-secondary[data-parent="${activePrimary}"]`);
+        if (targetRow) {
+          targetRow.classList.add('is-visible');
+          const rowChips = targetRow.querySelectorAll('.filter-chip');
+          rowChips.forEach(c => c.classList.remove('is-active'));
+          if (rowChips[0]) rowChips[0].classList.add('is-active');
+        }
+
+        applyFilters();
+      });
+    });
+
+    secondaryChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const row = chip.closest('.filter-row-secondary');
+        const rowChips = row.querySelectorAll('.filter-chip');
+        rowChips.forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        activeSecondary = chip.getAttribute('data-subfilter');
+        applyFilters();
+      });
+    });
+  }
+
+  function renderAllWithData(products, tiers, containers, categories) {
     if (!products || !products.length) return;
 
     containers.forEach(container => {
@@ -212,6 +342,7 @@
 
       if (filtered.length > 0) {
         container.innerHTML = filtered.map(p => renderCardHTML(p, tiers)).join('');
+        renderFilters(category, container, categories);
       }
     });
 
@@ -241,20 +372,26 @@
     // Resolve base paths depending on location (web vs /catalogo/ subfolder)
     const base = window.location.pathname.includes('/catalogo/') ? '../' : '';
 
-    // Fetch products and tiers in parallel for maximum speed
-    // tiers.json is tiny (~500 bytes) so it loads near-instantly
     try {
       const [productsRes, tiersRes] = await Promise.all([
         fetch(base + 'data/products.json'),
         fetch(base + 'data/tiers.json')
       ]);
 
-      const products = productsRes.ok ? (await productsRes.json()).products : null;
+      const dataJson = productsRes.ok ? await productsRes.json() : null;
+      const products = dataJson ? dataJson.products : null;
+      const categories = dataJson ? dataJson.categories : null;
       const tiers    = tiersRes.ok    ? await tiersRes.json()              : {};
 
       if (products) {
-        window.ForjaCatalogData = { products, tiers };
-        renderAllWithData(products, tiers, containers);
+        window.ForjaCatalogData = { products, tiers, categories };
+        window.FORJA_CATALOG_DATA = window.FORJA_CATALOG_DATA || {};
+        window.FORJA_CATALOG_DATA.products = products;
+        window.FORJA_CATALOG_DATA.tiers = tiers;
+        if (categories) {
+          window.FORJA_CATALOG_DATA.categories = categories;
+        }
+        renderAllWithData(products, tiers, containers, categories);
         return;
       }
     } catch (_) {
@@ -263,10 +400,10 @@
 
     // Offline / file:// fallback: use data embedded in js/products-data.js
     if (window.FORJA_CATALOG_DATA) {
-      const { products, tiers } = window.FORJA_CATALOG_DATA;
-      // Override tiers from window.FORJA_TIERS if precios.js was run recently
+      const { products, tiers, categories } = window.FORJA_CATALOG_DATA;
       const activeTiers = window.FORJA_TIERS || tiers || {};
-      renderAllWithData(products, activeTiers, containers);
+      window.ForjaCatalogData = { products, tiers: activeTiers, categories };
+      renderAllWithData(products, activeTiers, containers, categories);
     }
   }
 
@@ -277,7 +414,7 @@
     loadAndRenderProducts();
   }
 
-  window.ForjaCatalog = { load: loadAndRenderProducts };
+    window.ForjaCatalog = { load: loadAndRenderProducts };
 
 })();
 

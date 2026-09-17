@@ -1,35 +1,431 @@
 /**
  * FORJA LEVI — Catálogo de Productos y Modelo Canónico
- * Sincronizado automáticamente por scripts/precios.js
+ * Sincronizado automáticamente
  */
 
 window.FORJA_CATALOG_DATA = {
   "categories": [
     {
       "id": "miniaturas-dnd",
-      "name": "Miniaturas D&D / Pathfinder"
+      "name": "Miniaturas D&D / Pathfinder",
+      "subcategories": [
+        {
+          "id": "heroes",
+          "name": "Héroes",
+          "children": [
+            {
+              "id": "artificiero",
+              "name": "Artificiero"
+            },
+            {
+              "id": "barbaro",
+              "name": "Bárbaro"
+            },
+            {
+              "id": "bardo",
+              "name": "Bardo"
+            },
+            {
+              "id": "brujo",
+              "name": "Brujo"
+            },
+            {
+              "id": "clerigo",
+              "name": "Clérigo"
+            },
+            {
+              "id": "druida",
+              "name": "Druida"
+            },
+            {
+              "id": "explorador",
+              "name": "Explorador"
+            },
+            {
+              "id": "guerrero",
+              "name": "Guerrero"
+            },
+            {
+              "id": "hechicero",
+              "name": "Hechicero"
+            },
+            {
+              "id": "mago",
+              "name": "Mago"
+            },
+            {
+              "id": "monje",
+              "name": "Monje"
+            },
+            {
+              "id": "paladin",
+              "name": "Paladín"
+            },
+            {
+              "id": "picaro",
+              "name": "Pícaro"
+            }
+          ]
+        },
+        {
+          "id": "esbirros",
+          "name": "Esbirros",
+          "children": [
+            {
+              "id": "goblins",
+              "name": "Goblins"
+            },
+            {
+              "id": "kobolds",
+              "name": "Kobolds"
+            },
+            {
+              "id": "esqueletos",
+              "name": "Esqueletos"
+            },
+            {
+              "id": "zombis",
+              "name": "Zombis & Necrófagos"
+            },
+            {
+              "id": "orcos",
+              "name": "Orcos"
+            },
+            {
+              "id": "bandidos",
+              "name": "Bandidos & Cultistas"
+            },
+            {
+              "id": "gnolls",
+              "name": "Gnolls"
+            },
+            {
+              "id": "hombres-lagarto",
+              "name": "Hombres Lagarto"
+            },
+            {
+              "id": "hombres-rata",
+              "name": "Hombres Rata"
+            }
+          ]
+        },
+        {
+          "id": "monstruos",
+          "name": "Monstruos & Jefes",
+          "children": [
+            {
+              "id": "dragones",
+              "name": "Dragones"
+            },
+            {
+              "id": "gigantes",
+              "name": "Gigantes"
+            },
+            {
+              "id": "beholders",
+              "name": "Beholders / Ojos Tiranos"
+            },
+            {
+              "id": "azotamentes",
+              "name": "Azotamentes (Ilícidos)"
+            },
+            {
+              "id": "demonios",
+              "name": "Demonios & Diablos"
+            },
+            {
+              "id": "no-muertos-mayores",
+              "name": "Liches & Vampiros"
+            },
+            {
+              "id": "elementales",
+              "name": "Elementales"
+            },
+            {
+              "id": "aberraciones",
+              "name": "Mímicos & Aberraciones"
+            },
+            {
+              "id": "bestias",
+              "name": "Bestias & Monstruosidades"
+            },
+            {
+              "id": "golems",
+              "name": "Gólems & Constructos"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "warhammer",
-      "name": "Warhammer 40K / AoS / Fantasy"
+      "name": "Warhammer 40K / AoS / Fantasy",
+      "subcategories": [
+        {
+          "id": "space-marines",
+          "name": "Space Marines",
+          "children": [
+            {
+              "id": "black-templars",
+              "name": "Black Templars"
+            },
+            {
+              "id": "blood-angels",
+              "name": "Blood Angels"
+            },
+            {
+              "id": "ultramarines",
+              "name": "Ultramarines"
+            },
+            {
+              "id": "dark-angels",
+              "name": "Dark Angels"
+            },
+            {
+              "id": "space-wolves",
+              "name": "Space Wolves"
+            },
+            {
+              "id": "salamanders",
+              "name": "Salamanders"
+            },
+            {
+              "id": "raven-guard",
+              "name": "Raven Guard"
+            },
+            {
+              "id": "grey-knights",
+              "name": "Grey Knights"
+            }
+          ]
+        },
+        {
+          "id": "imperium",
+          "name": "Ejércitos del Imperium",
+          "children": [
+            {
+              "id": "astra-militarum",
+              "name": "Astra Militarum"
+            },
+            {
+              "id": "adepta-sororitas",
+              "name": "Adepta Sororitas"
+            },
+            {
+              "id": "adeptus-mechanicus",
+              "name": "Adeptus Mechanicus"
+            },
+            {
+              "id": "adeptus-custodes",
+              "name": "Adeptus Custodes"
+            },
+            {
+              "id": "inquisicion",
+              "name": "Inquisición / Agentes"
+            }
+          ]
+        },
+        {
+          "id": "caos",
+          "name": "Ejércitos del Caos",
+          "children": [
+            {
+              "id": "chaos-space-marines",
+              "name": "Chaos Space Marines"
+            },
+            {
+              "id": "death-guard",
+              "name": "Death Guard"
+            },
+            {
+              "id": "world-eaters",
+              "name": "World Eaters"
+            },
+            {
+              "id": "thousand-sons",
+              "name": "Thousand Sons"
+            },
+            {
+              "id": "demonios",
+              "name": "Demonios del Caos"
+            }
+          ]
+        },
+        {
+          "id": "xenos",
+          "name": "Ejércitos de Xenos",
+          "children": [
+            {
+              "id": "orcos",
+              "name": "Orkos"
+            },
+            {
+              "id": "tiranidos",
+              "name": "Tiránidos"
+            },
+            {
+              "id": "necrones",
+              "name": "Necrones"
+            },
+            {
+              "id": "tau",
+              "name": "Imperio T'au"
+            },
+            {
+              "id": "aeldari",
+              "name": "Aeldari"
+            },
+            {
+              "id": "drukhari",
+              "name": "Drukhari"
+            },
+            {
+              "id": "ligas-votann",
+              "name": "Ligas de Votann"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "packs-y-campanas",
-      "name": "Packs & Kits de Campaña"
+      "name": "Packs & Kits de Campaña",
+      "subcategories": [
+        {
+          "id": "packs-cantidad",
+          "name": "Packs por Cantidad"
+        },
+        {
+          "id": "kits-campana",
+          "name": "Kits de Campaña & One-Shots"
+        }
+      ]
     },
     {
       "id": "escenografia",
-      "name": "Escenografía y Estructuras"
+      "name": "Escenografía y Estructuras",
+      "subcategories": [
+        {
+          "id": "ruinas",
+          "name": "Ruinas & Estructuras"
+        },
+        {
+          "id": "modular",
+          "name": "Dungeon Modular"
+        },
+        {
+          "id": "cobertura",
+          "name": "Barricadas & Defensas"
+        },
+        {
+          "id": "accesorios",
+          "name": "Mobiliario & Suministros"
+        }
+      ]
     },
     {
       "id": "torres-y-cajas",
-      "name": "Torres de Dados & Cajas de Guardado"
+      "name": "Torres de Dados & Cajas de Guardado",
+      "subcategories": [
+        {
+          "id": "torres",
+          "name": "Torres de Dados"
+        },
+        {
+          "id": "cajas",
+          "name": "Cajas de Guardado & Estuches"
+        }
+      ]
     },
     {
       "id": "dados-accesorios",
-      "name": "Dados y Accesorios"
+      "name": "Dados y Accesorios",
+      "subcategories": [
+        {
+          "id": "trackers",
+          "name": "Trackers & Contadores"
+        },
+        {
+          "id": "bandejas",
+          "name": "Bandejas para Rodar"
+        },
+        {
+          "id": "marcadores",
+          "name": "Aros & Marcadores"
+        }
+      ]
     }
   ],
+  "tiers": {
+    "heroe": {
+      "name": "Héroes / Aventureros (Paladín, Mago, Bárbaro, etc.)",
+      "price": 5000,
+      "painting_cost": 10000,
+      "description": "Miniaturas de personajes jugadores o PNJ detallados escala 28-32mm"
+    },
+    "esbirro": {
+      "name": "Esbirros / Masillas (Goblins, Esqueletos, Kobolds)",
+      "price": 4000,
+      "painting_cost": 2500,
+      "description": "Miniaturas individuales de tropas básicas o monstruos pequeños"
+    },
+    "pack-esbirros-x5": {
+      "name": "Packs x5 Esbirros (Packs de Goblins, Esqueletos)",
+      "price": 18000,
+      "painting_cost": 25000,
+      "description": "Grupos de 5 miniaturas para encuentros rápidos"
+    },
+    "elite": {
+      "name": "Élites / Líderes / Sci-Fi (Capitanes, Campeones, Nobles)",
+      "price": 5000,
+      "painting_cost": 5000,
+      "description": "Oficiales, infantería pesada o campeones de wargames"
+    },
+    "escuadron-sci-fi-x5": {
+      "name": "Escuadrones Sci-Fi x5 (Tácticos, Asalto)",
+      "price": 11000,
+      "painting_cost": 14000,
+      "description": "Escuadrones de 5 miniaturas para wargames"
+    },
+    "monstruo-mediano": {
+      "name": "Monstruos Medianos / Jinetes (Corceles, Bestias)",
+      "price": 14000,
+      "painting_cost": 12000,
+      "description": "Criaturas medianas o caballería pesada"
+    },
+    "monstruo-grande": {
+      "name": "Monstruos Grandes / Jefes (Dragones, Trolls)",
+      "price": 9500,
+      "painting_cost": 15000,
+      "description": "Criaturas colosales o jefes de campaña"
+    },
+    "vehiculo-pesado": {
+      "name": "Vehículos / Caminantes / Dreadnoughts",
+      "price": 16500,
+      "painting_cost": 12000,
+      "description": "Mechs, vehículos de apoyo y tanques pesados"
+    },
+    "torre-dados": {
+      "name": "Torres de Dados Estándar",
+      "price": 20000,
+      "description": "Torres temáticas impresas en filamento de alta resistencia"
+    },
+    "torre-dados-premium": {
+      "name": "Torres de Dados Escénicas / Premium",
+      "price": 40000,
+      "description": "Torres de gran tamaño con detalles escultóricos complejos"
+    },
+    "caja-dados": {
+      "name": "Cajas de Guardado & Mímicos",
+      "price": 11000,
+      "description": "Cofres temáticos para sets completos de dados"
+    },
+    "accesorio-mesa": {
+      "name": "Accesorios de Mesa (Aros, Trackers, Marcadores)",
+      "price": 4000,
+      "description": "Herramientas de juego para Dungeon Masters y jugadores"
+    }
+  },
   "products": [
     {
       "id": "dnd-paladin",
@@ -56,7 +452,9 @@ window.FORJA_CATALOG_DATA = {
         "cost": 10000,
         "label": "Pintado Tabletop"
       },
-      "tier": "heroe"
+      "tier": "heroe",
+      "subCategory": "heroes",
+      "subCategory2": "paladin"
     },
     {
       "id": "dnd-mago-elfo",
@@ -83,7 +481,9 @@ window.FORJA_CATALOG_DATA = {
         "cost": 10000,
         "label": "Pintado Tabletop"
       },
-      "tier": "heroe"
+      "tier": "heroe",
+      "subCategory": "heroes",
+      "subCategory2": "mago"
     },
     {
       "id": "dnd-barbaro-enano",
@@ -110,7 +510,9 @@ window.FORJA_CATALOG_DATA = {
         "cost": 10000,
         "label": "Pintado Tabletop"
       },
-      "tier": "heroe"
+      "tier": "heroe",
+      "subCategory": "heroes",
+      "subCategory2": "barbaro"
     },
     {
       "id": "dnd-picaro-tiefling",
@@ -137,7 +539,9 @@ window.FORJA_CATALOG_DATA = {
         "cost": 10000,
         "label": "Pintado Tabletop"
       },
-      "tier": "heroe"
+      "tier": "heroe",
+      "subCategory": "heroes",
+      "subCategory2": "picaro"
     },
     {
       "id": "dnd-dragon-rojo",
@@ -164,7 +568,9 @@ window.FORJA_CATALOG_DATA = {
         "cost": 15000,
         "label": "Pintado Tabletop Dragón"
       },
-      "tier": "monstruo-grande"
+      "tier": "monstruo-grande",
+      "subCategory": "monstruos",
+      "subCategory2": "dragones"
     },
     {
       "id": "dnd-pack-goblins",
@@ -192,7 +598,9 @@ window.FORJA_CATALOG_DATA = {
         "label": "Pintado Pack x5",
         "discountBadge": "Ahorro Lote"
       },
-      "tier": "pack-esbirros-x5"
+      "tier": "pack-esbirros-x5",
+      "subCategory": "esbirros",
+      "subCategory2": "goblins"
     },
     {
       "id": "dnd-pack-esqueletos",
@@ -220,7 +628,9 @@ window.FORJA_CATALOG_DATA = {
         "cost": 25000,
         "label": "Pintado Pack x5",
         "discountBadge": "Ahorro Lote"
-      }
+      },
+      "subCategory": "esbirros",
+      "subCategory2": "esqueletos"
     },
     {
       "id": "dnd-goblin-arquero",
@@ -247,7 +657,9 @@ window.FORJA_CATALOG_DATA = {
         "available": true,
         "cost": 2500,
         "label": "Pintado Tabletop"
-      }
+      },
+      "subCategory": "esbirros",
+      "subCategory2": "goblins"
     },
     {
       "id": "dnd-esqueleto-soldado",
@@ -274,7 +686,9 @@ window.FORJA_CATALOG_DATA = {
         "available": true,
         "cost": 2500,
         "label": "Pintado Tabletop"
-      }
+      },
+      "subCategory": "esbirros",
+      "subCategory2": "esqueletos"
     },
     {
       "id": "wh-capitan-espacial",
@@ -301,7 +715,9 @@ window.FORJA_CATALOG_DATA = {
         "cost": 5000,
         "label": "Pintado Tabletop"
       },
-      "tier": "elite"
+      "tier": "elite",
+      "subCategory": "space-marines",
+      "subCategory2": "ultramarines"
     },
     {
       "id": "wh-escuadron-asalto",
@@ -329,15 +745,17 @@ window.FORJA_CATALOG_DATA = {
         "label": "Pintado Squad x5",
         "discountBadge": "Ahorro Squad"
       },
-      "tier": "escuadron-sci-fi-x5"
+      "tier": "escuadron-sci-fi-x5",
+      "subCategory": "space-marines",
+      "subCategory2": "ultramarines"
     },
     {
-      "id": "wh-dreadnought",
-      "name": "Dreadnought de Combate Pesado",
+      "id": "wh-hellblaster-pose1",
+      "name": "Space Marine Hellblaster 1",
       "category": "warhammer",
-      "price": 16500,
+      "price": 8000,
       "priceLabel": "Precio total:",
-      "description": "Caminante bípode con cañón automático y puño sierra de demolición. Gran impacto visual en mesa.",
+      "description": "Space Marine de apoyo pesado armado con potentes rifles de plasma",
       "tags": [
         {
           "text": "Resina / Mixto",
@@ -348,7 +766,7 @@ window.FORJA_CATALOG_DATA = {
           "type": "scale"
         }
       ],
-      "image": "",
+      "image": "assets/img/productos/spacemarine2.webp",
       "placeholderText": "Foto del Modelo",
       "icon": "mech",
       "painting": {
@@ -357,7 +775,99 @@ window.FORJA_CATALOG_DATA = {
         "label": "Pintado Vehículo",
         "discountBadge": "Vehículo"
       },
-      "tier": "vehiculo-pesado"
+      "tier": "",
+      "subCategory": "space-marines",
+      "subCategory2": "ultramarines"
+    },
+    {
+      "id": "wh-hellblaster-pose2",
+      "name": "Space Marine Hellblaster 2",
+      "category": "warhammer",
+      "price": 8000,
+      "priceLabel": "Precio total:",
+      "description": "Space Marine de apoyo pesado armado con potentes rifles de plasma",
+      "tags": [
+        {
+          "text": "Resina / Mixto",
+          "type": "resin"
+        },
+        {
+          "text": "Base 80mm",
+          "type": "scale"
+        }
+      ],
+      "image": "assets/img/productos/spacemarine2.webp",
+      "placeholderText": "Foto del Modelo",
+      "icon": "mech",
+      "painting": {
+        "available": true,
+        "cost": 12000,
+        "label": "Pintado Vehículo",
+        "discountBadge": "Vehículo"
+      },
+      "tier": "vehiculo-pesado",
+      "subCategory": "space-marines",
+      "subCategory2": "ultramarines"
+    },
+    {
+      "id": "wh-hellblaster-pose3",
+      "name": "Space Marine Hellblaster 3",
+      "category": "warhammer",
+      "price": 8000,
+      "priceLabel": "Precio total:",
+      "description": "Space Marine de apoyo pesado armado con potentes rifles de plasma",
+      "tags": [
+        {
+          "text": "Resina / Mixto",
+          "type": "resin"
+        },
+        {
+          "text": "Base 80mm",
+          "type": "scale"
+        }
+      ],
+      "image": "assets/img/productos/spacemarine3.webp",
+      "placeholderText": "Foto del Modelo",
+      "icon": "mech",
+      "painting": {
+        "available": true,
+        "cost": 12000,
+        "label": "Pintado Vehículo",
+        "discountBadge": "Vehículo"
+      },
+      "tier": "vehiculo-pesado",
+      "subCategory": "space-marines",
+      "subCategory2": "ultramarines"
+    },
+    {
+      "id": "wh-hellblaster-pose4",
+      "name": "Space Marine Hellblaster 4",
+      "category": "warhammer",
+      "price": 8000,
+      "priceLabel": "Precio total:",
+      "description": "Space Marine de apoyo pesado armado con potentes rifles de plasma",
+      "tags": [
+        {
+          "text": "Resina / Mixto",
+          "type": "resin"
+        },
+        {
+          "text": "Base 80mm",
+          "type": "scale"
+        }
+      ],
+      "image": "assets/img/productos/spacemarine4.webp",
+      "placeholderText": "Foto del Modelo",
+      "icon": "mech",
+      "painting": {
+        "available": true,
+        "cost": 12000,
+        "label": "Pintado Vehículo",
+        "discountBadge": "Vehículo"
+      },
+      "tier": "vehiculo-pesado",
+      "subCategory": "space-marines",
+      "subCategory2": "ultramarines"
     },
     {
       "id": "wh-caballero-caos",
@@ -385,7 +895,9 @@ window.FORJA_CATALOG_DATA = {
         "label": "Pintado Caballería",
         "discountBadge": "Caballería"
       },
-      "tier": "monstruo-mediano"
+      "tier": "monstruo-mediano",
+      "subCategory": "caos",
+      "subCategory2": "demonios"
     },
     {
       "id": "wh-berserker-orco",
@@ -412,7 +924,9 @@ window.FORJA_CATALOG_DATA = {
         "cost": 5000,
         "label": "Pintado Tabletop"
       },
-      "tier": "elite"
+      "tier": "elite",
+      "subCategory": "xenos",
+      "subCategory2": "orcos"
     },
     {
       "id": "wh-set-conversion",
@@ -440,7 +954,9 @@ window.FORJA_CATALOG_DATA = {
         "label": "Pintado Bits",
         "discountBadge": "Detalle"
       },
-      "tier": "accesorio-mesa"
+      "tier": "accesorio-mesa",
+      "subCategory": "space-marines",
+      "subCategory2": "black-templars"
     },
     {
       "id": "pack-10-minis",
@@ -689,7 +1205,8 @@ window.FORJA_CATALOG_DATA = {
         "available": true,
         "cost": 6000,
         "label": "Pintado Escénico"
-      }
+      },
+      "subCategory": "ruinas"
     },
     {
       "id": "esc-barricadas-pack",
@@ -715,7 +1232,8 @@ window.FORJA_CATALOG_DATA = {
         "available": true,
         "cost": 4500,
         "label": "Pintado Escénico"
-      }
+      },
+      "subCategory": "cobertura"
     },
     {
       "id": "esc-dungeon-tiles",
@@ -741,7 +1259,8 @@ window.FORJA_CATALOG_DATA = {
         "available": true,
         "cost": 9000,
         "label": "Pintado Dungeon"
-      }
+      },
+      "subCategory": "modular"
     },
     {
       "id": "esc-torre-ruinas",
@@ -767,7 +1286,8 @@ window.FORJA_CATALOG_DATA = {
         "available": true,
         "cost": 7500,
         "label": "Pintado Escénico"
-      }
+      },
+      "subCategory": "ruinas"
     },
     {
       "id": "esc-suministros-barriles",
@@ -793,7 +1313,8 @@ window.FORJA_CATALOG_DATA = {
         "available": true,
         "cost": 3500,
         "label": "Pintado Detalle"
-      }
+      },
+      "subCategory": "accesorios"
     },
     {
       "id": "esc-portal-arcano",
@@ -819,7 +1340,8 @@ window.FORJA_CATALOG_DATA = {
         "available": true,
         "cost": 6500,
         "label": "Pintado Místico"
-      }
+      },
+      "subCategory": "ruinas"
     },
     {
       "id": "td-castillo-medieval",
@@ -1140,7 +1662,8 @@ window.FORJA_CATALOG_DATA = {
       "image": "",
       "placeholderText": "Foto del Accesorio",
       "icon": "rings",
-      "tier": "accesorio-mesa"
+      "tier": "accesorio-mesa",
+      "subCategory": "marcadores"
     },
     {
       "id": "acc-tracker-vida",
@@ -1162,7 +1685,8 @@ window.FORJA_CATALOG_DATA = {
       "image": "",
       "placeholderText": "Foto del Accesorio",
       "icon": "clock",
-      "tier": "accesorio-mesa"
+      "tier": "accesorio-mesa",
+      "subCategory": "trackers"
     },
     {
       "id": "acc-bandeja-octogonal",
@@ -1184,7 +1708,8 @@ window.FORJA_CATALOG_DATA = {
       "image": "",
       "placeholderText": "Foto del Accesorio",
       "icon": "dice",
-      "tier": "accesorio-mesa"
+      "tier": "accesorio-mesa",
+      "subCategory": "bandejas"
     },
     {
       "id": "acc-spell-slots",
@@ -1206,7 +1731,8 @@ window.FORJA_CATALOG_DATA = {
       "image": "",
       "placeholderText": "Foto del Accesorio",
       "icon": "box",
-      "tier": "accesorio-mesa"
+      "tier": "accesorio-mesa",
+      "subCategory": "trackers"
     },
     {
       "id": "acc-iniciativa-dm",
@@ -1228,7 +1754,8 @@ window.FORJA_CATALOG_DATA = {
       "image": "",
       "placeholderText": "Foto del Accesorio",
       "icon": "tower",
-      "tier": "accesorio-mesa"
+      "tier": "accesorio-mesa",
+      "subCategory": "trackers"
     },
     {
       "id": "acc-marcadores-objetivos",
@@ -1250,78 +1777,38 @@ window.FORJA_CATALOG_DATA = {
       "image": "",
       "placeholderText": "Foto del Accesorio",
       "icon": "target",
-      "tier": "accesorio-mesa"
-    }
-  ],
-  "tiers": {
-    "heroe": {
-      "name": "Héroes / Aventureros (Paladín, Mago, Bárbaro, etc.)",
-      "price": 5000,
-      "painting_cost": 10000,
-      "description": "Miniaturas de personajes jugadores o PNJ detallados escala 28-32mm"
+      "tier": "accesorio-mesa",
+      "subCategory": "marcadores"
     },
-    "esbirro": {
-      "name": "Esbirros / Masillas (Goblins, Esqueletos, Kobolds)",
-      "price": 4000,
-      "painting_cost": 2500,
-      "description": "Miniaturas individuales de tropas básicas o monstruos pequeños"
-    },
-    "pack-esbirros-x5": {
-      "name": "Packs x5 Esbirros (Packs de Goblins, Esqueletos)",
-      "price": 18000,
-      "painting_cost": 25000,
-      "description": "Grupos de 5 miniaturas para encuentros rápidos"
-    },
-    "elite": {
-      "name": "Élites / Líderes / Sci-Fi (Capitanes, Campeones, Nobles)",
-      "price": 5000,
-      "painting_cost": 5000,
-      "description": "Oficiales, infantería pesada o campeones de wargames"
-    },
-    "escuadron-sci-fi-x5": {
-      "name": "Escuadrones Sci-Fi x5 (Tácticos, Asalto)",
-      "price": 11000,
-      "painting_cost": 14000,
-      "description": "Escuadrones de 5 miniaturas para wargames"
-    },
-    "monstruo-mediano": {
-      "name": "Monstruos Medianos / Jinetes (Corceles, Bestias)",
-      "price": 14000,
-      "painting_cost": 12000,
-      "description": "Criaturas medianas o caballería pesada"
-    },
-    "monstruo-grande": {
-      "name": "Monstruos Grandes / Jefes (Dragones, Trolls)",
-      "price": 9500,
-      "painting_cost": 15000,
-      "description": "Criaturas colosales o jefes de campaña"
-    },
-    "vehiculo-pesado": {
-      "name": "Vehículos / Caminantes / Dreadnoughts",
+    {
+      "id": "wh-dreadnought",
+      "name": "Dreadnought de Combate Pesado",
+      "category": "warhammer",
       "price": 16500,
-      "painting_cost": 12000,
-      "description": "Mechs, vehículos de apoyo y tanques pesados"
-    },
-    "torre-dados": {
-      "name": "Torres de Dados Estándar",
-      "price": 20000,
-      "description": "Torres temáticas impresas en filamento de alta resistencia"
-    },
-    "torre-dados-premium": {
-      "name": "Torres de Dados Escénicas / Premium",
-      "price": 40000,
-      "description": "Torres de gran tamaño con detalles escultóricos complejos"
-    },
-    "caja-dados": {
-      "name": "Cajas de Guardado & Mímicos",
-      "price": 11000,
-      "description": "Cofres temáticos para sets completos de dados"
-    },
-    "accesorio-mesa": {
-      "name": "Accesorios de Mesa (Aros, Trackers, Marcadores)",
-      "price": 4000,
-      "description": "Herramientas de juego para Dungeon Masters y jugadores"
+      "priceLabel": "Precio total:",
+      "description": "Caminante bípode con cañón automático y puño sierra de demolición. Gran impacto visual en mesa.",
+      "tags": [
+        {
+          "text": "Resina / Mixto",
+          "type": "resin"
+        },
+        {
+          "text": "Base 80mm",
+          "type": "scale"
+        }
+      ],
+      "image": "",
+      "placeholderText": "Foto del Modelo",
+      "icon": "mech",
+      "painting": {
+        "available": true,
+        "cost": 12000,
+        "label": "Pintado Vehículo",
+        "discountBadge": "Vehículo"
+      },
+      "tier": "vehiculo-pesado",
+      "subCategory": "space-marines",
+      "subCategory2": "ultramarines"
     }
-  }
+  ]
 };
-window.FORJA_CATALOG = window.FORJA_CATALOG_DATA.products;

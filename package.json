@@ -6,6 +6,7 @@
     "dev":     "npx serve . --listen 3000",
     "precios": "node scripts/precios.js",
     "fotos":   "python3 scripts/optimizar-fotos.py",
+    "agregar": "python3 scripts/agregar-producto.py",
     "deploy":  "git add data/tiers.json data/products.json js/products-data.js assets/img/ && git commit -m 'update: catalogo actualizado' && git push origin main"
   }
 }
