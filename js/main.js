@@ -55,32 +55,10 @@
   const cartCountEl   = document.getElementById('cartCount');
   const fabCartBadge  = document.getElementById('fabCartBadge');
   const cartTotalEl   = document.getElementById('cartTotal');
-  const cartCheckout  = document.getElementById('cartCheckoutBtn');
-  const cartClearBtn  = document.getElementById('cartClearBtn');
-  const orderNameInp     = document.getElementById('orderName');
-  const orderLocationInp = document.getElementById('orderLocation');
-  const orderNotesInp    = document.getElementById('orderNotes');
-  const toastEl          = document.getElementById('toastNotification');
-
-  // ── Persistent Customer Info (Name & Location) ──
-  const CUSTOMER_INFO_KEY = 'forjalevi_customer_info_v1';
-  try {
-    const savedCustomer = JSON.parse(localStorage.getItem(CUSTOMER_INFO_KEY) || '{}');
-    if (orderNameInp && savedCustomer.name) orderNameInp.value = savedCustomer.name;
-    if (orderLocationInp && savedCustomer.location) orderLocationInp.value = savedCustomer.location;
-  } catch (e) {}
-
-  [orderNameInp, orderLocationInp].forEach(inp => {
-    if (!inp) return;
-    inp.addEventListener('input', () => {
-      try {
-        localStorage.setItem(CUSTOMER_INFO_KEY, JSON.stringify({
-          name: orderNameInp ? orderNameInp.value.trim() : '',
-          location: orderLocationInp ? orderLocationInp.value.trim() : ''
-        }));
-      } catch (e) {}
-    });
-  });
+  const cartCheckout    = document.getElementById('cartCheckoutBtn');
+  const cartContinueBtn = document.getElementById('cartContinueBtn');
+  const cartClearBtn    = document.getElementById('cartClearBtn');
+  const toastEl         = document.getElementById('toastNotification');
 
   // ── State ──
   let cart = [];
@@ -403,6 +381,7 @@
   if (cartClose) cartClose.addEventListener('click', closeCart);
   if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
   if (cartClearBtn) cartClearBtn.addEventListener('click', clearCart);
+  if (cartContinueBtn) cartContinueBtn.addEventListener('click', closeCart);
 
   // Esc key to close drawer
   document.addEventListener('keydown', (e) => {
@@ -438,53 +417,19 @@
     addToCart(id, name, price, variantId, variantName, isPainted, paintLabel);
   });
 
-  // ── WhatsApp Checkout Compilation ──
+  // ── Proceed to Dedicated Checkout Page ──
   if (cartCheckout) {
     cartCheckout.addEventListener('click', () => {
       if (cart.length === 0) {
-        showToast('Tu lista está vacía. ¡Agregá items primero!');
+        showToast('Tu lista está vacía. ¡Agregá productos primero!');
         return;
       }
 
-      const total = getCartTotal();
-      const customerName     = orderNameInp ? orderNameInp.value.trim() : '';
-      const customerLocation = orderLocationInp ? orderLocationInp.value.trim() : '';
-      const orderNotes       = orderNotesInp ? orderNotesInp.value.trim() : '';
-
-      // Format WhatsApp Message
-      let lines = [];
-      lines.push('⚔️ *¡Hola Forja Levi! Quiero coordinar este pedido:*');
-      lines.push('━━━━━━━━━━━━━━━━━━━━');
-
-      cart.forEach(item => {
-        const itemSubtotal = formatCurrency(item.price * item.qty);
-        const varText = item.variantName ? ` [${item.variantName}]` : '';
-        const paintText = item.isPainted ? ` 🖌️(${item.paintLabel || 'Pintado Tabletop'})` : ` ⚪(Sin pintar)`;
-        lines.push(`• *${item.qty}x* ${item.name}${varText}${paintText} (${itemSubtotal})`);
-      });
-
-      lines.push('━━━━━━━━━━━━━━━━━━━━');
-      lines.push(`💰 *Total estimado:* ${formatCurrency(total)}`);
-
-      if (customerName) {
-        lines.push(`👤 *Nombre:* ${customerName}`);
+      const checkoutUrl = window.location.pathname.includes('/catalogo/') ? '../checkout.html' : 'checkout.html';
+      const win = window.open(checkoutUrl, '_blank');
+      if (!win) {
+        window.location.href = checkoutUrl;
       }
-      if (customerLocation) {
-        lines.push(`📍 *Ciudad / CP:* ${customerLocation}`);
-      } else {
-        lines.push('📍 *Ubicación:* Rosario / Envío a coordinar');
-      }
-      if (orderNotes) {
-        lines.push(`📝 *Detalles / STL:* ${orderNotes}`);
-      }
-
-      lines.push('━━━━━━━━━━━━━━━━━━━━');
-      lines.push('¿Tienen disponibilidad y tiempos estimados? ¡Muchas gracias! 🎲');
-
-      const message = lines.join('\n');
-      const whatsappUrl = getWhatsAppUrl(message);
-
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     });
   }
 
@@ -503,11 +448,11 @@
         };
       }),
       payer: {
-        name: customer.name || (orderNameInp ? orderNameInp.value.trim() : ''),
+        name: customer.name || '',
         email: customer.email || ''
       },
       metadata: {
-        notes: customer.notes || (orderNotesInp ? orderNotesInp.value.trim() : ''),
+        notes: customer.notes || '',
         source: 'forjalevi_web'
       }
     };

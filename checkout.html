@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Finalizar pedido en Forja Levi — Miniaturas, escenografía y accesorios en resina y FDM." />
+  <title>Finalizar Pedido — Forja Levi</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/img/logo-forjalevi.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="checkout-page">
+
+  <!-- Checkout Header -->
+  <header class="checkout-header">
+    <div class="container checkout-header__inner">
+      <a href="index.html" class="checkout-header__logo" title="Volver al inicio">
+        <img src="assets/img/logo-forjalevi.png" alt="Logo Forja Levi" width="44" height="44" />
+        <span class="checkout-header__title">Forja Levi</span>
+      </a>
+
+      <a href="index.html#catalogo" class="btn btn--continue" id="headerContinueBtn" style="width: auto; padding: 0.5rem 1rem;">
+        &larr; Seguir Comprando
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="checkout-main">
+    <div class="container">
+      <div class="checkout-grid" id="checkoutGrid">
+        
+        <!-- Left: Customer & Shipping Information -->
+        <section class="checkout-card" aria-labelledby="formTitle">
+          <h1 class="checkout-card__title" id="formTitle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            Tus Datos y Preferencias
+          </h1>
+
+          <form class="checkout-form" id="checkoutForm" onsubmit="event.preventDefault();">
+            <!-- Full Name -->
+            <div class="checkout-form__group">
+              <label class="checkout-form__label" for="customerName">
+                Nombre y Apellido <span style="color:var(--accent); font-weight:bold;">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="customerName" 
+                class="checkout-form__input" 
+                placeholder="Ej: Lucas Ramírez" 
+                required 
+                autocomplete="name"
+              />
+            </div>
+
+            <!-- City and Location -->
+            <div class="checkout-form__group">
+              <label class="checkout-form__label" for="customerLocation">
+                Ciudad, Provincia o Código Postal <span style="color:var(--accent); font-weight:bold;">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="customerLocation" 
+                class="checkout-form__input" 
+                placeholder="Ej: Rosario, Santa Fe (CP 2000)" 
+                required 
+                autocomplete="address-level2"
+              />
+            </div>
+
+            <!-- Phone / WhatsApp -->
+            <div class="checkout-form__group">
+              <label class="checkout-form__label" for="customerPhone">
+                Teléfono / WhatsApp de contacto
+              </label>
+              <input 
+                type="tel" 
+                id="customerPhone" 
+                class="checkout-form__input" 
+                placeholder="Ej: 341 123 4567" 
+                autocomplete="tel"
+              />
+            </div>
+
+            <!-- Shipping / Delivery Method -->
+            <div class="checkout-form__group">
+              <label class="checkout-form__label">Modalidad de Entrega</label>
+              <div class="radio-options">
+                <label class="radio-card">
+                  <input type="radio" name="shippingMethod" value="Envío por Correo" checked />
+                  <div class="radio-card__text">
+                    <span class="radio-card__title">📦 Envío por Correo</span>
+                    <span class="radio-card__subtitle">A todo el país (Andreani / Correo Arg.)</span>
+                  </div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="shippingMethod" value="Retiro en Rosario" />
+                  <div class="radio-card__text">
+                    <span class="radio-card__title">📍 Retiro en Rosario</span>
+                    <span class="radio-card__subtitle">Punto de entrega sin costo de flete</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Payment Method Preference -->
+            <div class="checkout-form__group">
+              <label class="checkout-form__label">Medio de Pago Preferido</label>
+              <div class="radio-options">
+                <label class="radio-card">
+                  <input type="radio" name="paymentMethod" value="Transferencia Bancaria (10% OFF)" checked />
+                  <div class="radio-card__text">
+                    <span class="radio-card__title">💳 Transferencia / Alias</span>
+                    <span class="radio-card__subtitle">10% OFF en tu pedido</span>
+                  </div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="paymentMethod" value="Mercado Pago" />
+                  <div class="radio-card__text">
+                    <span class="radio-card__title">📱 Mercado Pago</span>
+                    <span class="radio-card__subtitle">Dinero en cuenta o tarjetas</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Notes / STL custom request -->
+            <div class="checkout-form__group">
+              <label class="checkout-form__label" for="customerNotes">
+                Notas adicionales / Links de archivos STL / Indicaciones
+              </label>
+              <textarea 
+                id="customerNotes" 
+                class="checkout-form__textarea" 
+                placeholder="Ej: Me gustaría peana redonda de 32mm, o link de WeTransfer/Google Drive para impresión personalizada..."
+              ></textarea>
+            </div>
+          </form>
+        </section>
+
+        <!-- Right: Order Summary (No Images) & WhatsApp CTA -->
+        <section class="checkout-card" aria-labelledby="summaryTitle">
+          <h2 class="checkout-card__title" id="summaryTitle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            Resumen del Pedido
+          </h2>
+
+          <!-- Items List (Pure text and pricing, NO images) -->
+          <div class="checkout-summary-items" id="checkoutItemsList">
+            <!-- Populated dynamically via checkout.js -->
+          </div>
+
+          <!-- Total Calculation Box -->
+          <div class="checkout-summary-box">
+            <div class="checkout-summary-row">
+              <span>Cantidad de artículos:</span>
+              <strong id="checkoutTotalCount">0 u.</strong>
+            </div>
+            <div class="checkout-summary-row">
+              <span>Entrega / Despacho:</span>
+              <strong style="color: var(--text-primary);" id="checkoutShippingLabel">A coordinar</strong>
+            </div>
+            <div class="checkout-summary-row checkout-summary-row--total">
+              <span>Total Estimado:</span>
+              <span class="total-amount" id="checkoutTotalAmount">$0</span>
+            </div>
+          </div>
+
+          <!-- Helpful note -->
+          <div class="checkout-notice">
+            ⚔️ <strong>Pedido directo y artesanal:</strong> Al finalizar, se abrirá WhatsApp con el detalle de tu lista y tus datos cargados. Así confirmamos juntos stock de resina, tiempos de impresión y formas de envío.
+          </div>
+
+          <!-- CTA Button -->
+          <button type="button" class="btn btn--checkout" id="btnWhatsappCheckout" style="font-size: 1.05rem; padding: 1rem 1.25rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.042-.072-.258-.09-1.03-.38-1.956-1.205-1.144-1.02-1.89-2.28-2.09-2.624-.2-.344-.02-.53.123-.672.13-.129.288-.335.432-.503.144-.168.192-.288.288-.48.096-.192.048-.36-.024-.504-.072-.144-.648-1.56-.888-2.136-.23-.55-.465-.478-.648-.486-.168-.008-.36-.008-.552-.008s-.504.072-.768.36c-.264.288-1.008.984-1.008 2.4s1.032 2.784 1.176 2.976c.144.192 2.032 3.102 4.928 4.35 1.704.735 2.376.792 3.24.664.528-.08 1.632-.667 1.864-1.312.232-.648.232-1.204.162-1.319-.07-.116-.258-.188-.546-.332l-.001.001z"/>
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.306A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.697 0-3.267-.492-4.595-1.339l-.33-.208-3.042.798.812-2.966-.228-.363A8.125 8.125 0 0 1 3.833 12c0-4.503 3.664-8.167 8.167-8.167 4.503 0 8.167 3.664 8.167 8.167 0 4.503-3.664 8.167-8.167 8.167z"/>
+            </svg>
+            Finalizar Pedido por WhatsApp
+          </button>
+
+          <!-- Back Link -->
+          <a href="index.html#catalogo" class="checkout-back-link" id="footerContinueBtn">
+            &larr; Seguir Comprando en el Catálogo
+          </a>
+        </section>
+
+      </div>
+
+      <!-- Empty State View (hidden by default) -->
+      <div id="checkoutEmptyState" style="display: none; text-align: center; padding: 4rem 1rem; max-width: 500px; margin: 0 auto;">
+        <div style="font-size: 3.5rem; margin-bottom: 1rem;">⚔️</div>
+        <h2 style="font-family: 'Cinzel Decorative', serif; font-size: 1.6rem; color: var(--text-primary); margin-bottom: 0.75rem;">Tu carrito está vacío</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.6;">Aún no tenés productos cargados para finalizar tu pedido. Explorá nuestro catálogo y sumá tus miniaturas o accesorios favoritos.</p>
+        <a href="index.html#catalogo" class="btn btn--primary">
+          Explorar Catálogo de Miniaturas
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toastNotification" role="status" aria-live="polite"></div>
+
+  <!-- Checkout Script -->
+  <script src="js/checkout.js"></script>
+</body>
+</html>
