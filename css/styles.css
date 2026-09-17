@@ -3570,15 +3570,105 @@ body.nav-open::before {
   font-size: 0.75rem;
 }
 
+/* Mobile Summary Accordion Banner */
+.checkout-mobile-summary {
+  display: none;
+  background: rgba(22, 20, 25, 0.98);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.checkout-mobile-summary__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.15rem;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.92rem;
+  cursor: pointer;
+  outline: none;
+  text-align: left;
+  transition: background var(--transition);
+}
+
+.checkout-mobile-summary__toggle:hover {
+  background: rgba(255, 87, 34, 0.05);
+}
+
+.checkout-mobile-summary__left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkout-mobile-summary__right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+.checkout-mobile-summary__right .chevron-icon {
+  transition: transform 0.25s ease;
+  color: var(--text-secondary);
+}
+
+.checkout-mobile-summary.is-open .chevron-icon {
+  transform: rotate(180deg);
+}
+
+.checkout-mobile-summary__drawer {
+  display: none;
+  padding: 1.15rem;
+  border-top: 1px dashed var(--border);
+  background: rgba(12, 11, 14, 0.9);
+}
+
+.checkout-mobile-summary.is-open .checkout-mobile-summary__drawer {
+  display: block;
+}
+
+.checkout-form__mobile-cta {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 901px) {
+  .checkout-form__mobile-cta {
+    display: none;
+  }
+}
+
 @media (max-width: 900px) {
+  .checkout-mobile-summary {
+    display: block;
+  }
+  .checkout-card--summary {
+    display: none;
+  }
+  .checkout-main {
+    padding: 1.25rem 0 3.5rem;
+  }
   .checkout-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   .radio-options {
     grid-template-columns: 1fr;
   }
   .checkout-card {
-    padding: 1.5rem;
+    padding: 1.35rem 1.15rem;
   }
 }

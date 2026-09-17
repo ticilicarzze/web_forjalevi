@@ -11,22 +11,27 @@
   const CUSTOMER_INFO_KEY = 'forjalevi_customer_info_v1';
 
   // DOM Elements
-  const checkoutGrid       = document.getElementById('checkoutGrid');
-  const checkoutEmptyState = document.getElementById('checkoutEmptyState');
-  const itemsListCont      = document.getElementById('checkoutItemsList');
-  const totalCountEl       = document.getElementById('checkoutTotalCount');
-  const totalAmountEl      = document.getElementById('checkoutTotalAmount');
-  const shippingLabelEl    = document.getElementById('checkoutShippingLabel');
-  const btnWhatsapp        = document.getElementById('btnWhatsappCheckout');
-  const toastEl            = document.getElementById('toastNotification');
+  const checkoutGrid           = document.getElementById('checkoutGrid');
+  const checkoutEmptyState     = document.getElementById('checkoutEmptyState');
+  const mobileSummaryAccordion = document.getElementById('mobileSummaryAccordion');
+  const mobileSummaryToggle    = document.getElementById('mobileSummaryToggle');
+  const mobileSummaryBadge     = document.getElementById('mobileSummaryBadge');
+  const mobileSummaryTotal     = document.getElementById('mobileSummaryTotal');
+  const mobileItemsList        = document.getElementById('mobileItemsList');
+
+  const desktopItemsList       = document.getElementById('desktopItemsList');
+  const desktopTotalCount      = document.getElementById('desktopTotalCount');
+  const desktopTotalAmount     = document.getElementById('desktopTotalAmount');
+  const desktopShippingLabel   = document.getElementById('desktopShippingLabel');
+
+  const toastEl                = document.getElementById('toastNotification');
 
   // Customer Inputs
-  const inputName          = document.getElementById('customerName');
-  const inputLocation      = document.getElementById('customerLocation');
-  const inputPhone         = document.getElementById('customerPhone');
-  const inputNotes         = document.getElementById('customerNotes');
-  const headerContinueBtn  = document.getElementById('headerContinueBtn');
-  const footerContinueBtn  = document.getElementById('footerContinueBtn');
+  const inputName              = document.getElementById('customerName');
+  const inputLocation          = document.getElementById('customerLocation');
+  const inputPhone             = document.getElementById('customerPhone');
+  const inputNotes             = document.getElementById('customerNotes');
+  const headerContinueBtn      = document.getElementById('headerContinueBtn');
 
   let cart = [];
 
@@ -125,27 +130,9 @@
     showToast('Producto eliminado del pedido');
   }
 
-  // ── Render Summary (Sin Imágenes) ──
-  function renderSummary() {
-    if (!itemsListCont) return;
-
-    if (cart.length === 0) {
-      if (checkoutGrid) checkoutGrid.style.display = 'none';
-      if (checkoutEmptyState) checkoutEmptyState.style.display = 'block';
-      return;
-    }
-
-    if (checkoutGrid) checkoutGrid.style.display = 'grid';
-    if (checkoutEmptyState) checkoutEmptyState.style.display = 'none';
-
-    const totalCount = getCartCount();
-    const totalAmount = getCartTotal();
-
-    if (totalCountEl) totalCountEl.textContent = `${totalCount} u.`;
-    if (totalAmountEl) totalAmountEl.textContent = formatCurrency(totalAmount);
-
-    // List items cleanly (no images)
-    itemsListCont.innerHTML = cart.map(item => {
+  // ── Generate Items HTML (Pure text, NO images) ──
+  function buildItemsHTML() {
+    return cart.map(item => {
       const itemKey = item.cartItemId || item.id;
       const subtotal = item.price * item.qty;
       const paintBadge = item.isPainted
@@ -179,96 +166,142 @@
         </div>
       `;
     }).join('');
+  }
 
-    // Attach click events
-    itemsListCont.querySelectorAll('.js-minus').forEach(btn => {
+  function attachItemEvents(container) {
+    if (!container) return;
+    container.querySelectorAll('.js-minus').forEach(btn => {
       btn.addEventListener('click', () => updateQty(btn.dataset.key, -1));
     });
-    itemsListCont.querySelectorAll('.js-plus').forEach(btn => {
+    container.querySelectorAll('.js-plus').forEach(btn => {
       btn.addEventListener('click', () => updateQty(btn.dataset.key, 1));
     });
-    itemsListCont.querySelectorAll('.js-remove').forEach(btn => {
+    container.querySelectorAll('.js-remove').forEach(btn => {
       btn.addEventListener('click', () => removeItem(btn.dataset.key));
+    });
+  }
+
+  // ── Render Summary ──
+  function renderSummary() {
+    if (cart.length === 0) {
+      if (checkoutGrid) checkoutGrid.style.display = 'none';
+      if (mobileSummaryAccordion) mobileSummaryAccordion.style.display = 'none';
+      if (checkoutEmptyState) checkoutEmptyState.style.display = 'block';
+      return;
+    }
+
+    if (checkoutGrid) checkoutGrid.style.display = 'grid';
+    if (mobileSummaryAccordion) mobileSummaryAccordion.style.display = '';
+    if (checkoutEmptyState) checkoutEmptyState.style.display = 'none';
+
+    const totalCount = getCartCount();
+    const totalAmount = getCartTotal();
+    const itemsHTML = buildItemsHTML();
+
+    // Desktop
+    if (desktopTotalCount) desktopTotalCount.textContent = `${totalCount} u.`;
+    if (desktopTotalAmount) desktopTotalAmount.textContent = formatCurrency(totalAmount);
+    if (desktopItemsList) {
+      desktopItemsList.innerHTML = itemsHTML;
+      attachItemEvents(desktopItemsList);
+    }
+
+    // Mobile Accordion
+    if (mobileSummaryBadge) mobileSummaryBadge.textContent = `${totalCount} u.`;
+    if (mobileSummaryTotal) mobileSummaryTotal.textContent = formatCurrency(totalAmount);
+    if (mobileItemsList) {
+      mobileItemsList.innerHTML = itemsHTML;
+      attachItemEvents(mobileItemsList);
+    }
+  }
+
+  // ── Mobile Accordion Toggle ──
+  if (mobileSummaryToggle && mobileSummaryAccordion) {
+    mobileSummaryToggle.addEventListener('click', () => {
+      const isOpen = mobileSummaryAccordion.classList.toggle('is-open');
+      mobileSummaryToggle.setAttribute('aria-expanded', isOpen);
     });
   }
 
   // ── Shipping Method radio changes ──
   document.querySelectorAll('input[name="shippingMethod"]').forEach(radio => {
     radio.addEventListener('change', (e) => {
-      if (shippingLabelEl) {
-        shippingLabelEl.textContent = e.target.value === 'Retiro en Rosario' 
+      if (desktopShippingLabel) {
+        desktopShippingLabel.textContent = e.target.value === 'Retiro en Rosario' 
           ? 'Retiro gratis en Rosario' 
           : 'A coordinar (Correo)';
       }
     });
   });
 
-  // ── Finalizar Pedido por WhatsApp ──
-  if (btnWhatsapp) {
-    btnWhatsapp.addEventListener('click', () => {
-      if (cart.length === 0) {
-        showToast('Tu carrito está vacío.');
-        return;
-      }
+  // ── Finalizar Pedido por WhatsApp (Delegate to all CTA buttons) ──
+  function handleWhatsAppCheckout() {
+    if (cart.length === 0) {
+      showToast('Tu carrito está vacío.');
+      return;
+    }
 
-      const name = inputName ? inputName.value.trim() : '';
-      const location = inputLocation ? inputLocation.value.trim() : '';
-      const phone = inputPhone ? inputPhone.value.trim() : '';
-      const notes = inputNotes ? inputNotes.value.trim() : '';
+    const name = inputName ? inputName.value.trim() : '';
+    const location = inputLocation ? inputLocation.value.trim() : '';
+    const phone = inputPhone ? inputPhone.value.trim() : '';
+    const notes = inputNotes ? inputNotes.value.trim() : '';
 
-      if (!name) {
-        showToast('⚠️ Por favor ingresá tu nombre y apellido.');
-        inputName && inputName.focus();
-        return;
-      }
+    if (!name) {
+      showToast('⚠️ Por favor ingresá tu nombre y apellido.');
+      inputName && inputName.focus();
+      return;
+    }
 
-      if (!location) {
-        showToast('⚠️ Por favor ingresá tu ciudad o CP para el envío.');
-        inputLocation && inputLocation.focus();
-        return;
-      }
+    if (!location) {
+      showToast('⚠️ Por favor ingresá tu ciudad o CP para el envío.');
+      inputLocation && inputLocation.focus();
+      return;
+    }
 
-      const shippingRadio = document.querySelector('input[name="shippingMethod"]:checked');
-      const shippingMethod = shippingRadio ? shippingRadio.value : 'A coordinar';
+    const shippingRadio = document.querySelector('input[name="shippingMethod"]:checked');
+    const shippingMethod = shippingRadio ? shippingRadio.value : 'A coordinar';
 
-      const paymentRadio = document.querySelector('input[name="paymentMethod"]:checked');
-      const paymentMethod = paymentRadio ? paymentRadio.value : 'A convenir';
+    const paymentRadio = document.querySelector('input[name="paymentMethod"]:checked');
+    const paymentMethod = paymentRadio ? paymentRadio.value : 'A convenir';
 
-      const total = getCartTotal();
+    const total = getCartTotal();
 
-      // Build WhatsApp message
-      const lines = [];
-      lines.push('⚔️ *¡Hola Forja Levi! Quiero confirmar este pedido:*');
-      lines.push('━━━━━━━━━━━━━━━━━━━━');
+    // Build WhatsApp message
+    const lines = [];
+    lines.push('⚔️ *¡Hola Forja Levi! Quiero confirmar este pedido:*');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
 
-      cart.forEach(item => {
-        const itemSubtotal = formatCurrency(item.price * item.qty);
-        const varText = item.variantName ? ` [${item.variantName}]` : '';
-        const paintText = item.isPainted ? ` 🖌️(${item.paintLabel || 'Pintado Tabletop'})` : ` ⚪(Sin pintar)`;
-        lines.push(`• *${item.qty}x* ${item.name}${varText}${paintText} (${itemSubtotal})`);
-      });
-
-      lines.push('━━━━━━━━━━━━━━━━━━━━');
-      lines.push(`💰 *Total estimado:* ${formatCurrency(total)}`);
-      lines.push(`👤 *Cliente:* ${name}`);
-      lines.push(`📍 *Destino / CP:* ${location}`);
-      if (phone) {
-        lines.push(`📞 *Teléfono:* ${phone}`);
-      }
-      lines.push(`🚚 *Entrega:* ${shippingMethod}`);
-      lines.push(`💳 *Pago preferido:* ${paymentMethod}`);
-      if (notes) {
-        lines.push(`📝 *Notas / STL:* ${notes}`);
-      }
-      lines.push('━━━━━━━━━━━━━━━━━━━━');
-      lines.push('¿Me confirmás disponibilidad y fecha estimada de entrega? ¡Muchas gracias! 🎲');
-
-      const message = lines.join('\n');
-      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
-
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    cart.forEach(item => {
+      const itemSubtotal = formatCurrency(item.price * item.qty);
+      const varText = item.variantName ? ` [${item.variantName}]` : '';
+      const paintText = item.isPainted ? ` 🖌️(${item.paintLabel || 'Pintado Tabletop'})` : ` ⚪(Sin pintar)`;
+      lines.push(`• *${item.qty}x* ${item.name}${varText}${paintText} (${itemSubtotal})`);
     });
+
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push(`💰 *Total estimado:* ${formatCurrency(total)}`);
+    lines.push(`👤 *Cliente:* ${name}`);
+    lines.push(`📍 *Destino / CP:* ${location}`);
+    if (phone) {
+      lines.push(`📞 *Teléfono:* ${phone}`);
+    }
+    lines.push(`🚚 *Entrega:* ${shippingMethod}`);
+    lines.push(`💳 *Pago preferido:* ${paymentMethod}`);
+    if (notes) {
+      lines.push(`📝 *Notas / STL:* ${notes}`);
+    }
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('¿Me confirmás disponibilidad y fecha estimada de entrega? ¡Muchas gracias! 🎲');
+
+    const message = lines.join('\n');
+    const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   }
+
+  document.querySelectorAll('.js-btn-whatsapp').forEach(btn => {
+    btn.addEventListener('click', handleWhatsAppCheckout);
+  });
 
   // ── Seguir Comprando handlers ──
   function handleContinueShopping(e) {
@@ -279,7 +312,9 @@
   }
 
   if (headerContinueBtn) headerContinueBtn.addEventListener('click', handleContinueShopping);
-  if (footerContinueBtn) footerContinueBtn.addEventListener('click', handleContinueShopping);
+  document.querySelectorAll('.checkout-back-link').forEach(link => {
+    link.addEventListener('click', handleContinueShopping);
+  });
 
   // ── Listen for changes across tabs ──
   window.addEventListener('storage', (e) => {

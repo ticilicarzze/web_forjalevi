@@ -36,10 +36,33 @@
   <!-- Main Content -->
   <main class="checkout-main">
     <div class="container">
+
+      <!-- Mobile Summary Accordion Banner (Visible only on mobile <= 900px) -->
+      <div class="checkout-mobile-summary" id="mobileSummaryAccordion">
+        <button type="button" class="checkout-mobile-summary__toggle" id="mobileSummaryToggle" aria-expanded="false">
+          <span class="checkout-mobile-summary__left">
+            <span>🛒</span>
+            <strong>Resumen del pedido:</strong>
+            <span class="checkout-item__badge" id="mobileSummaryBadge">0 u.</span>
+          </span>
+          <span class="checkout-mobile-summary__right">
+            <span id="mobileSummaryTotal">$0</span>
+            <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </span>
+        </button>
+        <div class="checkout-mobile-summary__drawer" id="mobileSummaryDrawer">
+          <div class="checkout-summary-items" id="mobileItemsList">
+            <!-- Rendered via checkout.js -->
+          </div>
+        </div>
+      </div>
+
       <div class="checkout-grid" id="checkoutGrid">
         
         <!-- Left: Customer & Shipping Information -->
-        <section class="checkout-card" aria-labelledby="formTitle">
+        <section class="checkout-card checkout-card--form" aria-labelledby="formTitle">
           <h1 class="checkout-card__title" id="formTitle">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -67,7 +90,7 @@
             <!-- City and Location -->
             <div class="checkout-form__group">
               <label class="checkout-form__label" for="customerLocation">
-                Ciudad, Provincia o Código Postal <span style="color:var(--accent); font-weight:bold;">*</span>
+                Ciudad, Provincia o CP <span style="color:var(--accent); font-weight:bold;">*</span>
               </label>
               <input 
                 type="text" 
@@ -138,19 +161,33 @@
             <!-- Notes / STL custom request -->
             <div class="checkout-form__group">
               <label class="checkout-form__label" for="customerNotes">
-                Notas adicionales / Links de archivos STL / Indicaciones
+                Notas adicionales / Links de STLs
               </label>
               <textarea 
                 id="customerNotes" 
                 class="checkout-form__textarea" 
-                placeholder="Ej: Me gustaría peana redonda de 32mm, o link de WeTransfer/Google Drive para impresión personalizada..."
+                placeholder="Ej: Peana de 32mm, resina gris, enlace de Drive o WeTransfer..."
               ></textarea>
+            </div>
+
+            <!-- Mobile CTA inside form card (Visible only on mobile <= 900px) -->
+            <div class="checkout-form__mobile-cta">
+              <button type="button" class="btn btn--checkout js-btn-whatsapp" style="font-size: 1.05rem; padding: 0.95rem 1.25rem;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.042-.072-.258-.09-1.03-.38-1.956-1.205-1.144-1.02-1.89-2.28-2.09-2.624-.2-.344-.02-.53.123-.672.13-.129.288-.335.432-.503.144-.168.192-.288.288-.48.096-.192.048-.36-.024-.504-.072-.144-.648-1.56-.888-2.136-.23-.55-.465-.478-.648-.486-.168-.008-.36-.008-.552-.008s-.504.072-.768.36c-.264.288-1.008.984-1.008 2.4s1.032 2.784 1.176 2.976c.144.192 2.032 3.102 4.928 4.35 1.704.735 2.376.792 3.24.664.528-.08 1.632-.667 1.864-1.312.232-.648.232-1.204.162-1.319-.07-.116-.258-.188-.546-.332l-.001.001z"/>
+                  <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.306A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.697 0-3.267-.492-4.595-1.339l-.33-.208-3.042.798.812-2.966-.228-.363A8.125 8.125 0 0 1 3.833 12c0-4.503 3.664-8.167 8.167-8.167 4.503 0 8.167 3.664 8.167 8.167 0 4.503-3.664 8.167-8.167 8.167z"/>
+                </svg>
+                Finalizar Pedido por WhatsApp
+              </button>
+              <a href="index.html#catalogo" class="checkout-back-link">
+                &larr; Seguir Comprando en el Catálogo
+              </a>
             </div>
           </form>
         </section>
 
-        <!-- Right: Order Summary (No Images) & WhatsApp CTA -->
-        <section class="checkout-card" aria-labelledby="summaryTitle">
+        <!-- Right: Order Summary (Desktop Only, No Images) & WhatsApp CTA -->
+        <section class="checkout-card checkout-card--summary" aria-labelledby="summaryTitle">
           <h2 class="checkout-card__title" id="summaryTitle">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="9" cy="21" r="1"></circle>
@@ -161,7 +198,7 @@
           </h2>
 
           <!-- Items List (Pure text and pricing, NO images) -->
-          <div class="checkout-summary-items" id="checkoutItemsList">
+          <div class="checkout-summary-items" id="desktopItemsList">
             <!-- Populated dynamically via checkout.js -->
           </div>
 
@@ -169,15 +206,15 @@
           <div class="checkout-summary-box">
             <div class="checkout-summary-row">
               <span>Cantidad de artículos:</span>
-              <strong id="checkoutTotalCount">0 u.</strong>
+              <strong id="desktopTotalCount">0 u.</strong>
             </div>
             <div class="checkout-summary-row">
               <span>Entrega / Despacho:</span>
-              <strong style="color: var(--text-primary);" id="checkoutShippingLabel">A coordinar</strong>
+              <strong style="color: var(--text-primary);" id="desktopShippingLabel">A coordinar</strong>
             </div>
             <div class="checkout-summary-row checkout-summary-row--total">
               <span>Total Estimado:</span>
-              <span class="total-amount" id="checkoutTotalAmount">$0</span>
+              <span class="total-amount" id="desktopTotalAmount">$0</span>
             </div>
           </div>
 
@@ -186,8 +223,8 @@
             ⚔️ <strong>Pedido directo y artesanal:</strong> Al finalizar, se abrirá WhatsApp con el detalle de tu lista y tus datos cargados. Así confirmamos juntos stock de resina, tiempos de impresión y formas de envío.
           </div>
 
-          <!-- CTA Button -->
-          <button type="button" class="btn btn--checkout" id="btnWhatsappCheckout" style="font-size: 1.05rem; padding: 1rem 1.25rem;">
+          <!-- Desktop CTA Button -->
+          <button type="button" class="btn btn--checkout js-btn-whatsapp" style="font-size: 1.05rem; padding: 1rem 1.25rem;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.042-.072-.258-.09-1.03-.38-1.956-1.205-1.144-1.02-1.89-2.28-2.09-2.624-.2-.344-.02-.53.123-.672.13-.129.288-.335.432-.503.144-.168.192-.288.288-.48.096-.192.048-.36-.024-.504-.072-.144-.648-1.56-.888-2.136-.23-.55-.465-.478-.648-.486-.168-.008-.36-.008-.552-.008s-.504.072-.768.36c-.264.288-1.008.984-1.008 2.4s1.032 2.784 1.176 2.976c.144.192 2.032 3.102 4.928 4.35 1.704.735 2.376.792 3.24.664.528-.08 1.632-.667 1.864-1.312.232-.648.232-1.204.162-1.319-.07-.116-.258-.188-.546-.332l-.001.001z"/>
               <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.306A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.697 0-3.267-.492-4.595-1.339l-.33-.208-3.042.798.812-2.966-.228-.363A8.125 8.125 0 0 1 3.833 12c0-4.503 3.664-8.167 8.167-8.167 4.503 0 8.167 3.664 8.167 8.167 0 4.503-3.664 8.167-8.167 8.167z"/>
@@ -196,7 +233,7 @@
           </button>
 
           <!-- Back Link -->
-          <a href="index.html#catalogo" class="checkout-back-link" id="footerContinueBtn">
+          <a href="index.html#catalogo" class="checkout-back-link">
             &larr; Seguir Comprando en el Catálogo
           </a>
         </section>
