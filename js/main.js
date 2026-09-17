@@ -417,7 +417,7 @@
     addToCart(id, name, price, variantId, variantName, isPainted, paintLabel);
   });
 
-  // ── Proceed to Dedicated Checkout Page ──
+  // ── WhatsApp 1-Click Checkout from Drawer ──
   if (cartCheckout) {
     cartCheckout.addEventListener('click', () => {
       if (cart.length === 0) {
@@ -425,11 +425,29 @@
         return;
       }
 
-      const checkoutUrl = window.location.pathname.includes('/catalogo/') ? '../checkout.html' : 'checkout.html';
-      const win = window.open(checkoutUrl, '_blank');
-      if (!win) {
-        window.location.href = checkoutUrl;
-      }
+      const total = getCartTotal();
+
+      // Format WhatsApp Message
+      let lines = [];
+      lines.push('⚔️ *¡Hola Forja Levi! Quiero coordinar este pedido:*');
+      lines.push('━━━━━━━━━━━━━━━━━━━━');
+
+      cart.forEach(item => {
+        const itemSubtotal = formatCurrency(item.price * item.qty);
+        const varText = item.variantName ? ` [${item.variantName}]` : '';
+        const paintText = item.isPainted ? ` 🖌️(${item.paintLabel || 'Pintado Tabletop'})` : ` ⚪(Sin pintar)`;
+        lines.push(`• *${item.qty}x* ${item.name}${varText}${paintText} (${itemSubtotal})`);
+      });
+
+      lines.push('━━━━━━━━━━━━━━━━━━━━');
+      lines.push(`💰 *Total estimado:* ${formatCurrency(total)}`);
+      lines.push('━━━━━━━━━━━━━━━━━━━━');
+      lines.push('¿Tienen disponibilidad y tiempos estimados? ¡Muchas gracias! 🎲');
+
+      const message = lines.join('\n');
+      const whatsappUrl = getWhatsAppUrl(message);
+
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     });
   }
 
