@@ -440,7 +440,7 @@ const FORJA_CATALOG_DATA = {
       "category": "warhammer",
       "price": 11000,
       "priceLabel": "Precio total:",
-      "description": "5 miniaturas con poses y armamento modular variado. Incluye 5 bases de 32mm.",
+      "description": "Escuadrón de 5 Marines con fusil bólter en formación de combate. Incluye sargento con casco distintivo y peanas texturadas.",
       "tags": [
         {
           "text": "Resina 8K",
@@ -451,7 +451,7 @@ const FORJA_CATALOG_DATA = {
           "type": "scale"
         }
       ],
-      "image": "",
+      "image": "assets/img/productos/portada-warhammer.webp",
       "placeholderText": "Foto del Modelo",
       "icon": "pack",
       "painting": {
