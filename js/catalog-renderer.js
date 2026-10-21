@@ -33,6 +33,14 @@
     return '$' + Number(num || 0).toLocaleString('es-AR');
   }
 
+  function resolveImagePath(imgPath) {
+    if (!imgPath) return '';
+    if (imgPath.startsWith('http://') || imgPath.startsWith('https://')) return imgPath;
+    const clean = imgPath.replace(/^(\.\.\/|\/)+/, '');
+    const isCatalogo = window.location.pathname.includes('/catalogo/') || window.location.href.includes('/catalogo/');
+    return (isCatalogo ? '../' : '') + clean;
+  }
+
   function renderCardHTML(p, tiers = {}) {
     // 0. Resolve Tier Pricing & Painting Cost
     // tiers.json uses { price, paint } — products.json legacy tiers used { price, painting_cost }
@@ -58,12 +66,13 @@
     }).join('');
 
     // 2. Media / Image or SVG Placeholder
-    const imgSrc = (p.image && !p.image.startsWith('http') && !p.image.startsWith('/') && window.location.pathname.includes('/catalogo/'))
-      ? '../' + p.image
-      : p.image;
+    const imgSrc = resolveImagePath(p.image);
 
     const mediaHTML = p.image
-      ? `<img src="${imgSrc}" alt="${p.name}" class="product-card__img" loading="lazy" />`
+      ? `<img src="${imgSrc}" alt="${p.name}" class="product-card__img" loading="lazy" />
+         <div class="product-card__zoom-hint" title="Ver foto ampliada">
+           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+         </div>`
       : `<div class="product-card__placeholder">
           ${ICONS[p.icon] || ICONS.shield}
           <span class="product-card__placeholder-text">${p.placeholderText || 'Foto del Producto'}</span>
@@ -138,7 +147,7 @@
       priceRowHTML = `
         <div class="product-card__price-row">
           <span class="product-card__price-label">${p.priceLabel || 'Cotización:'}</span>
-          <span class="product-card__price" style="font-size: 1.1rem; color: var(--color-primary-light);">${p.priceDisplay || 'Presupuesto sin cargo'}</span>
+          <span class="product-card__price" style="font-size: 1.1rem; color: var(--accent-light);">${p.priceDisplay || 'Presupuesto sin cargo'}</span>
         </div>
       `;
       const waText = p.customCTA.waText || (p.customCTA.url && p.customCTA.url.includes('text=') ? decodeURIComponent(p.customCTA.url.split('text=')[1]) : (p.customCTA.text || 'Hola! Quiero pedir presupuesto 🎲'));
@@ -179,7 +188,7 @@
 
     return `
       <article class="product-card" id="${p.id}" data-id="${p.id}" data-name="${p.name}" data-price="${currentBasePrice}" data-tier="${p.tier || ''}" ${subCat1Attr} ${subCat2Attr}>
-        <div class="product-card__media">
+        <div class="product-card__media ${p.image ? 'js-lightbox-trigger' : ''}" ${p.image ? `data-img="${imgSrc}" data-title="${p.name}" data-price="${currentBasePrice}" data-desc="${(p.description || '').replace(/"/g, '&quot;')}" data-id="${p.id}"` : ''}>
           <div class="product-card__tag-wrap">
             ${tagsHTML}
           </div>
@@ -273,14 +282,14 @@
       if (!emptyNotice) {
         emptyNotice = document.createElement('div');
         emptyNotice.className = 'catalog-filter-empty';
-        emptyNotice.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 3rem 1.5rem; background: var(--color-bg-card, #1c1c24); border: 1px dashed var(--color-border, #333); border-radius: 12px; margin: 1.5rem 0; width: 100%;';
+        emptyNotice.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 3rem 1.5rem; background: var(--bg-card, #1c1c24); border: 1px dashed var(--border, #333); border-radius: 12px; margin: 1.5rem 0; width: 100%;';
         const waUrl = (window.ForjaLeviConfig && typeof window.ForjaLeviConfig.getWhatsAppUrl === 'function')
           ? window.ForjaLeviConfig.getWhatsAppUrl('Hola! Busco miniaturas para imprimir en 3D 🎲')
           : '#';
         emptyNotice.innerHTML = `
           <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">⚔️</div>
           <h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">Modelos listos a pedido</h4>
-          <p style="color: var(--color-text-muted, #aaa); max-width: 500px; margin: 0 auto 1.25rem; font-size: 0.95rem; line-height: 1.5;">
+          <p style="color: var(--text-muted, #aaa); max-width: 500px; margin: 0 auto 1.25rem; font-size: 0.95rem; line-height: 1.5;">
             Actualmente estamos agregando más piezas de esta selección a la galería web. Si tenés tu propio archivo STL o querés que busquemos uno de esta clase o raza, ¡te lo cotizamos e imprimimos en resina 8K!
           </p>
           <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn btn--accent js-wa-link" style="display: inline-flex; align-items: center; gap: 0.5rem;">
@@ -291,6 +300,8 @@
       }
 
       emptyNotice.style.display = visibleCount === 0 ? 'block' : 'none';
+      const countEl = container.parentElement ? container.parentElement.querySelector('.js-catalog-count') : null;
+      if (countEl) countEl.textContent = visibleCount;
     }
 
     primaryChips.forEach(chip => {
@@ -341,8 +352,12 @@
       }
 
       if (filtered.length > 0) {
-        container.innerHTML = filtered.map(p => renderCardHTML(p, tiers)).join('');
+        container.innerHTML = filtered.map((p, idx) => {
+          const cardHtml = renderCardHTML(p, tiers);
+          return cardHtml.replace('class="product-card"', `class="product-card" data-original-index="${idx}"`);
+        }).join('');
         renderFilters(category, container, categories);
+        initToolbar(container, category, filtered.length);
       }
     });
 
@@ -392,6 +407,7 @@
           window.FORJA_CATALOG_DATA.categories = categories;
         }
         renderAllWithData(products, tiers, containers, categories);
+        initLightbox();
         return;
       }
     } catch (_) {
@@ -404,6 +420,141 @@
       const activeTiers = window.FORJA_TIERS || tiers || {};
       window.ForjaCatalogData = { products, tiers: activeTiers, categories };
       renderAllWithData(products, activeTiers, containers, categories);
+      initLightbox();
+    }
+  }
+
+
+  // ---------- LIGHTBOX MODAL ----------
+  function initLightbox() {
+    let lightbox = document.querySelector('.forja-lightbox');
+    if (!lightbox) {
+      lightbox = document.createElement('div');
+      lightbox.className = 'forja-lightbox';
+      lightbox.innerHTML = `
+        <div class="forja-lightbox__dialog" role="dialog" aria-modal="true">
+          <button type="button" class="forja-lightbox__close" aria-label="Cerrar">&times;</button>
+          <div class="forja-lightbox__media">
+            <img src="" alt="" class="forja-lightbox__img" />
+          </div>
+          <div class="forja-lightbox__info">
+            <h3 class="forja-lightbox__title"></h3>
+            <p class="forja-lightbox__desc"></p>
+            <div class="forja-lightbox__footer">
+              <span class="forja-lightbox__price"></span>
+              <button type="button" class="btn btn--accent js-lightbox-add">+ Agregar al pedido</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(lightbox);
+
+      const close = () => {
+        lightbox.classList.remove('is-open');
+        document.body.style.overflow = '';
+      };
+
+      lightbox.querySelector('.forja-lightbox__close').addEventListener('click', close);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) close();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('is-open')) close();
+      });
+    }
+
+    document.body.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.js-lightbox-trigger');
+      if (!trigger) return;
+
+      const img = trigger.getAttribute('data-img');
+      if (!img) return;
+
+      const title = trigger.getAttribute('data-title') || '';
+      const desc = trigger.getAttribute('data-desc') || '';
+      const price = trigger.getAttribute('data-price') || '0';
+      const id = trigger.getAttribute('data-id') || '';
+
+      lightbox.querySelector('.forja-lightbox__img').src = img;
+      lightbox.querySelector('.forja-lightbox__img').alt = title;
+      lightbox.querySelector('.forja-lightbox__title').textContent = title;
+      lightbox.querySelector('.forja-lightbox__desc').textContent = desc;
+      lightbox.querySelector('.forja-lightbox__price').textContent = formatCurrency(price);
+
+      const addBtn = lightbox.querySelector('.js-lightbox-add');
+      addBtn.setAttribute('data-id', id);
+      addBtn.setAttribute('data-name', title);
+      addBtn.setAttribute('data-price', price);
+
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    document.body.addEventListener('click', (e) => {
+      const btn = e.target.closest('.js-lightbox-add');
+      if (!btn) return;
+      const id = btn.getAttribute('data-id');
+      const name = btn.getAttribute('data-name');
+      const price = parseFloat(btn.getAttribute('data-price')) || 0;
+      if (window.ForjaCart && typeof window.ForjaCart.addItem === 'function') {
+        window.ForjaCart.addItem({ id, name, price, count: 1 });
+      }
+      lightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+    });
+  }
+
+  // ---------- CATALOG TOOLBAR & SORTING ----------
+  function initToolbar(container, category, totalCount) {
+    if (container.hasAttribute('data-catalog-subcategory')) return;
+    if (container.previousElementSibling && (container.previousElementSibling.classList.contains('catalog-toolbar') || (container.previousElementSibling.previousElementSibling && container.previousElementSibling.previousElementSibling.classList.contains('catalog-toolbar')))) {
+      return;
+    }
+
+    const toolbarHTML = `
+      <div class="catalog-toolbar">
+        <div class="catalog-toolbar__count">Mostrando <strong class="js-catalog-count">${totalCount}</strong> modelos</div>
+        <div class="catalog-toolbar__sort">
+          <label for="sort-${category}">Ordenar:</label>
+          <select class="catalog-toolbar__select js-catalog-sort" id="sort-${category}">
+            <option value="featured">Destacados</option>
+            <option value="price-asc">Menor precio</option>
+            <option value="price-desc">Mayor precio</option>
+            <option value="name-asc">Nombre A-Z</option>
+          </select>
+        </div>
+      </div>
+    `;
+
+    const targetEl = container.previousElementSibling && container.previousElementSibling.classList.contains('catalog-filters')
+      ? container.previousElementSibling
+      : container;
+
+    targetEl.insertAdjacentHTML('beforebegin', toolbarHTML);
+
+    const sortSelect = (targetEl.previousElementSibling && targetEl.previousElementSibling.classList.contains('catalog-toolbar'))
+      ? targetEl.previousElementSibling.querySelector('.js-catalog-sort')
+      : null;
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', () => {
+        const val = sortSelect.value;
+        const cards = Array.from(container.querySelectorAll('.product-card'));
+        cards.sort((a, b) => {
+          if (val === 'price-asc') {
+            return (parseFloat(a.getAttribute('data-price')) || 0) - (parseFloat(b.getAttribute('data-price')) || 0);
+          }
+          if (val === 'price-desc') {
+            return (parseFloat(b.getAttribute('data-price')) || 0) - (parseFloat(a.getAttribute('data-price')) || 0);
+          }
+          if (val === 'name-asc') {
+            return (a.getAttribute('data-name') || '').localeCompare(b.getAttribute('data-name') || '');
+          }
+          // Default / featured: original order
+          return (parseInt(a.getAttribute('data-original-index') || '0', 10)) - (parseInt(b.getAttribute('data-original-index') || '0', 10));
+        });
+        cards.forEach(c => container.appendChild(c));
+      });
     }
   }
 

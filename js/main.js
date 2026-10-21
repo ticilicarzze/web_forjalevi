@@ -12,6 +12,14 @@
   const WHATSAPP_PHONE = '5493416476504';
   const STORAGE_KEY = 'forjalevi_cart_v1';
 
+  function resolveImagePath(imgPath) {
+    if (!imgPath) return '';
+    if (imgPath.startsWith('http://') || imgPath.startsWith('https://')) return imgPath;
+    const clean = imgPath.replace(/^(\.\.\/|\/)+/, '');
+    const isCatalogo = window.location.pathname.includes('/catalogo/') || window.location.href.includes('/catalogo/');
+    return (isCatalogo ? '../' : '') + clean;
+  }
+
   function getWhatsAppUrl(message = '') {
     const text = message ? `?text=${encodeURIComponent(message)}` : '';
     return `https://wa.me/${WHATSAPP_PHONE}${text}`;
@@ -1203,9 +1211,7 @@
 
         const tagsHTML = (p.tags || []).slice(0, 2).map(t => `<span class="search-result-card__tag">${t.text}</span>`).join('');
 
-        const imgSrc = (p.image && !p.image.startsWith('http') && !p.image.startsWith('/') && window.location.pathname.includes('/catalogo/'))
-          ? '../' + p.image
-          : p.image;
+        const imgSrc = resolveImagePath(p.image);
 
         const mediaHTML = p.image
           ? `<img src="${imgSrc}" alt="${p.name}" loading="lazy" />`

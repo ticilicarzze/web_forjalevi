@@ -69,7 +69,9 @@ while True:
 description = input("▶️ Descripción breve: ").strip()
 
 # 6. Imagen
-image = input("▶️ Ruta de la imagen (ej. /assets/img/productos/foto.webp) [Enter para dejar vacío]: ").strip()
+image = input("▶️ Ruta de la imagen (ej. assets/img/productos/foto.webp) [Enter para dejar vacío]: ").strip()
+if image:
+    image = image.lstrip('/')
 
 # 7. Tier y Pintado
 print("\nTiers comunes: heroe, esbirro, elite, escuadron-sci-fi-x5, monstruo-mediano, vehiculo-pesado")

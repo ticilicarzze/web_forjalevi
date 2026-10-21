@@ -18,9 +18,34 @@ const path  = require('path');
 const { execSync } = require('child_process');
 
 const TIERS_PATH = path.resolve(__dirname, '../data/tiers.json');
+const PRODUCTS_PATH = path.resolve(__dirname, '../data/products.json');
+const PRODUCTS_JS_PATH = path.resolve(__dirname, '../js/products-data.js');
 
 function load() { return JSON.parse(fs.readFileSync(TIERS_PATH, 'utf8')); }
-function save(t) { fs.writeFileSync(TIERS_PATH, JSON.stringify(t, null, 2) + '\n'); }
+function save(t) {
+  fs.writeFileSync(TIERS_PATH, JSON.stringify(t, null, 2) + '\n');
+  if (fs.existsSync(PRODUCTS_PATH)) {
+    const prodData = JSON.parse(fs.readFileSync(PRODUCTS_PATH, 'utf8'));
+    prodData.tiers = t;
+    prodData.products.forEach(p => {
+      if (p.tier && t[p.tier]) {
+        const tierObj = t[p.tier];
+        if (tierObj.price !== undefined && !p.overridePrice) {
+          p.price = tierObj.price;
+        }
+        if (p.painting && p.painting.available) {
+          const paintCost = tierObj.paint !== undefined ? tierObj.paint : tierObj.painting_cost;
+          if (paintCost !== undefined && !p.overridePaintCost) {
+            p.painting.cost = paintCost;
+          }
+        }
+      }
+    });
+    fs.writeFileSync(PRODUCTS_PATH, JSON.stringify(prodData, null, 2) + '\n', 'utf8');
+    const jsContent = `/**\n * FORJA LEVI — Catálogo de Productos y Tiers\n * ===========================================\n * Generado automáticamente. NO EDITAR A MANO.\n * Para actualizar precios: node scripts/precios.js\n */\n\nconst FORJA_CATALOG_DATA = ${JSON.stringify(prodData, null, 2)};\n\nconst FORJA_PRODUCTS_DATA = FORJA_CATALOG_DATA.products;\n\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = { FORJA_CATALOG_DATA, FORJA_PRODUCTS_DATA };\n}\n`;
+    fs.writeFileSync(PRODUCTS_JS_PATH, jsContent, 'utf8');
+  }
+}
 function ar(n) { return '$' + Number(n || 0).toLocaleString('es-AR'); }
 
 function list(tiers) {
