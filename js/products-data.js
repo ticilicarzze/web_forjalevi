@@ -1087,12 +1087,12 @@ const FORJA_CATALOG_DATA = {
     },
     {
       "id": "td-craneo-dragon",
-      "name": "Torre Cráneo de Dragón",
+      "name": "Torre Cráneo de la Isla Calavera",
       "category": "torres-y-cajas",
       "subCategory": "torres",
       "price": 40000,
       "priceLabel": "Precio base:",
-      "description": "Los dados entran por la corona craneal y ruedan a través de las fauces abiertas del dragón.",
+      "description": "Torre de dados escénica con cráneo gigante y palmeras. Los dados entran por la parte superior y ruedan a través de las fauces abiertas hacia la bandeja de arena.",
       "tags": [
         {
           "text": "FDM / Resina",
@@ -1103,7 +1103,7 @@ const FORJA_CATALOG_DATA = {
           "type": "scale"
         }
       ],
-      "image": "",
+      "image": "assets/img/productos/portada-torres-y-cajas.webp",
       "placeholderText": "Foto Torre Cráneo",
       "icon": "dragon",
       "tier": "torre-dados-premium"
@@ -4000,6 +4000,6 @@ const FORJA_CATALOG_DATA = {
 // Compatibilidad con código existente
 const FORJA_PRODUCTS_DATA = FORJA_CATALOG_DATA.products;
 
-if (typeof module !== undefined && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = { FORJA_CATALOG_DATA, FORJA_PRODUCTS_DATA };
 }
