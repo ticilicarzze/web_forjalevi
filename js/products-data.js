@@ -796,7 +796,7 @@ const FORJA_CATALOG_DATA = {
       "subCategory": "kits-campana",
       "price": 48000,
       "priceLabel": "Precio total:",
-      "description": "Todo lo necesario para arrancar: 4 héroes a elección, 12 esbirros (goblins/esqueletos), 2 tenientes, 1 jefe y 4 piezas de escenografía de mazmorra.",
+      "description": "Kit completo para comenzar tu campaña: grupo de aventureros (paladín, mago, bárbaro) más enemigos de encuentro inicial, impresos en resina de alta definición.",
       "tags": [
         {
           "text": "Resina 8K + FDM",
@@ -807,7 +807,7 @@ const FORJA_CATALOG_DATA = {
           "type": "scale"
         }
       ],
-      "image": "",
+      "image": "assets/img/productos/portada-packs-campanas.webp",
       "placeholderText": "Foto Kit Starter Set",
       "icon": "book",
       "painting": {
@@ -960,7 +960,7 @@ const FORJA_CATALOG_DATA = {
       "category": "escenografia",
       "price": 12500,
       "priceLabel": "Precio total:",
-      "description": "Paredes, esquinas, puertas batientes y suelos empedrados con encastre tipo puzzle.",
+      "description": "Set modular de mazmorra con baldosas de piedra, muros, pasillos y salas personalizables. Compatible con cuadrícula estándar de 1 pulgada (25mm).",
       "tags": [
         {
           "text": "FDM Modular",
@@ -971,7 +971,7 @@ const FORJA_CATALOG_DATA = {
           "type": "scale"
         }
       ],
-      "image": "",
+      "image": "assets/img/productos/portada-escenografia.webp",
       "placeholderText": "Foto del Modelo",
       "icon": "scenery",
       "painting": {
