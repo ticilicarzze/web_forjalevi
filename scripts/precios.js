@@ -42,7 +42,7 @@ function save(t) {
       }
     });
     fs.writeFileSync(PRODUCTS_PATH, JSON.stringify(prodData, null, 2) + '\n', 'utf8');
-    const jsContent = `/**\n * FORJA LEVI — Catálogo de Productos y Tiers\n * ===========================================\n * Generado automáticamente. NO EDITAR A MANO.\n * Para actualizar precios: node scripts/precios.js\n */\n\nconst FORJA_CATALOG_DATA = ${JSON.stringify(prodData, null, 2)};\n\nconst FORJA_PRODUCTS_DATA = FORJA_CATALOG_DATA.products;\n\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = { FORJA_CATALOG_DATA, FORJA_PRODUCTS_DATA };\n}\n`;
+    const jsContent = `/**\n * FORJA LEVI — Catálogo de Productos y Tiers\n * ===========================================\n * Generado automáticamente. NO EDITAR A MANO.\n * Para actualizar precios: node scripts/precios.js\n */\n\nconst FORJA_CATALOG_DATA = ${JSON.stringify(prodData, null, 2)};\n\nif (typeof window !== 'undefined') {\n  window.FORJA_CATALOG_DATA = FORJA_CATALOG_DATA;\n}\n\nconst FORJA_PRODUCTS_DATA = FORJA_CATALOG_DATA.products;\n\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = { FORJA_CATALOG_DATA, FORJA_PRODUCTS_DATA };\n}\n`;
     fs.writeFileSync(PRODUCTS_JS_PATH, jsContent, 'utf8');
   }
 }
